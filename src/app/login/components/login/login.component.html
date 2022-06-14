@@ -1,0 +1,22 @@
+<div class="wrapper fadeInDown" data-color="orange">
+    <!-- Icon -->
+    <div class="fadeIn first">
+        <img src="assets/logo-branco.webp" alt="Logo Easytoque"/>
+    </div>
+    <div id="formContent">
+        <!-- Tabs Titles -->
+
+        <!-- Login Form -->
+        <p>Entre com seu e-mail e senha para ter acesso</p>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <input type="text" id="email" class="fadeIn second" formControlName="email" placeholder="E-mail">
+            <input type="password" id="password" class="fadeIn third" formControlName="password" placeholder="Senha">
+            <input type="submit" class="fadeIn fourth" value="Entrar">
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" href="#">Esqueceu sua senha?</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,149 @@
+<div class="{{ class }}">
+    <div *ngIf="!isAuthenticated()" class="logo">
+        <img src="http://loja.easytoque.com.br/skin/frontend/easytoque/default/images/logo/easytoque.png" alt="Easytoque" title="Easytoque" width="300" />
+    </div>
+    <div *ngIf="display">
+        <div *ngIf="isError">
+            <div class="alert alert-danger">
+                <strong>Não existe este Parceiro</strong>
+            </div>
+        </div>
+        <div *ngIf="!isAlter && !isError">
+            <breadcrumb [action]="breadcrumbAction" [module]="breadcrumbModule">
+            </breadcrumb>
+            <!-- /.content-header -->
+            <alert></alert>
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- left column -->
+                        <div class="col-md-12">
+                            <!-- general form elements -->
+                            <div class="card card-secondary">
+                                <!-- form start -->
+                                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                                    <div class="card-body">
+                                        <h4>Dados da empresa</h4>
+                                        <div class="form-group space-top">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="corporate_name">Razão Social</label>
+                                                    <input type="input" formControlName="corporate_name" class="form-control" autocomplete="off" maxlength="60" placeholder="Razão Social" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="cnpj">CNPJ</label>
+                                                    <input type="input" formControlName="cnpj" class="form-control" autocomplete="off" maxlength="18" placeholder="CNPJ"
+                                                    mask="00.000.000/0000-00" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4>Dados Bancários</h4>
+                                        <div class="form-group space-top">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="bank_id">Banco</label>
+                                                    <select *ngIf="banks && banks.length > 0" formControlName="bank_id" class="form-control form-control-sm"
+                                                        [ngClass]="{ 'is-invalid': submitted && f.bank_id.errors }">
+                                                        <option *ngFor="let bank of banks;" value="{{bank.id}}">
+                                                            {{bank.code}} - {{bank.name}}
+                                                        </option>
+                                                    </select>
+                                                    <div *ngIf="submitted && f.bank_id.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.bank_id.errors.required">O campo Banco é obrigatório</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="agency">Agência</label>
+                                                    <input type="input" formControlName="agency" class="form-control" autocomplete="off" maxlength="6" placeholder="Agência" 
+                                                    mask="000000" [ngClass]="{ 'is-invalid': submitted && f.agency.errors }">
+                                                    <div *ngIf="submitted && f.agency.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.agency.errors.required">O campo Agência é obrigatório</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="agency_digit">Digito</label>
+                                                    <input type="input" formControlName="agency_digit" class="form-control" autocomplete="off" maxlength="1" placeholder="Digito" 
+                                                    mask="0"/>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="checking_account">Conta</label>
+                                                    <input type="input" formControlName="checking_account" class="form-control" autocomplete="off" maxlength="8" placeholder="Conta" 
+                                                    mask="00000000" [ngClass]="{ 'is-invalid': submitted && f.checking_account.errors }">
+                                                    <div *ngIf="submitted && f.checking_account.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.checking_account.errors.required">O campo Conta é obrigatório</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="checking_account_digit">Digito</label>
+                                                    <input type="input" formControlName="checking_account_digit" class="form-control" autocomplete="off" maxlength="1" placeholder="Digito" 
+                                                    mask="0"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="pix">Chave Pix</label>
+                                                    <input type="input" formControlName="pix" class="form-control" autocomplete="off" maxlength="150" placeholder="Chave Pix" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4>Outras Informações</h4>
+                                        <div class="form-group space-top">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="password">Senha do Painel</label>
+                                                    <input type="password" formControlName="password" class="form-control" autocomplete="off" maxlength="50" placeholder="Senha"
+                                                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                                                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.password.errors.required">O campo Senha do Painel é obrigatório</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label for="phone">Telefone Fixo / Celular</label>
+                                                    <input type="input" formControlName="phone" class="form-control" autocomplete="off" maxlength="15" placeholder="Telefone Fixo / Celular"       
+                                                    mask="(00) 00000-0000"/>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="whatsapp">Whastapp</label>
+                                                    <input type="input" formControlName="whatsapp" class="form-control" autocomplete="off" maxlength="15" placeholder="Whatsapp"
+                                                    mask="(00) 00000-0000"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                    <!-- /.card-body -->
+
+                                    <div class="card-footer">
+                                        <button [disabled]="loading" class="btn btn-success">
+                                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                            <span>Salvar</span>
+                                        </button>
+                                        <button *ngIf="isAuthenticated()" class="btn btn-secondary">
+                                            <span href="javascript:void(0)" (click)="backClicked()">Voltar</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="content-message" *ngIf="isAlter">
+            <h1>Informações enviadas com sucesso!!</h1>
+            <p>
+                Recebemos as informações de seu cadastro. Agora basta aguardar a validação de seus dados.
+            </p>
+        </div>
+    </div>
+</div>

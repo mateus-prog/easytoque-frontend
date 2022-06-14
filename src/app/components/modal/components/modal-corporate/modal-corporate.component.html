@@ -1,0 +1,74 @@
+<div class="modal fade" [id]="id" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="modalLabel">
+          <strong>Dados da Empresa</strong>
+        </h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <span><strong>Razão social: </strong></span>
+          </div>
+          <div class="col-md-6">
+            <span><strong>CNPJ: </strong></span>
+          </div>
+          <div class="col-md-6">
+            <span>{{corporate.corporate_name}}</span>
+          </div>
+          <div class="col-md-6">
+            <span>{{corporate.cnpj}} </span>
+          </div>
+          <div class="col-md-12">
+            <span><strong>CEP: </strong></span>
+          </div>
+          <div class="col-md-12">
+            <span>{{corporate.cep}}</span>
+          </div>
+          <div class="col-md-6">
+            <span><strong>Endereço: </strong></span>
+          </div>
+          <div class="col-md-3">
+            <span><strong>Número: </strong></span>
+          </div>
+          <div class="col-md-3">
+            <span><strong>Complemento: </strong></span>
+          </div>
+          <div class="col-md-6">
+            <span>{{corporate.address}} </span>
+          </div>
+          <div class="col-md-3">
+            <span>{{corporate.number}} </span>
+          </div>
+          <div class="col-md-3">
+            <span>{{corporate.complement}} </span>
+          </div>
+
+
+          <div class="col-md-6">
+            <span><strong>Estado: </strong></span>
+          </div>
+          <div class="col-md-3">
+            <span><strong>Cidade: </strong></span>
+          </div>
+          <div class="col-md-3">
+            <span><strong>Bairro: </strong></span>
+          </div>
+          <div class="col-md-6">
+            <span>{{corporate.state_id}} </span>
+          </div>
+          <div class="col-md-3">
+            <span>{{corporate.city}} </span>
+          </div>
+          <div class="col-md-3">
+            <span>{{corporate.district}} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

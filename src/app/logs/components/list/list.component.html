@@ -1,0 +1,71 @@
+<div class="content-wrapper">
+    <breadcrumb [action]="breadcrumbAction" [module]="breadcrumbModule">
+    </breadcrumb>
+    
+    <alert></alert>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row space-search">
+                <div class="col-md-3">
+                    <div class="input-icon">
+                        <div><i class="fas fa-user"></i></div>
+                        <select [(ngModel)]="user_id" #ctrl="ngModel" class="form-control input">
+                            <option value="0">Usuário</option>
+                            <option *ngFor="let administrator of administrators;"
+                                value="{{administrator.first_name}}">{{administrator.first_name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="input-icon">
+                        <div><i class="fas fa-caret-right"></i></div>
+                        <input [(ngModel)]="action" #ctrl="ngModel"  class="form-control input" placeholder="Ação" autofocus >
+                    </div>
+                </div>
+            </div>
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                <section class="col-lg-12 connectedSortable">
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 20%;">Usuário</th>
+                                        <th style="width: 60%;">Ação</th>
+                                        <th style="width: 20%;">Data</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let log of filterLog() | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index">
+                                        <td>{{log.user_id}}</td>
+                                        <td>{{log.message}}</td>
+                                        <td>{{log.updated_at}}</td>
+                                    </tr>
+                                    <tr *ngIf="!logs">
+                                        <td colspan="3" class="text-center">
+                                            <span class="spinner-border spinner-border-lg align-center"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <nav>
+                        <pagination-controls class="my-pagination" previousLabel="Anterior" nextLabel="Próximo"
+                            (pageChange)="paginaAtual = $event">
+                        </pagination-controls>
+                    </nav>
+                    <!-- /.card -->
+                </section>
+                <!-- right col -->
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,99 @@
+<div class="content-wrapper">
+    <breadcrumb [action]="breadcrumbAction" [module]="breadcrumbModule">
+    </breadcrumb>
+    
+    <alert></alert>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row space-search">
+                <div class="col-md-3">
+                    <div class="input-icon">
+                        <div>#</div>
+                        <input [(ngModel)]="id" #ctrl="ngModel"  class="form-control input" placeholder="Número" autofocus >
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-icon">
+                        <div><i class="fas fa-user"></i></div>
+                        <select [(ngModel)]="user_id" #ctrl="ngModel" class="form-control input">
+                            <option value="0">Todos</option>
+                            <option *ngFor="let partner of partners;"
+                                value="{{partner.first_name}} {{partner.last_name}}">{{partner.first_name}} {{partner.last_name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-icon">
+                        <div>S</div>
+                        <select [(ngModel)]="status_request_id" #ctrl="ngModel" class="form-control input">
+                            <option value="0">Todos</option>
+                            <option *ngFor="let status of statusRequest;"
+                                value="{{status.name}}">{{status.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                <section class="col-lg-12 connectedSortable">
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%;">Número</th>
+                                        <th style="width: 15%;">Data</th>
+                                        <th style="width: 30%;">Parceiro</th>
+                                        <th style="width: 10%;">Status</th>
+                                        <th style="width: 20%; text-align: right;">Valor da Comissão</th>
+                                        <th style="width: 10%; text-align: center;">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let request of filterRequest() | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index">
+                                        <td>{{request.id}}</td>
+                                        <td>{{request.created_at}}</td>
+                                        <td>{{request.user_id}}</td>
+                                        <td>
+                                            <span class="status-user badge bg-{{request.color}}">{{request.status_request_id}}</span>
+                                        </td>
+                                        <td align="right">{{request.value}}</td>
+                                        <td align="center">
+                                            <!--<button class="btn btn-sm btn-primary" title="Visualizar Detalhes" data-toggle="modal"
+                                                data-target="#modalRequest" (click)="showModal(request)">
+                                                <i class="fas fa-search"></i>
+                                            </button>-->
+                                            <a routerLink="/requests/visualize/{{request.id}}"
+                                                class="btn btn-sm btn-primary" title="Editar Dados Bancários">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!requests">
+                                        <td colspan="6" class="text-center">
+                                            <span class="spinner-border spinner-border-lg align-center"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <nav>
+                        <pagination-controls class="my-pagination" previousLabel="Anterior" nextLabel="Próximo"
+                            (pageChange)="paginaAtual = $event">
+                        </pagination-controls>
+                    </nav>
+                    <!-- /.card -->
+                </section>
+                <!-- right col -->
+            </div>
+        </div>
+    </section>
+</div>

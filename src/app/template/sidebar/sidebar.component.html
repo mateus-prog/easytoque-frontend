@@ -1,0 +1,30 @@
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar" data-color="orange">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Logo -->
+    <div class="logo">
+      <a href="" class="simple-text logo-normal">
+        <img src="assets/logo-branco.webp" width="210px">
+      </a>
+    </div>
+    <!-- Sidebar user panel (optional) -->
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills-orange nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+             with font-awesome or any other icon font library -->
+        <li *ngFor="let menu of menus" class="nav-item">
+          <a routerLink="/{{menu.url}}" routerLinkActive="active" class="nav-link">
+            <i class="nav-icon {{menu.icon}}"></i>
+            <p>{{menu.name}}</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <div class="sidebar-background" style="background-image: url(assets/fundo1.jpg)"></div>
+  <!-- /.sidebar -->
+</aside>

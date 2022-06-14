@@ -1,0 +1,97 @@
+<div class="content-wrapper">
+    <breadcrumb [action]="breadcrumbAction" [module]="breadcrumbModule">
+    </breadcrumb>
+    <!-- /.content-header -->
+    <alert></alert>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-secondary">
+                        <!-- form start -->
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                            <div class="card-body">
+                                <h4>Dados do Responsável</h4>
+                                <div class="form-group space-top">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="first_name">Nome</label>
+                                            <input type="input" formControlName="first_name" class="form-control" autocomplete="off" maxlength="20" placeholder="Nome"     
+                                            [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }" />
+                                            <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
+                                                <div *ngIf="f.first_name.errors.required">O campo Nome é obrigatório</div>
+                                                <div *ngIf="f.first_name.errors.minlength">O campo Nome é necessário ter mínimo 3 caracteres.</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="last_name">Sobrenome</label>
+                                            <input type="input" formControlName="last_name" class="form-control" autocomplete="off" maxlength="40" placeholder="Sobrenome"     
+                                            [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }" />
+                                            <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
+                                                <div *ngIf="f.last_name.errors.required">O campo Sobrenome é obrigatório</div>
+                                                <div *ngIf="f.last_name.errors.minlength">O campo Sobrenome é necessário ter mínimo 3 caracteres.</div>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="email">E-mail</label>
+                                            <input type="input" formControlName="email" class="form-control" autocomplete="off" maxlength="60" placeholder="E-mail"      
+                                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                                <div *ngIf="f.email.errors.required">O campo E-mail é obrigatório</div>
+                                                <div *ngIf="f.email.errors.email">Este e-mail esta inválido.</div>
+                                            </div>    
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="password">Senha</label>
+                                            <input type="password" formControlName="password" class="form-control" autocomplete="off" maxlength="15"
+                                            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                                <div *ngIf="f.password.errors.required">O campo Senha é obrigatório</div>
+                                                <div *ngIf="f.password.errors.minlength">O campo Senha é necessário ter mínimo 6 caracteres.</div>
+                                            </div>    
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="role_id">Tipo de Administrador</label>
+                                            <select formControlName="role_id" class="form-control" autocomplete="off" placeholder="Tipo de Administrador"
+                                            [ngClass]="{ 'is-invalid': submitted && f.role_id.errors }">
+                                                <option *ngFor="let role of roles;"
+                                                    value="{{role.id}}">{{role.display_name}}
+                                                </option>
+                                            </select>
+                                            <div *ngIf="submitted && f.role_id.errors" class="invalid-feedback">
+                                                <div *ngIf="f.role_id.errors.required">O campo Tipo de Administrador é obrigatório</div>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </div>
+                            </div>    
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button [disabled]="loading" class="btn btn-success">
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                    <span *ngIf="isAddMode">Salvar</span>
+                                    <span *ngIf="!isAddMode">Alterar</span>
+                                </button>
+                                <button class="btn btn-secondary">
+                                    <span href="javascript:void(0)" (click)="backClicked()">Voltar</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

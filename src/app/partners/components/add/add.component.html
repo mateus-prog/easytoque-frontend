@@ -1,0 +1,197 @@
+<div class="content-wrapper">
+    <breadcrumb [action]="breadcrumbAction" [module]="breadcrumbModule">
+    </breadcrumb>
+    <!-- /.content-header -->
+    <alert></alert>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-secondary">
+                        <!-- form start -->
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                            <div class="card-body">
+                                <h4>Dados da empresa</h4>
+                                <div class="form-group space-top">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="corporate_name">Razão Social</label>
+                                            <input type="input" formControlName="corporate_name" class="form-control" autocomplete="off" maxlength="60" placeholder="Razão Social" 
+                                            [ngClass]="{ 'is-invalid': submitted && f.corporate_name.errors }" />
+                                            <div *ngIf="submitted && f.corporate_name.errors" class="invalid-feedback">
+                                                <div *ngIf="f.corporate_name.errors.required">O campo Razão Social é obrigatório</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="cnpj">CNPJ</label>
+                                            <input type="input" formControlName="cnpj" class="form-control" autocomplete="off" maxlength="18" placeholder="CNPJ"
+                                            mask="00.000.000/0000-00" 
+                                            [ngClass]="{ 'is-invalid': submitted && f.cnpj.errors }" />
+                                            <div *ngIf="submitted && f.cnpj.errors" class="invalid-feedback">
+                                                <div *ngIf="f.cnpj.errors.required">O campo CNPJ é obrigatório</div>
+                                                <!--<div *ngIf="f.cnpj.errors.minLength || f.cnpj.errors.maxLength">O campo CNPJ é necessário ter 18 caracteres.</div>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="cep">CEP</label>
+                                            <input type="input" formControlName="cep" class="form-control" autocomplete="off" maxlength="9" placeholder="CEP"
+                                            mask="00000-000" 
+                                            (change)="changeCep($event)" 
+                                            [ngClass]="{ 'is-invalid': submitted && f.cep.errors }" />
+                                            <div *ngIf="submitted && f.cep.errors" class="invalid-feedback">
+                                                <div *ngIf="f.cep.errors.required">O campo CEP é obrigatório</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="address">Endereço</label>
+                                            <input type="input" formControlName="address" class="form-control" autocomplete="off" maxlength="60" placeholder="Endereço"   
+                                            [ngClass]="{ 'is-invalid': submitted && f.address.errors }" />
+                                            <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                                                <div *ngIf="f.address.errors.required">O campo Endereço é obrigatório</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="number">Número</label>
+                                            <input type="input" formControlName="number" class="form-control" autocomplete="off" maxlength="10" placeholder="Número"     
+                                            [ngClass]="{ 'is-invalid': submitted && f.number.errors }" />
+                                            <div *ngIf="submitted && f.number.errors" class="invalid-feedback">
+                                                <div *ngIf="f.number.errors.required">O campo Número é obrigatório</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="complement">Complemento</label>
+                                            <input type="input" formControlName="complement" class="form-control" autocomplete="off" maxlength="20" placeholder="Complemento"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="state_id">Estado</label>
+                                            <select formControlName="state_id" class="form-control" autocomplete="off" placeholder="Estado"
+                                            [ngClass]="{ 'is-invalid': submitted && f.state_id.errors }">
+                                                <option value=""></option>
+                                                <option *ngFor="let state of states;"
+                                                    value="{{state.id}}">{{state.name}}
+                                                </option>
+                                            </select>
+                                            <div *ngIf="submitted && f.state_id.errors" class="invalid-feedback">
+                                                <div *ngIf="f.state_id.errors.required">O campo Estado é obrigatório</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="city">Cidade</label>
+                                            <input type="input" formControlName="city" class="form-control" autocomplete="off" maxlength="40" placeholder="Cidade"    
+                                            [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
+                                            <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+                                                <div *ngIf="f.city.errors.required">O campo Cidade é obrigatório</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label for="district">Bairro</label>
+                                            <input type="input" formControlName="district" class="form-control" autocomplete="off" maxlength="40" placeholder="Bairro"     
+                                            [ngClass]="{ 'is-invalid': submitted && f.district.errors }" />
+                                            <div *ngIf="submitted && f.district.errors" class="invalid-feedback">
+                                                <div *ngIf="f.district.errors.required">O campo Bairro é obrigatório</div>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <h4>Dados do Responsável</h4>
+                                <div class="form-group space-top">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="first_name">Nome</label>
+                                            <input type="input" formControlName="first_name" class="form-control" autocomplete="off" maxlength="20" placeholder="Nome"     
+                                            [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }" />
+                                            <div *ngIf="submitted && f.first_name.errors" class="invalid-feedback">
+                                                <div *ngIf="f.first_name.errors.required">O campo Nome é obrigatório</div>
+                                                <div *ngIf="f.first_name.errors.minlength">O campo Nome é necessário ter mínimo 3 caracteres.</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="last_name">Sobrenome</label>
+                                            <input type="input" formControlName="last_name" class="form-control" autocomplete="off" maxlength="40" placeholder="Sobrenome"     
+                                            [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }" />
+                                            <div *ngIf="submitted && f.last_name.errors" class="invalid-feedback">
+                                                <div *ngIf="f.last_name.errors.required">O campo Sobrenome é obrigatório</div>
+                                                <div *ngIf="f.last_name.errors.minlength">O campo Sobrenome é necessário ter mínimo 3 caracteres.</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="cpf">CPF</label>
+                                            <input type="input" formControlName="cpf" class="form-control" autocomplete="off" maxlength="14" placeholder="CPF" 
+                                            mask="000.000.000-00"    
+                                            [ngClass]="{ 'is-invalid': submitted && f.cpf.errors }" />
+                                            <div *ngIf="submitted && f.cpf.errors" class="invalid-feedback">
+                                                <div *ngIf="f.cpf.errors.required">O campo CPF é obrigatório</div>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="email">E-mail</label>
+                                            <input type="input" formControlName="email" class="form-control" autocomplete="off" maxlength="60" placeholder="E-mail"      
+                                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                                <div *ngIf="f.email.errors.required">O campo E-mail é obrigatório</div>
+                                                <div *ngIf="f.email.errors.email">Este e-mail esta inválido.</div>
+                                            </div>    
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="phone">Telefone Fixo / Celular</label>
+                                            <input type="input" formControlName="phone" class="form-control" autocomplete="off" maxlength="15" placeholder="Telefone Fixo / Celular"       
+                                            mask="(00) 00000-0000"/>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="whatsapp">Whastapp</label>
+                                            <input type="input" formControlName="whatsapp" class="form-control" autocomplete="off" maxlength="15" placeholder="Whatsapp"
+                                            mask="(00) 00000-0000"/>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <h4>Informações do Parceiro</h4>
+                                <div class="form-group space-top">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="commission">Comissão %</label>
+                                            <input type="input" formControlName="commission" class="form-control" autocomplete="off" maxlength="2" placeholder="Comissão"
+                                            [ngClass]="{ 'is-invalid': submitted && f.commission.errors }" />
+                                            <div *ngIf="submitted && f.commission.errors" class="invalid-feedback">
+                                                <div *ngIf="f.commission.errors.required">O campo Comissão é obrigatório</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button [disabled]="loading" class="btn btn-success">
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                    <span>Salvar</span>
+                                </button>
+                                <button class="btn btn-secondary">
+                                    <span href="javascript:void(0)" (click)="backClicked()">Voltar</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
