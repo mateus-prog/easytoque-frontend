@@ -125,6 +125,13 @@ export class EditBankDataComponent implements OnInit {
       dataForm['phone'] = partner.phone;
       dataForm['whatsapp'] = partner.whatsapp;
 
+      dataForm['bank_id'] = partner.bank_id;
+      dataForm['agency'] = partner.agency;
+      dataForm['agency_digit'] = partner.agency_digit;
+      dataForm['checking_account'] = partner.checking_account;
+      dataForm['checking_account_digit'] = partner.checking_account_digit;
+      dataForm['pix'] = partner.pix;
+
       this.email = partner.email;
       this.name = partner.first_name + ' ' + partner.last_name;
       this.corporate_name = partner.corporate_name;
@@ -143,50 +150,11 @@ export class EditBankDataComponent implements OnInit {
         .pipe(first())
         .subscribe(() => {
           this.isAlter = true;
-          //email de bem vindo
-          const dataMail = this.createMailCompleteUser();
-          this.mailService.sendMail(dataMail.mailRecipient, dataMail.mailSubject, dataMail.mailBody)
-            .subscribe();
-
+          
           this.clicksignService.createSigner(this.idPartner)
-          .subscribe(dataSignerResponse => {
-            let data = JSON.parse(JSON.stringify(dataSignerResponse)) 
-            if(data.status == 'success'){  
-              this.alertService.success('Enviado com sucesso!');
-            }else{
-              this.alertService.error(data.message);
-            }    
-          });
+          .subscribe();
         })
         .add(() => this.loading = false);
-  }
-
-  private createMailCompleteUser() {
-    let dataForm = this.form.value;
-
-    //dataForm['mailRecipient'] = 'parceiros@easytoque.com.br'    
-    dataForm['mailRecipient'] = 'mateus.guizelini@hotmail.com'; //default password
-    dataForm['mailSubject'] = "[Parceiros Easytoque] - Mais um parceiro finalizou o cadastro";
-    dataForm['mailBody'] = this.createMailCompleteRegisterBody(this.name, this.corporate_name, this.email);
-
-    return dataForm;
-  }
-
-  createMailCompleteRegisterBody(name: string, corporate_name: string, email: string){
-    let body = `
-    <p>Ol&aacute;,</p>
-        <p>
-            Informamos que o seguinte parceiro finalizou seu cadastro
-        </p>
-    <p>
-      <ul>
-        <li><b>Nome:</b> `+name+`</li>
-        <li><b>Empresa:</b> `+corporate_name+`</li>
-        <li><b>E-mail:</b>  `+email+`</li>
-      </ul>
-    </p>`;
-    let mailHtml = MailBody(body);
-    return mailHtml;
   }
 
   isAuthenticated() {

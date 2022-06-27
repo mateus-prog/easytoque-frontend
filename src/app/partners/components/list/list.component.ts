@@ -43,6 +43,7 @@ export class ListComponent implements OnInit {
     checking_account_digit: '',
     pix: '',
     type_transfers_id: 0,
+    hash_id: ''
   }
   currentPartner: any;
   currentInUse: any;
@@ -65,23 +66,27 @@ export class ListComponent implements OnInit {
   ) { }
 
   async ngOnInit(){
+    this.listPartners();
+  }
+
+  async listPartners(){
     this.partners = await this.partnerService.getByRole(4).toPromise();
   }
 
   partnersFilter() {
     if (this.filter.length >= 2) {
-      var a = this.partners.filter((i: any) => {
+      var resultFilter = this.partners.filter((i: any) => {
         return Object.keys(i).filter(x => (typeof i[x] == 'string') ? i[x].toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 : false).length>0
       });
       
-      return a;
+      return resultFilter;
     }
 
     return this.partners;
   }
 
   showModal(partner: IPartner){
-    this.currentPartner = partner.email;
+    this.currentPartner = partner.id;
     this.currentInUse = false;
     this.buttonCancel = 'Cancelar';
     this.buttonConfirm = 'BLOQUEAR';
@@ -103,20 +108,18 @@ export class ListComponent implements OnInit {
     let response = await this.partnerBankService.getByUser(bank.id).toPromise();
     this.currentBank = response[0];
     this.title = bank.first_name + ' ' + bank.last_name;
- }
+  }
 
- blockPartner(id: number) {
-    /*var data = {
-      status_user_id: 2
-    }
-    this.partnerService.block(id, data)
-      .pipe(first())
-      .subscribe(() => this.partners = this.partners.filter(x => x.id !== id));*/
+
+ blockOrUnlockPartner(id: number) {
+    this.partnerService.blockOrUnlock(id);
+    
+    //this.listPartners();
   }
 
   confirm(confirm: boolean){
     if(confirm){
-      this.blockPartner(this.currentPartner);
+      this.blockOrUnlockPartner(this.currentPartner);
     }
   }
 

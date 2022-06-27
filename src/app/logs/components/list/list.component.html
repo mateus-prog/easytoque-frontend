@@ -10,19 +10,53 @@
             <div class="row space-search">
                 <div class="col-md-3">
                     <div class="input-icon">
-                        <div><i class="fas fa-user"></i></div>
-                        <select [(ngModel)]="user_id" #ctrl="ngModel" class="form-control input">
-                            <option value="0">Usuário</option>
-                            <option *ngFor="let administrator of administrators;"
-                                value="{{administrator.first_name}}">{{administrator.first_name}}
-                            </option>
+                        <div><i class="fas fa-user-cog"></i></div>
+                        <select [(ngModel)]="status" #ctrl="ngModel" class="form-control input">
+                            <option value="">Status</option>
+                            <option value="sucesso">Sucesso</option>
+                            <option value="erro">Erro</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="input-icon">
+                        <div><i class="fas fa-user-tie"></i></div>
+                        <select [(ngModel)]="user_changed_id" #ctrl="ngModel" class="form-control input">
+                            <option value="0">Administradores</option>
+                            <option *ngFor="let administrator of administrators;"
+                                value="{{administrator.first_name}} {{administrator.last_name}}">{{administrator.first_name}} {{administrator.last_name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-icon">
                         <div><i class="fas fa-caret-right"></i></div>
-                        <input [(ngModel)]="action" #ctrl="ngModel"  class="form-control input" placeholder="Ação" autofocus >
+                        <select [(ngModel)]="action_id" #ctrl="ngModel" class="form-control input">
+                            <option value="">Ação</option>
+                            <option *ngFor="let action of actions;"
+                                value="{{action.display_name}}">{{action.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row space-search">
+                <div class="col-md-3">
+                    <div class="input-icon">
+                        <div><i class="fas fa-search"></i></div>
+                        <input [(ngModel)]="action" #ctrl="ngModel"  class="form-control input" placeholder="Ação Feita" autofocus >
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="input-icon">
+                        <div><i class="fas fa-users"></i></div>
+                        <select [(ngModel)]="user_modified_id" #ctrl="ngModel" class="form-control input">
+                            <option value="0">Usuários</option>
+                            <option *ngFor="let user of users;"
+                                value="{{user.first_name}} {{user.last_name}}">{{user.first_name}} {{user.last_name}}
+                            </option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -36,15 +70,31 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th style="width: 20%;">Usuário</th>
-                                        <th style="width: 60%;">Ação</th>
+                                        <th style="width: 12%;">Status</th>
+                                        <th style="width: 18%;">Ação realizada por</th>
+                                        <th style="width: 10%;">Ação</th>
+                                        <th style="width: 25%;">Ação Feita</th>
+                                        <th style="width: 15%;">Usuário</th>
                                         <th style="width: 20%;">Data</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let log of filterLog() | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index">
-                                        <td>{{log.user_id}}</td>
+                                        <td>
+                                            <span *ngIf="log.status == 1">
+                                                <i class="fas fa-check success"></i>&nbsp;<span class="success">Sucesso</span>
+                                            </span>
+                                            <span *ngIf="log.status == 0">
+                                                <i class="fas fa-times error"></i>&nbsp;<span class="error">Erro</span>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span *ngIf="log.user_changed_id != log.user_modified_id">{{log.user_changed_id}}</span>
+                                            <span *ngIf="log.user_changed_id == log.user_modified_id">Sistema</span>
+                                        </td>
+                                        <td>{{log.action_id}}</td>
                                         <td>{{log.message}}</td>
+                                        <td>{{log.user_modified_id}}</td>
                                         <td>{{log.updated_at}}</td>
                                     </tr>
                                     <tr *ngIf="!logs">

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ISigner } from 'src/app/clicksign/ISigner';
 import { IDocumentTemplate } from 'src/app/clicksign/IDocumentTemplate';
 import { ISignerDocument } from 'src/app/clicksign/ISignerDocument';
-import { INotificationEmail } from 'src/app/clicksign/INotificationEmail';
+import { INotificationMail } from 'src/app/clicksign/INotificationMail';
 
 import { AuthenticationService } from '../../../service/authentication/authentication.service';
 
@@ -39,8 +39,8 @@ export class ClickSignService {
         });
     }
 
-    notificationEmail(user_id: number){
-        return this.httpClient.get<INotificationEmail>(`${baseUrl}/notificationEmail/${user_id}`, {
+    notificationMail(user_id: number){
+        return this.httpClient.get<INotificationMail>(`${baseUrl}/notificationMail/${user_id}`, {
             headers: this.auth.getAuthorizationHeader()
         });
     }

@@ -43,11 +43,11 @@ export class ListComponent implements OnInit {
 
   administratorsFilter() {
     if (this.filter.length >= 2) {
-      var a = this.administrators.filter((i: any) => {
+      var resultFilter = this.administrators.filter((i: any) => {
         return Object.keys(i).filter(x => (typeof i[x] == 'string') ? i[x].toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 : false).length>0
       });
       
-      return a;
+      return resultFilter;
     }
 
     return this.administrators;

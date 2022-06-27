@@ -1,5 +1,6 @@
 td{
     vertical-align: text-bottom;
+    padding: .5rem;
 }
 
 .space-search{
@@ -17,7 +18,6 @@ img{
 .status-user{
   color: #FFF !important;
 }
-
 
 .input-icon {
     display: flex;
@@ -62,4 +62,14 @@ select.input {
     display: flex;
     border: 1px solid #ccc;
     padding: 0 10px !important;
+}
+
+.success{
+    color: #4caf50;
+    font-weight: bold;
+}
+
+.error{
+    color: #f44336;
+    font-weight: bold;
 }

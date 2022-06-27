@@ -59,13 +59,20 @@ export class AddEditComponent implements OnInit {
         return i.name != 'partner' ? i : ''; 
       }));
 
-    this.form = this.formBuilder.group({
+    /*this.form = this.formBuilder.group({
         first_name: ['', [Validators.required, Validators.minLength(3)]],
         last_name: ['', [Validators.required, Validators.minLength(3)]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         role_id: ['', Validators.required],
-    });
+    });*/
+    this.form = this.formBuilder.group({
+      first_name: ['', Validators.nullValidator],
+      last_name: ['', Validators.nullValidator],
+      email: ['', Validators.nullValidator],
+      password: ['', Validators.nullValidator],
+      role_id: ['', Validators.nullValidator],
+  });
 
     if (!this.isAddMode) {
       this.partnerService.getById(this.idUser)
@@ -106,12 +113,19 @@ export class AddEditComponent implements OnInit {
     const data = this.translateFormCreate();
 
     this.partnerService.create(data)
-        .pipe(first())
-        .subscribe(() => {
-          this.alertService.success(this.module+' cadastrado com sucesso', { keepAfterRouteChange: true });
-          this.router.navigate(['../'], { relativeTo: this.route });
-        })
-        .add(() => this.loading = false);
+      .pipe(first())
+      .subscribe(/*() => {
+        this.alertService.success(this.module+' cadastrado com sucesso', { keepAfterRouteChange: true });
+        this.router.navigate(['../'], { relativeTo: this.route });
+      }*/
+      data => {
+        console.log('aqui')
+      },
+      error => {
+        console.log(error);
+      }
+      )
+      .add(() => this.loading = false);
   }
 
   private updateAdministrator() {

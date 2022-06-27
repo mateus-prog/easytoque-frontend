@@ -46,8 +46,8 @@ export class PartnerService {
         });
     }
 
-    block(id: number, partner: IPartner) {
-        return this.httpClient.put<IPartner>(`${baseUrl}/${id}`, partner, {
+    blockOrUnlock(id: number) {
+        return this.httpClient.put<IPartner>(`${baseUrl}/block/${id}`, {
             headers: this.auth.getAuthorizationHeader()
         });
     }

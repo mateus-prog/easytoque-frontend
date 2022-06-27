@@ -64,34 +64,34 @@ export class ListComponent implements OnInit {
     return c;
   }
 
-  filterUser(b: any){
-    var c = b.filter((i: any) => {
+  filterUser(result: any){
+    var resultFilter = result.filter((i: any) => {
       return Object.keys(i).filter(x => 
         ((x == 'user_id' && this.user_id == i[x]) || this.user_id == 0) ? true : false
       ).length > 0
     });
     
-    return c;
+    return resultFilter;
   }
 
-  filterStatusRequest(a: any){
-    var b = a.filter((i: any) => {
+  filterStatusRequest(result: any){
+    var resultFilter = result.filter((i: any) => {
       return Object.keys(i).filter(x => 
         ((x == 'status_request_id' && this.status_request_id == i[x]) || this.status_request_id == 0) ? true : false
       ).length > 0
     });
     
-    return b;
+    return resultFilter;
   }
 
   filterNumber(){
-    var a = this.requests.filter((i: any) => {
+    var resultFilter = this.requests.filter((i: any) => {
       return Object.keys(i).filter(x => 
         ((x == 'id' && this.id == i[x]) || this.id == '') ? true : false
       ).length > 0
     });
     
-    return a;
+    return resultFilter;
   }
 
   showModal(request: any){
