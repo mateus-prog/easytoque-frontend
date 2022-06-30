@@ -11,8 +11,6 @@ import { MailService } from 'src/app/components/mail/service/mail.service';
 import { PartnerService } from 'src/app/partners/service/partner.service';
 import { StateService } from 'src/app/states/service/state.service';
 
-import MailBody from 'src/app/helper/mail';
-
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',

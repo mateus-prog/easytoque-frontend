@@ -14,8 +14,6 @@ import { PartnerBankService } from 'src/app/partners/service/partner_bank.servic
 import { BankService } from 'src/app/banks/service/bank.service';
 import { ClickSignService } from 'src/app/clicksign/service/clicksign.service';
 
-import MailBody from 'src/app/helper/mail';
-
 @Component({
   selector: 'edit-bank-data',
   templateUrl: './edit-bank-data.component.html',
