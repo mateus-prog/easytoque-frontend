@@ -1,17 +1,17 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { first } from 'rxjs/operators';
 
-import { ReasonService } from 'src/app/reasons/service/reason.service';
+import { PartnerService } from 'src/app/partners/service/partner.service';
 
 @Component({
-  selector: 'app-modal-reason',
-  templateUrl: './modal-reason.component.html',
-  styleUrls: ['./modal-reason.component.css']
+  selector: 'app-modal-user-blocked',
+  templateUrl: './modal-user-blocked.component.html',
+  styleUrls: ['./modal-user-blocked.component.css']
 })
-export class ModalReasonComponent {
+export class ModalUserBlockedComponent {
 
   @Input() id!: string;
-  @Input() idRequest!: string;
+  @Input() currentPartner!: number;
   @Input() title!: string;
   @Input() buttonCancel!: string;
   @Input() buttonConfirm!: string;
@@ -21,11 +21,11 @@ export class ModalReasonComponent {
   @Output() confirmReason = new EventEmitter<boolean>();
 
   constructor(
-    private reasonService: ReasonService,
+    private partnerService: PartnerService,
   ) { }
 
   confirmModal(){
-    this.createReason();
+    this.updateUserBlocked();
     this.confirmReason.emit(true);
   }
 
@@ -33,23 +33,23 @@ export class ModalReasonComponent {
     this.confirmReason.emit(false);
   }
 
-  ReasonRequest(event: any){
+  ReasonUserBlocked(event: any){
     this.reason = event.target.value;
     this.disabled = this.reason.length > 1 ? false : true;
   }
 
   private translateFormCreate() {
-    let dataForm = {'reason': this.reason, 'request_id': this.idRequest};
+    let dataForm = {'reason': this.reason};
     return dataForm;
   }
 
-  private createReason() {
+  private updateUserBlocked() {
     const data = this.translateFormCreate();
     
-    this.reasonService.create(data)
+    this.partnerService.blockedPartner(this.currentPartner, data)
       .pipe(first())
       .subscribe(() => {
-        window.location.href = '/requests/visualize/'+this.idRequest;
+        window.location.href = '/partners';
       })
       .add();
   }

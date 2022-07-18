@@ -12,8 +12,8 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            <textarea class="form-control" rows="5" formControlName="reason" placeholder="Descreva o motivo pelo qual foi recusado"
-            (change)="ReasonRequest($event)"
+            <textarea class="form-control" rows="5" formControlName="reason" placeholder="Descreva o motivo pelo qual o parceiro foi bloqueado"
+            (change)="ReasonUserBlocked($event)"
             [ngClass]="{ 'is-invalid': disabled }"></textarea>
             <div *ngIf="disabled" class="invalid-feedback">
               <div *ngIf="disabled"><i class="fas fa-times"></i> Campo é obrigatório</div>
@@ -25,7 +25,7 @@
         <button (click)="cancelModal()" class="btn btn-sm btn-secondary" data-dismiss="modal">
           {{buttonCancel}}
         </button>
-        <button (click)="confirmModal()" class="btn btn-sm btn-success" data-dismiss="modal"
+        <button (click)="confirmModal()" class="btn btn-sm btn-danger" data-dismiss="modal"
         [disabled]="disabled">
           {{buttonConfirm}}
         </button>
