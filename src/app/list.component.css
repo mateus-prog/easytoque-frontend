@@ -15,8 +15,9 @@ img{
     cursor: pointer;
 }
 
-.status-user{
+.status-user, .status-request{
   color: #FFF !important;
+  padding: 5px 10px 5px 10px;
 }
 
 .input-icon {
