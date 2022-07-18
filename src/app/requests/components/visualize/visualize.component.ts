@@ -1,4 +1,3 @@
-import { IRequest } from './../../IRequest';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -12,6 +11,7 @@ import { RequestService } from 'src/app/requests/service/request.service';
   styleUrls: ['./visualize.component.css']
 })
 export class VisualizeComponent implements OnInit {
+  idRequest!: string;
   id: string = '';
   value: number = 0;
   bank_id: string = '';
@@ -22,6 +22,7 @@ export class VisualizeComponent implements OnInit {
   status_request_id: string = '';
   reason?: string = '';
   hash_id: string = '';
+  selectedImage: any;
 
   title: string = '';
   buttonCancel: string = '';
@@ -41,9 +42,9 @@ export class VisualizeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void{
-    this.id = this.route.snapshot.params['id'];
+    this.idRequest = this.route.snapshot.params['id'];
 
-    this.requestService.getById(this.id)
+    this.requestService.getById(this.idRequest)
       .pipe(first())
       .subscribe(x => this.translateToForm(x));
   }
@@ -63,6 +64,43 @@ export class VisualizeComponent implements OnInit {
   showModal(){
     this.buttonCancel = 'Cancelar';
     this.buttonConfirm = 'Salvar';
-    this.title = 'Motivo da negação';
+    this.title = 'Preencha o Motivo';
   }
+
+  async confirmReason(confirm: boolean){
+    if(confirm){
+
+      //await this.requestService.updateRequest(this.id, dataForm).toPromise();
+      //this.listSubscriptions();
+    }
+  }
+
+  private translateFormCreate() {
+    let dataForm = {'status_request_id': '2'};
+    return dataForm;
+  }
+
+  updateRequest() {
+    const data = this.translateFormCreate();
+    let id = parseInt(this.idRequest);
+    this.requestService.update(id, data)
+      .pipe(first())
+      .subscribe(() => {
+        window.location.href = '/requests/visualize/'+this.idRequest;
+      })
+      .add();
+  }
+
+  /*onSelectImage(event: any) {
+    this.selectedImage = new FormData();
+    this.selectedImage.append('file', event.srcElement.files[0], event.srcElement.files[0].name);
+    console.log(this.selectedImage);
+  }
+
+  onCreateService(form: FormGroup) {
+    const formData = new FormData();
+    formData.append('image', this.selectedImage, this.selectedImage.name);
+   console.log(formData);
+  }*/
+
 }

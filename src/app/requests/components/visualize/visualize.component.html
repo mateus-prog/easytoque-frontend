@@ -112,7 +112,7 @@
                                 <div class="col-md-12">
                                   <button *ngIf="status_request_id == 'Aguardando'" class="btn btn-danger"
                                   data-toggle="modal" data-target="#modalReason" (click)="showModal()">Negar</button>
-                                  <button *ngIf="status_request_id == 'Aguardando'" class="btn btn-success">Aprovar Solicitação</button>
+                                  <button *ngIf="status_request_id == 'Aguardando'" (click)="updateRequest()" class="btn btn-success">Aprovar Solicitação</button>
                                   <button *ngIf="status_request_id == 'Aprovado'" class="btn btn-success">Marcar Pago</button>
                                 </div>
                             </div>
@@ -125,6 +125,7 @@
             </div>
         </div>
     </section>
-    <app-modal-reason [id]="'modalReason'"
-    [title]="title" [buttonCancel]="buttonCancel" [buttonConfirm]="buttonConfirm"></app-modal-reason>
+    <app-modal-reason [id]="'modalReason'" [idRequest]="idRequest"
+    [title]="title" [buttonCancel]="buttonCancel" [buttonConfirm]="buttonConfirm"
+    (confirmReason)="confirmReason($event)"></app-modal-reason>
 </div>

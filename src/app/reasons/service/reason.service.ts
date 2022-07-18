@@ -1,15 +1,15 @@
 import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IRequest } from 'src/app/requests/IRequest';
+import { IReason } from 'src/app/reasons/IReason';
 import { AuthenticationService } from '../../../service/authentication/authentication.service';
 
-const baseUrl = `${environment.API_PATH}/requests`;
+const baseUrl = `${environment.API_PATH}/reasons`;
 
 @Injectable({
   providedIn: 'root'
 })
-export class RequestService {
+export class ReasonService {
 
     constructor(
         private httpClient: HttpClient,
@@ -17,27 +17,20 @@ export class RequestService {
     ) { }
 
     getAll() {
-        return this.httpClient.get<IRequest[]>(baseUrl, {
+        return this.httpClient.get<IReason[]>(baseUrl, {
             headers: this.auth.getAuthorizationHeader()
         });
     }
 
-    getById(id: any) {
-        return this.httpClient.get<IRequest>(`${baseUrl}/${id}`, {
+    getById(id: number) {
+        return this.httpClient.get<IReason>(`${baseUrl}/${id}`, {
             headers: this.auth.getAuthorizationHeader()
         });
     }
 
-    getByUser() {
-        return this.httpClient.get<IRequest>(`${baseUrl}/user`, {
+    create(reason: any) {
+        return this.httpClient.post<IReason>(baseUrl, reason, {
             headers: this.auth.getAuthorizationHeader()
         });
     }
-
-    update(id: number, request: any) {
-        return this.httpClient.put<IRequest>(`${baseUrl}/${id}`, request, {
-            headers: this.auth.getAuthorizationHeader()
-        });
-    }
-
 }
