@@ -40,6 +40,10 @@ export class AuthenticationService {
     return this.sessionStorage.getItem('id');
   }
 
+  getUserHashId() {
+    return this.sessionStorage.getItem('hash_id');
+  }
+
   logout() {
     this.sessionStorage.removeItem('token');
     this.sessionStorage.removeItem('first_name');
@@ -47,6 +51,7 @@ export class AuthenticationService {
     this.sessionStorage.removeItem('roleId');
     this.sessionStorage.removeItem('statusUserId');
     this.sessionStorage.removeItem('id');
+    this.sessionStorage.removeItem('hash_id');
   }
 
   login(data: IAuth) {
@@ -56,6 +61,7 @@ export class AuthenticationService {
     this.sessionStorage.setItem('roleId', data.user.role_id);
     this.sessionStorage.setItem('email', data.user.email);
     this.sessionStorage.setItem('token', data.token);
+    this.sessionStorage.setItem('hash_id', data.user.hash_id);
   }
 
   getAuthorizationHeader() {
