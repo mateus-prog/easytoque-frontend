@@ -1,0 +1,114 @@
+<div class="content-wrapper">
+    <breadcrumb [action]="breadcrumbAction" [module]="breadcrumbModule">
+    </breadcrumb>
+    
+    <alert></alert>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="small-box bg-info">
+                        <!--<div *ngIf="loadingTotal" class="overlay dark">
+                            <i class="fas fa-3x fa-sync-alt"></i>
+                        </div>-->
+                        <div class="inner">
+                            <h3>0,00</h3>
+                            <p>Vendas aprovadas em Julho/2022</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <div class="small-box bg-success">
+                        <!--<div *ngIf="loadingActive" class="overlay dark">
+                            <i class="fas fa-3x fa-sync-alt"></i>
+                        </div>-->
+                        <div class="inner">
+                            <h3>0,00</h3>
+                            <p>Comissões em Julho/2022</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h5><i class="icon fas fa-info"></i> Alerta!</h5>
+                Para sacar a comissão o valor minimo é de R$ 50,00
+            </div>
+            <div class="row space-search">
+                <div class="col-md-3">
+                    <div class="input-icon">
+                        <div>#</div>
+                        <input [(ngModel)]="id" #ctrl="ngModel"  class="form-control input" placeholder="Número" autofocus >
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-icon">
+                        <div>S</div>
+                        <select [(ngModel)]="status_request_id" #ctrl="ngModel" class="form-control input">
+                            <option value="0">Todos</option>
+                            <option *ngFor="let status of statusRequest;"
+                                value="{{status.name}}">{{status.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                <section class="col-lg-12 connectedSortable">
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%;">Número</th>
+                                        <th style="width: 20%; text-align: center;">Data</th>
+                                        <th style="width: 20%; text-align: center;">Status da Solicitação</th>
+                                        <th style="width: 20%; text-align: right;">Valor da Comissão</th>
+                                        <th style="width: 30%;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let request of filterRequest() | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index">
+                                        <td>{{request.id}}</td>
+                                        <td align="center">{{request.updated_at}}</td>
+                                        <td align="center">
+                                            <span class="status-request badge bg-{{request.color}}">{{request.status_request_id}}</span>
+                                        </td>
+                                        <td align="right">{{request.value}}</td>
+                                        <td align="center">
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!requests">
+                                        <td colspan="5" class="text-center">
+                                            <span class="spinner-border spinner-border-lg align-center"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <nav>
+                        <pagination-controls class="my-pagination" previousLabel="Anterior" nextLabel="Próximo"
+                            (pageChange)="paginaAtual = $event">
+                        </pagination-controls>
+                    </nav>
+                    <!-- /.card -->
+                </section>
+                <!-- right col -->
+            </div>
+        </div>
+    </section>
+</div>
