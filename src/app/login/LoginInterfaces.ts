@@ -1,6 +1,7 @@
 export interface IAuth{
   user: {
     id: string,
+    hash_id?: any,
     first_name: string,
     last_name: string,
     email: string,

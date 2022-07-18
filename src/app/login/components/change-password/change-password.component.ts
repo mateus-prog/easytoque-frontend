@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router  } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from 'src/app/login/service/login.service';
-import { FormGroup, Validators, FormControl, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { MustMatch } from 'src/app/helper/must-match.validator';
+
+import { AlertService } from 'src/app/components/alert/service/alert.service';
 
 @Component({
   selector: 'app-change-password',
@@ -9,15 +13,13 @@ import { FormGroup, Validators, FormControl, ValidatorFn, AbstractControl, Valid
   styleUrls: ['./change-password.component.css']
 })
 export class ChangePasswordComponent implements OnInit {
-  public form!: FormGroup;
-  public loading = false;
-  public errorMessage?: string;
-  public attemptedSubmit = false;
-  public successfullySent = false;
-
-  private token!: string;
+  form!: FormGroup;
+  loading = false;
+  submitted = false;
 
   constructor(
+    private formBuilder: FormBuilder,
+    private alertService: AlertService,
     private route: ActivatedRoute,
     private router: Router,
     private loginService: LoginService
@@ -29,54 +31,35 @@ export class ChangePasswordComponent implements OnInit {
 
   ngOnInit() {
 
-    this.form = new FormGroup({
-      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      passwordConfirm: new FormControl('', [Validators.required])
-    }, this.checkPasswords2);
+    const formOptions: AbstractControlOptions = { validators: MustMatch('password', 'confirmPassword') };
+    this.form = this.formBuilder.group({
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
+    }, formOptions);
   }
 
-  checkPasswords2: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => {
-    let pass = group.get('password')?.value;
-    let confirmPass = group.get('passwordConfirm')?.value
-    return pass === confirmPass ? null : { notSame: true }
-  }
+  // convenience getter for easy access to form fields
+  get f() { return this.form.controls; }
 
-  checkPasswords() {
-    return this.password === this.passwordConfirm ? {notSame: false } : { notSame: true };
-  }
+  onSubmit() {
+      this.submitted = true;
 
-  get password(): FormControl { return this.form.get('password') as FormControl; }
-  get passwordConfirm(): FormControl { return this.form.get('passwordConfirm') as FormControl; }
-  get currentPassword(): FormControl { return this.form.get('currentPassword') as FormControl; }
+      // reset alerts on submit
+      this.alertService.clear();
 
-  async onSubmitClick() {
-    this.errorMessage = '';
-    this.attemptedSubmit = true;
-    if (this.form.invalid) {
-      if (!this.form.dirty) {
-        this.form.markAsDirty();
+      // stop here if form is invalid
+      if (this.form.invalid) {
+          return;
       }
-      return;
-    }
-    const password = this.password.value;
-    const passwordConfirm = this.passwordConfirm.value;
-    this.loading = true;
-    try {
-      const response = await (await this.loginService.changePassword(password, passwordConfirm)).toPromise();
-      if (response === true) {
-        this.successfullySent = true;
-        this.loading = false;
-      } else {
 
-      }
-    } catch(err:any) {
-      if (typeof err.message !== "string" || !err.message) {
-        console.error(err);
-      }
-      this.loading = false;
-      this.attemptedSubmit = false; // Supress form validation errors
-      this.errorMessage = ((err && err.message ? err.message : err) || "Unknown error").toString();
-    }
+      this.loading = true;
+      this.loginService.changePassword(this.form.value.password)
+        .pipe(first())
+        .subscribe(() => {
+          this.alertService.success('Senha alterada com sucesso!');
+          this.loading = false;
+        }
+      );
   }
-
+  
 }

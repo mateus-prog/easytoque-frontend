@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../../../service/authentication/authentication.service';
 import { IAuth } from 'src/app/login/LoginInterfaces';
 
-const baseUrl = `${environment.API_PATH}/auth/login`;
+const baseUrl = `${environment.API_PATH}/auth`;
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +13,7 @@ export class LoginService {
   constructor(private httpClient: HttpClient, private auth: AuthenticationService) { }
 
   login(email: string, password: string) {
-    return this.httpClient.post<any>(baseUrl, {email,password}).toPromise();
-  }
-
-  getUser(cpf: string) {
-    return this.httpClient.get<any>(`${baseUrl}/${cpf}`);
-  }
-
-  create(user: any) {
-    return this.httpClient.post<void>(`${baseUrl}/new`, user);
+    return this.httpClient.post<any>(`${baseUrl}/login`, {email,password}).toPromise();
   }
 
   forgotPassword(login:string, access_token:string) {
@@ -32,8 +24,8 @@ export class LoginService {
     return this.httpClient.post(`${baseUrl}/password/reset`, {password, repeatPassword, access_token});
   }
 
-  async changePassword(password: string, repeatPassword: string) {
-    return this.httpClient.post(`${baseUrl}/password/change`, {password, repeatPassword}, {
+  changePassword(password: string) {
+    return this.httpClient.post(`${baseUrl}/password/change`, {password}, {
       headers: this.auth.getAuthorizationHeader()
     });
   }

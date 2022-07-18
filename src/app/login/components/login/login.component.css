@@ -237,3 +237,15 @@ input[type=text]:placeholder, input[type=password]:placeholder {
 *:focus {
     outline: none;
 } 
+
+.invalid-feedback{
+  text-align: left !important;
+  margin-left: 35px;
+}
+
+
+#buttonPassword{   
+  top: 120px;
+  left: 380px;
+  position: absolute;
+}

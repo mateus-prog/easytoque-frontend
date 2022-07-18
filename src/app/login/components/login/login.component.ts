@@ -18,6 +18,9 @@ import { IMenu } from 'src/app/template/sidebar/IMenu';
 export class LoginComponent implements OnInit {
 
   menus!: IMenu[];
+  messageError: string = '';
+  typePassword!: string;
+  iconPassword!: string;
 
   form!: FormGroup;
   loading = false;
@@ -32,12 +35,23 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService
   ) { }
 
+  ngOnInit(): void {
+    this.typePassword = 'password';
+    this.iconPassword = 'fa-eye-slash';
+
+    this.form = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
+
   async onSubmit() {
+    this.messageError = '';
     this.submitted = true;
     
-    /*if (this.form.invalid) {
+    if (this.form.invalid) {
       return;
-    }*/
+    }
 
     this.loading = true;
 
@@ -56,24 +70,20 @@ export class LoginComponent implements OnInit {
     }
     catch (e) {
       this.loading = false;
-      this.alertService.clear();
-      this.alertService.error('Usuário e senha incorretos', { keepAfterRouteChange: true });
+      this.messageError = 'Usuário e/ou senha inválidos';
     }
 
   }
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
 
-  ngOnInit(): void {
-
-    this.form = this.formBuilder.group({
-      email: ['', Validators.required, Validators.email],
-      password: ['', Validators.required]
-    });
+  showPassword(){
+    if(this.typePassword === 'text'){
+      this.iconPassword = 'fa-eye-slash';
+      this.typePassword = 'password';
+    }else{
+      this.iconPassword = 'fa-eye';
+      this.typePassword = 'text';
+    }
   }
-
-  getRole(){
-    return this.authenticationService.getRoleId()
-  }
-
 }
