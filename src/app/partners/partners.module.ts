@@ -7,6 +7,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { PartnersRoutingModule } from './partners-routing.module';
 import { AddComponent } from './components/add';
 import { ListComponent } from './components/list';
+import { MyAccountComponent } from './components/my-account';
 
 import { AlertModule } from 'src/app/components/alert/alert.module';
 import { BreadcrumbModule } from 'src/app/components/breadcrumb/breadcrumb.module';
@@ -15,7 +16,8 @@ import { ModalModule } from 'src/app/components/modal/modal.module';
 @NgModule({
   declarations: [
     AddComponent,
-    ListComponent
+    ListComponent,
+    MyAccountComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { ModalModule } from 'src/app/components/modal/modal.module';
   ],
   exports:[
     AddComponent,
-    ListComponent
+    ListComponent,
+    MyAccountComponent
   ]
 })
 

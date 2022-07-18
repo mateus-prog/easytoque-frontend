@@ -46,8 +46,14 @@ export class PartnerService {
         });
     }
 
-    blockOrUnlock(id: number) {
-        return this.httpClient.put<IPartner>(`${baseUrl}/block/${id}`, {
+    activePartner(id: number) {
+        return this.httpClient.put<any>(`${baseUrl}/active/${id}`, {}, {
+            headers: this.auth.getAuthorizationHeader()
+        });
+    }
+
+    blockedPartner(id: number, reason: any) {
+        return this.httpClient.put<any>(`${baseUrl}/blocked/${id}`, reason, {
             headers: this.auth.getAuthorizationHeader()
         });
     }

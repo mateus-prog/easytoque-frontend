@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { Location } from '@angular/common';
 
+import { CpfCnpjValidator } from 'src/app/validators/cpf-cnpj/cpf-cnpj.validator';
+import { NumberValidator } from 'src/app/validators/number/number.validator';
+
 import { IState } from 'src/app/states/IState';
 
 import { AlertService } from 'src/app/components/alert/service/alert.service';
@@ -39,7 +42,6 @@ export class AddComponent implements OnInit {
   phone!: number;
   whatsapp!: number;
 
-
   form!: FormGroup;
   loading = false;
   submitted = false;
@@ -65,8 +67,8 @@ export class AddComponent implements OnInit {
 
     this.form = this.formBuilder.group({
         corporate_name: ['', Validators.required],
-        cnpj: ['', Validators.required],
-        cep: ['', Validators.required],
+        cnpj: ['', [Validators.required, Validators.minLength(14), CpfCnpjValidator.validate]],
+        cep: ['', [Validators.required, Validators.minLength(8)]],
         address: ['', Validators.required],
         state_id: ['', Validators.required],
         city: ['', Validators.required],
@@ -75,11 +77,11 @@ export class AddComponent implements OnInit {
         complement: ['', Validators.nullValidator],
         first_name: ['', [Validators.required, Validators.minLength(3)]],
         last_name: ['', [Validators.required, Validators.minLength(3)]],
-        cpf: ['', Validators.required],
+        cpf: ['', [Validators.required, CpfCnpjValidator.validate]],
         email: ['', [Validators.required, Validators.email]],
         phone: ['', Validators.nullValidator],
         whatsapp: ['', Validators.nullValidator],
-        commission: ['', Validators.required],
+        commission: ['', [Validators.required, NumberValidator.validate]],
     });
   }
 
@@ -94,6 +96,7 @@ export class AddComponent implements OnInit {
 
       // stop here if form is invalid
       if (this.form.invalid) {
+        console.log(this.form.invalid);
           return;
       }
 
@@ -141,7 +144,7 @@ export class AddComponent implements OnInit {
     
     this.partnerService.create(data)
       .pipe(first())
-      .subscribe(data => {
+      .subscribe(() => {
         this.alertService.success('Parceiro cadastrado com sucesso.', { autoClose: false }); 
         this.router.navigate(['../'], { relativeTo: this.route });
       })

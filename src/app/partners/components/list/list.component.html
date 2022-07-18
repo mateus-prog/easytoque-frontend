@@ -8,7 +8,76 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-info">
+                        <div *ngIf="loadingTotal" class="overlay dark">
+                            <i class="fas fa-3x fa-sync-alt"></i>
+                        </div>
+                        <div class="inner">
+                            <h3>{{numberTotal}}</h3>
+                            <p>Total</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-success">
+                        <div *ngIf="loadingActive" class="overlay dark">
+                            <i class="fas fa-3x fa-sync-alt"></i>
+                        </div>
+                        <div class="inner">
+                            <h3>{{numberActive}}</h3>
+                            <p>Ativos</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-warning">
+                        <div *ngIf="loadingOutstanding" class="overlay dark">
+                            <i class="fas fa-3x fa-sync-alt"></i>
+                        </div>
+                        <div class="inner">
+                            <h3>{{numberOutstanding}}</h3>
+                            <p>Pendentes</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-danger">
+                        <div *ngIf="loadingBlocked" class="overlay dark">
+                            <i class="fas fa-3x fa-sync-alt"></i>
+                        </div>
+                        <div class="inner">
+                            <h3>{{numberBlocked}}</h3>
+                            <p>Bloqueados</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-user-minus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row space-search">
+                <div class="col-md-3">
+                    <div class="input-icon">
+                        <div><i class="fas fa-user-check"></i></div>
+                        <select [(ngModel)]="status_user_id" #ctrl="ngModel" class="form-control input">
+                            <option value="0">Todos</option>
+                            <option *ngFor="let statusUser of statusUsers;"
+                                value="{{statusUser.name}}">{{statusUser.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-7">
                     <div class="input-icon">
                         <div><i class="fas fa-search"></i></div>
                         <input  [(ngModel)]="filter" #ctrl="ngModel"  class="form-control form-control-sm" 
@@ -21,6 +90,7 @@
                     </a>
                 </div>
             </div>
+
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <!-- right col (We are only adding the ID to make the widgets sortable)-->
@@ -32,22 +102,20 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 30%;">Parceiro</th>
-                                        <th style="width: 40%;">E-mail</th>
+                                        <th style="width: 35%;">E-mail</th>
                                         <th style="width: 10%;">Status</th>
                                         <th style="width: 10%;">Comissão</th>
-                                        <th style="width: 10%; text-align: center;" colspan="4">Ações</th>
+                                        <th style="width: 15%; text-align: center;" colspan="4">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let partner of partnersFilter() | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index">
-                                        <td>{{partner.first_name}} {{partner.last_name}}</td>
+                                        <td>{{partner.name}}</td>
                                         <td>{{partner.email}}</td>
                                         <td>
                                             <span class="status-user badge bg-{{partner.status}}">{{partner.status_user_id}}</span>
                                         </td>
-                                        <td>
-                                            {{partner.commission}}
-                                        </td>
+                                        <td align="right">{{partner.commission}} %</td>
                                         <td>
                                             <button class="btn btn-sm btn-info" title="Visualizar Dados do Responsável" data-toggle="modal"
                                                 data-target="#modalResponsible" (click)="showModalResponsible(partner)">
@@ -73,9 +141,13 @@
                                             </a>
                                         </td>-->
                                         <td>
-                                            <button *ngIf="partner.status_user_id != 'Pendente'" class="btn btn-sm btn-danger" title="Bloquear" data-toggle="modal"
+                                            <button *ngIf="partner.status_user_id == 'Bloqueado'" class="btn btn-sm btn-success" title="Ativar Parceiro" data-toggle="modal"
                                                 data-target="#modalDelete" (click)="showModal(partner)">
-                                                <i class="fas fa-ban"></i>
+                                                <i class="fas fa-user-friends"></i>
+                                            </button>
+                                            <button *ngIf="partner.status_user_id == 'Ativo'" class="btn btn-sm btn-danger" title="Bloquear Parceiro" data-toggle="modal"
+                                                data-target="#modalReasonUserBlocked" (click)="showModalReason(partner)">
+                                                <i class="fas fa-user-slash"></i>
                                             </button>
                                         </td>
                                     </tr>
@@ -100,13 +172,25 @@
             </div>
         </div>
     </section>
+    <!-- Modal que confirma se quer ou não ativar o usuário -->
     <app-modal-confirm [id]="'modalDelete'" [message]="messageModal" [inUse]="currentInUse" 
     [title]="title" [buttonCancel]="buttonCancel" [buttonConfirm]="buttonConfirm"
     (confirm)="confirm($event)"></app-modal-confirm>
+
+    <!-- Modal que confirma se quer ou não bloquear o usuário -->
+    <app-modal-user-blocked [id]="'modalReasonUserBlocked'" [currentPartner]="currentPartner"
+    [title]="title" [buttonCancel]="buttonCancel" [buttonConfirm]="buttonConfirm"
+    (confirmReason)="confirmReason($event)"></app-modal-user-blocked>
+    
+    <!-- Modal que mostra dados do responsável -->
     <app-modal-responsible [id]="'modalResponsible'" [title]="title"
     [responsible]="currentResponsible"></app-modal-responsible>
+    
+    <!-- Modal que mostra dados da empresa -->
     <app-modal-corporate [id]="'modalCorporate'" [title]="title"
     [corporate]="currentCorporate"></app-modal-corporate>
+    
+    <!-- Modal que mostra dados bancarios -->
     <app-modal-bank [id]="'modalBank'" [title]="title"
     [bank]="currentBank"></app-modal-bank>
 </div>

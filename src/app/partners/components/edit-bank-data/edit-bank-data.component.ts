@@ -70,14 +70,14 @@ export class EditBankDataComponent implements OnInit {
         corporate_name: ['', Validators.nullValidator],
         cnpj: ['', Validators.nullValidator],
         bank_id: ['', Validators.required],
-        agency: ['', Validators.required],
+        agency: ['', [Validators.required, Validators.minLength(3)]],
         agency_digit: ['', Validators.nullValidator],
-        checking_account: ['', Validators.required],
+        checking_account: ['', [Validators.required, Validators.minLength(3)]],
         checking_account_digit: ['', Validators.nullValidator],
         pix: ['', Validators.nullValidator],
         phone: ['', Validators.nullValidator],
         whatsapp: ['', Validators.nullValidator],
-        password: ['', Validators.required]
+        password: ['', [Validators.required, Validators.minLength(6)]]
     });
 
     this.partnerCorporateService.getByHash(this.idHash)

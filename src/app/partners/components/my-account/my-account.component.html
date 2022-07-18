@@ -1,0 +1,92 @@
+<div class="content-wrapper">
+    <breadcrumb [action]="breadcrumbAction" [module]="breadcrumbModule">
+    </breadcrumb>
+    <!-- /.content-header -->
+    <alert></alert>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h5><i class="icon fas fa-info"></i> Observações!</h5>
+                Para alterar qualquer um de seus dados, você deverá entrar em contato conosco Whatsapp: (11) 94559-8672
+            </div>
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-secondary"> 
+                        <!-- form start -->
+                        <form [formGroup]="form">
+                            <div class="card-body">
+                                <div class="form-group space-top">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="name">Nome</label>
+                                            <input type="input" formControlName="name" class="form-control" autocomplete="off" maxlength="20" placeholder="Nome"/>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="cnpj">CNPJ</label>
+                                            <input type="input" formControlName="cnpj" class="form-control" autocomplete="off" maxlength="18" placeholder="CNPJ"
+                                            mask="00.000.000/0000-00" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="email">E-mail</label>
+                                            <input type="input" formControlName="email" class="form-control" autocomplete="off" maxlength="60" placeholder="E-mail"  />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="phone">Telefone Fixo / Celular</label>
+                                            <input type="input" formControlName="phone" class="form-control" autocomplete="off" maxlength="15" placeholder="Telefone Fixo / Celular"       
+                                            mask="(00) 00000-0000"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="whatsapp">Whastapp</label>
+                                            <input type="input" formControlName="whatsapp" class="form-control" autocomplete="off" maxlength="15" placeholder="Whatsapp"
+                                            mask="(00) 00000-0000"/>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="bank_id">Banco</label>
+                                            <select *ngIf="banks && banks.length > 0" formControlName="bank_id" class="form-control form-control-sm">
+                                                <option *ngFor="let bank of banks;" value="{{bank.id}}">
+                                                    {{bank.code}} - {{bank.name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="agency">Agência</label>
+                                            <input type="input" formControlName="agency" class="form-control" autocomplete="off" maxlength="6" placeholder="Agência">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="checking_account">Conta</label>
+                                            <input type="input" formControlName="checking_account" class="form-control" autocomplete="off" maxlength="8" placeholder="Conta" >
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

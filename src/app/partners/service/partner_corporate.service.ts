@@ -29,7 +29,7 @@ export class PartnerCorporateService {
     getByHash(hash_id: string) {
         return this.httpClient.get<IPartnerCorporate[]>(`${baseUrl}/${hash_id}/edit`);
     }
-
+    
     getById(id: number) {
         return this.httpClient.get<IPartnerCorporate>(`${baseUrl}/${id}`, {
             headers: this.auth.getAuthorizationHeader()
