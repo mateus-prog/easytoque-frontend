@@ -234,7 +234,8 @@
 }
 
 .main-sidebar .sidebar .nav .nav-item .nav-link.active {
-    background: #D3D3D3 !important;
+    /*background: #D3D3D3 !important;*/
+    background: #FF4500 !important;
 }
 
 .main-sidebar .sidebar .nav .nav-link p {
