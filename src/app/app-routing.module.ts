@@ -11,6 +11,7 @@ const administratorsModule = () => import('src/app/administrators/administrators
 const partnersModule = () => import('src/app/partners/partners.module').then(x => x.PartnersModule);
 const logsModule = () => import('src/app/logs/logs.module').then(x => x.LogsModule);
 const requestsModule = () => import('src/app/requests/requests.module').then(x => x.RequestsModule);
+const commissionsModule = () => import('src/app/commissions/commissions.module').then(x => x.CommissionsModule);
 
 const routes: Routes = [
   { path: 'administrators', loadChildren: administratorsModule, canActivate: [AuthenticatedUserGuard] },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'partners/edit-bank-data/:id', component: EditBankDataComponent },
   { path: 'logs', loadChildren: logsModule, canActivate: [AuthenticatedUserGuard] },
   { path: 'requests', loadChildren: requestsModule, canActivate: [AuthenticatedUserGuard] },
+  { path: 'commissions', loadChildren: commissionsModule, canActivate: [AuthenticatedUserGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'login/changePassword', component: ChangePasswordComponent, canActivate: [AuthenticatedUserGuard] },
 ];
