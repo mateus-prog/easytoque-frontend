@@ -59,20 +59,13 @@ export class AddEditComponent implements OnInit {
         return i.name != 'partner' ? i : ''; 
       }));
 
-    /*this.form = this.formBuilder.group({
+    this.form = this.formBuilder.group({
         first_name: ['', [Validators.required, Validators.minLength(3)]],
         last_name: ['', [Validators.required, Validators.minLength(3)]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         role_id: ['', Validators.required],
-    });*/
-    this.form = this.formBuilder.group({
-      first_name: ['', Validators.nullValidator],
-      last_name: ['', Validators.nullValidator],
-      email: ['', Validators.nullValidator],
-      password: ['', Validators.nullValidator],
-      role_id: ['', Validators.nullValidator],
-  });
+    });
 
     if (!this.isAddMode) {
       this.partnerService.getById(this.idUser)
@@ -85,21 +78,21 @@ export class AddEditComponent implements OnInit {
   get f() { return this.form.controls; }
 
   onSubmit() {
-      this.submitted = true;
+    this.submitted = true;
 
-      // reset alerts on submit
-      this.alertService.clear();
+    // reset alerts on submit
+    this.alertService.clear();
 
-      // stop here if form is invalid
-      if (this.form.invalid) {
-          return;
-      }
+    // stop here if form is invalid
+    if (this.form.invalid) {
+        return;
+    }
 
-      this.loading = true;
-      if (this.isAddMode) {
-        this.createAdministrator();
+    this.loading = true;
+    if (this.isAddMode) {
+      this.createAdministrator();
     } else {
-        this.updateAdministrator();
+      this.updateAdministrator();
     }
   }
 
@@ -114,17 +107,10 @@ export class AddEditComponent implements OnInit {
 
     this.partnerService.create(data)
       .pipe(first())
-      .subscribe(/*() => {
+      .subscribe(() => {
         this.alertService.success(this.module+' cadastrado com sucesso', { keepAfterRouteChange: true });
         this.router.navigate(['../'], { relativeTo: this.route });
-      }*/
-      data => {
-        console.log('aqui')
-      },
-      error => {
-        console.log(error);
-      }
-      )
+      })
       .add(() => this.loading = false);
   }
 
