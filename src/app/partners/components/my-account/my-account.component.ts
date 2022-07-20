@@ -25,6 +25,7 @@ export class MyAccountComponent implements OnInit {
   email!: string;
   phone!: number;
   whatsapp!: number;
+  currentURL!: string;
 
 
   form!: FormGroup;
@@ -58,6 +59,7 @@ export class MyAccountComponent implements OnInit {
         bank_id: ['', Validators.nullValidator],
         agency: ['', Validators.nullValidator],
         checking_account: ['', Validators.nullValidator],
+        url: ['', Validators.nullValidator]
     });
 
     let hash_id = this.getUserHashId();
@@ -74,6 +76,7 @@ export class MyAccountComponent implements OnInit {
     this.form.controls['bank_id'].disable({onlySelf: true});
     this.form.controls['agency'].disable({onlySelf: true});
     this.form.controls['checking_account'].disable({onlySelf: true});
+    this.form.controls['url'].disable();
   }
 
   getUserHashId() {
@@ -97,8 +100,16 @@ export class MyAccountComponent implements OnInit {
 
     dataForm['agency'] = partner.agency;
     dataForm['checking_account'] = partner.checking_account;
+    dataForm['url'] = 'https://loja.easytoque.com.br/?___store=loja_'+partner.id;
     
     this.form.patchValue(dataForm);
+  }
+
+  copyLink(){
+    this.form.controls['url'].enable();
+    (<HTMLInputElement> document.getElementById("url")).select();
+    document.execCommand('copy');
+    this.form.controls['url'].disable();
   }
 
 }

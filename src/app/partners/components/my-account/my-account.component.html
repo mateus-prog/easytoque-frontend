@@ -82,6 +82,25 @@
                                         </div>
                                     </div> 
                                 </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="url">Link da Loja</label>
+                                            <input type="input" formControlName="url" class="form-control" id="url" 
+                                            placeholder="exemple.com/share" aria-label="exemple.com/share" aria-describedby="button-addon2" 
+                                            [value]="currentURL" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <button class="btn btn-primary" (click)="copyLink()">
+                                                <i class="fas fa-copy"></i> Copiar Link
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div> 
                         </form>
                     </div>
