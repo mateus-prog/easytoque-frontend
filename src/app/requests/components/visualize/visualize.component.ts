@@ -22,6 +22,7 @@ export class VisualizeComponent implements OnInit {
   status_request_id: string = '';
   reason?: string = '';
   hash_id: string = '';
+  invoice: string = '';
   selectedImage: any;
 
   title: string = '';
@@ -59,6 +60,8 @@ export class VisualizeComponent implements OnInit {
     this.status_request_id = request.status_request_id;
     this.reason = request.reason;
     this.hash_id = request.hash_id;
+
+    this.invoice = 'assets/comprovantes/'+request.id+'.pdf';
   }
 
   showModal(){
