@@ -17,7 +17,7 @@
             </div>
             <input type="{{typePassword}}" id="password" class="fadeIn third" formControlName="password" placeholder="Senha"
             [ngClass]="{ 'is-invalid': submitted && (f.password.errors || messageError != '') }">
-            <i id="buttonPassword" class="far {{iconPassword}}" (click)="showPassword()"></i>
+            <i id="buttonPassword" class="fadeIn third far {{iconPassword}}" (click)="showPassword()"></i>
             <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                 <div *ngIf="f.password.errors.required"><i class="fas fa-times"></i> Campo é obrigatório</div>
                 <div *ngIf="f.password.errors.minlength"><i class="fas fa-times"></i> Mínimo de 6 caracteres.</div>
@@ -30,7 +30,7 @@
 
         <!-- Remind Passowrd -->
         <div id="formFooter">
-            <a class="underlineHover" href="#">Esqueceu sua senha?</a>
+            <a class="underlineHover" routerLink="/login/forgotPassword" href="#">Esqueceu sua senha?</a>
         </div>
     </div>
 </div>
