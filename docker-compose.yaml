@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  #laravel:
+    #build:
+      #context: ./
+      #dockerfile: Dockerfile.laravel
+    #image: mguizelini/laravel:prod
+    #container_name: laravel
+    #working_dir: /var/www/
+    #volumes:
+        #- ./:/var/www
+    #tty: true
+    #networks:
+      #- easytoque-network
+
+  nginx:
+    image: nginx:1.17-alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d
+    tty: true
+    networks:
+      - easytoque-network
+
+networks:
+  easytoque-network:
+    driver: bridge
