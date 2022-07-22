@@ -8,27 +8,27 @@ import { LoginComponent } from 'src/app/login/components/login';
 import { ChangePasswordComponent } from 'src/app/login/components/change-password';
 import { ForgotPasswordComponent } from 'src/app/login/components/forgot-password';
 
-const administratorsModule = () => import('src/app/administrators/administrators.module').then(x => x.AdministratorsModule);
-const partnersModule = () => import('src/app/partners/partners.module').then(x => x.PartnersModule);
-const logsModule = () => import('src/app/logs/logs.module').then(x => x.LogsModule);
-const requestsModule = () => import('src/app/requests/requests.module').then(x => x.RequestsModule);
-const commissionsModule = () => import('src/app/commissions/commissions.module').then(x => x.CommissionsModule);
+const administratorsModule = () => import('src/app/administrators/administrators.module').then((x) => x.AdministratorsModule);
+const partnersModule = () => import('src/app/partners/partners.module').then((x) => x.PartnersModule);
+const logsModule = () => import('src/app/logs/logs.module').then((x) => x.LogsModule);
+const requestsModule = () => import('src/app/requests/requests.module').then((x) => x.RequestsModule);
+const commissionsModule = () => import('src/app/commissions/commissions.module').then((x) => x.CommissionsModule);
 
 const routes: Routes = [
-  { path: 'administrators', loadChildren: administratorsModule, canActivate: [AuthenticatedUserGuard] },
-  { path: 'partners', loadChildren: partnersModule, canActivate: [AuthenticatedUserGuard] },
+  { path: 'administrators', loadChildren: administratorsModule, canActivate: [AuthenticatedUserGuard], },
+  { path: 'partners', loadChildren: partnersModule, canActivate: [AuthenticatedUserGuard], },
   { path: 'partners/edit-bank-data/:id', component: EditBankDataComponent },
-  { path: 'logs', loadChildren: logsModule, canActivate: [AuthenticatedUserGuard] },
-  { path: 'requests', loadChildren: requestsModule, canActivate: [AuthenticatedUserGuard] },
-  { path: 'commissions', loadChildren: commissionsModule, canActivate: [AuthenticatedUserGuard] },
-  { path: 'login', component: LoginComponent },
+  { path: 'logs', loadChildren: logsModule, canActivate: [AuthenticatedUserGuard], },
+  { path: 'requests', loadChildren: requestsModule, canActivate: [AuthenticatedUserGuard], },
+  { path: 'commissions', loadChildren: commissionsModule, canActivate: [AuthenticatedUserGuard], },
   { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'login/forgotPassword', component: ForgotPasswordComponent },
   { path: 'login/changePassword', component: ChangePasswordComponent, canActivate: [AuthenticatedUserGuard] },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

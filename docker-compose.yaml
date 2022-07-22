@@ -1,13 +1,16 @@
-version: '3'
+version: "3"
 
 services:
   nginx:
-    image: nginx:1.15.0-alpine
+    build:
+      context: ./
+      dockerfile: Dockerfile.nginx
+    image: mguizelini/nginx:prod
     container_name: nginx
     ports:
       - 80:80
     volumes:
-      - ./:/var/www
+      # - ./:/var/www/frontend
       - ./docker/nginx:/etc/nginx/conf.d
     tty: true
     networks:
