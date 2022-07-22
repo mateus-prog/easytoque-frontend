@@ -6,6 +6,7 @@ import { AuthenticatedUserGuard } from '../service/authentication/authenticated-
 import { EditBankDataComponent } from 'src/app/partners/components/edit-bank-data';
 import { LoginComponent } from 'src/app/login/components/login';
 import { ChangePasswordComponent } from 'src/app/login/components/change-password';
+import { ForgotPasswordComponent } from 'src/app/login/components/forgot-password';
 
 const administratorsModule = () => import('src/app/administrators/administrators.module').then(x => x.AdministratorsModule);
 const partnersModule = () => import('src/app/partners/partners.module').then(x => x.PartnersModule);
@@ -21,6 +22,8 @@ const routes: Routes = [
   { path: 'requests', loadChildren: requestsModule, canActivate: [AuthenticatedUserGuard] },
   { path: 'commissions', loadChildren: commissionsModule, canActivate: [AuthenticatedUserGuard] },
   { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
+  { path: 'login/forgotPassword', component: ForgotPasswordComponent },
   { path: 'login/changePassword', component: ChangePasswordComponent, canActivate: [AuthenticatedUserGuard] },
 ];
 

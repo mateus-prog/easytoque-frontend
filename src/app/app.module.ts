@@ -19,6 +19,7 @@ import { ModalModule } from 'src/app/components/modal/modal.module';
 import { EditBankDataComponent } from 'src/app/partners/components/edit-bank-data';
 import { LoginComponent } from 'src/app/login/components/login';
 import { ChangePasswordComponent } from 'src/app/login/components/change-password';
+import { ForgotPasswordComponent } from 'src/app/login/components/forgot-password';
 import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
@@ -29,7 +30,8 @@ import { NgxMaskModule } from 'ngx-mask';
     SidebarComponent,
     EditBankDataComponent,
     LoginComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
