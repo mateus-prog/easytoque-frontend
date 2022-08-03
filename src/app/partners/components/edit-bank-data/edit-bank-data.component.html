@@ -127,10 +127,10 @@
                                     <div class="card-footer">
                                         <button [disabled]="loading" class="btn btn-success">
                                             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                                            <span>Salvar</span>
+                                            <i class="fas fa-save"></i> <span class="btn-icon-form">Salvar</span>
                                         </button>
                                         <button *ngIf="isAuthenticated()" class="btn btn-secondary">
-                                            <span href="javascript:void(0)" (click)="backClicked()">Voltar</span>
+                                            <i class="fas fa-undo-alt"></i> <span class="btn-icon-form" href="javascript:void(0)" (click)="backClicked()">Voltar</span>
                                         </button>
                                     </div>
                                 </form>
