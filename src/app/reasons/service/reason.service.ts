@@ -2,7 +2,7 @@ import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IReason } from 'src/app/reasons/IReason';
-import { AuthenticationService } from '../../../service/authentication/authentication.service';
+import { AuthenticationService } from 'src/service/authentication/authentication.service';
 
 const baseUrl = `${environment.API_PATH}/reasons`;
 

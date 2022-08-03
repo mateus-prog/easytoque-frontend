@@ -2,7 +2,7 @@ import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IAdministrator } from 'src/app/administrators/IAdministrator';
-import { AuthenticationService } from '../../../service/authentication/authentication.service';
+import { AuthenticationService } from 'src/service/authentication/authentication.service';
 
 const baseUrl = `${environment.API_PATH}/users`;
 

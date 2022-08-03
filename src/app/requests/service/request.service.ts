@@ -2,7 +2,8 @@ import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IRequest } from 'src/app/requests/IRequest';
-import { AuthenticationService } from '../../../service/authentication/authentication.service';
+import { IRequestUpload } from 'src/app/requests/IRequestUpload';
+import { AuthenticationService } from 'src/service/authentication/authentication.service';
 
 const baseUrl = `${environment.API_PATH}/requests`;
 
@@ -36,6 +37,12 @@ export class RequestService {
 
     update(id: number, request: any) {
         return this.httpClient.put<IRequest>(`${baseUrl}/${id}`, request, {
+            headers: this.auth.getAuthorizationHeader()
+        });
+    }
+
+    upload(id: any, request: any) {
+        return this.httpClient.put<IRequestUpload>(`${baseUrl}/${id}`, request, {
             headers: this.auth.getAuthorizationHeader()
         });
     }

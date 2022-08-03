@@ -7,7 +7,7 @@ import { IDocumentTemplate } from 'src/app/clicksign/IDocumentTemplate';
 import { ISignerDocument } from 'src/app/clicksign/ISignerDocument';
 import { INotificationMail } from 'src/app/clicksign/INotificationMail';
 
-import { AuthenticationService } from '../../../service/authentication/authentication.service';
+import { AuthenticationService } from 'src/service/authentication/authentication.service';
 
 const baseUrl = `${environment.API_PATH}/clickSign`;
 
