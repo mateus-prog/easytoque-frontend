@@ -6,7 +6,6 @@ import { NgxMaskModule } from 'ngx-mask';
 
 import { CommissionsRoutingModule } from './commissions-routing.module';
 import { ListComponent } from './components/list';
-//import { VisualizeComponent } from './components/visualize';
 
 import { AlertModule } from 'src/app/components/alert/alert.module';
 import { BreadcrumbModule } from 'src/app/components/breadcrumb/breadcrumb.module';
@@ -14,8 +13,7 @@ import { ModalModule } from 'src/app/components/modal/modal.module';
 
 @NgModule({
   declarations: [
-    ListComponent,
-    //VisualizeComponent
+    ListComponent
   ],
   imports: [
     CommonModule,
@@ -29,8 +27,7 @@ import { ModalModule } from 'src/app/components/modal/modal.module';
     NgxMaskModule.forRoot()
   ],
   exports:[
-    ListComponent,
-    //VisualizeComponent
+    ListComponent
   ]
 })
 

@@ -5,6 +5,8 @@ import { first } from 'rxjs/operators';
 import { AlertService } from 'src/app/components/alert/service/alert.service';
 import { RequestService } from 'src/app/requests/service/request.service';
 
+import { IRequest } from 'src/app/requests/IRequest';
+
 @Component({
   selector: 'app-visualize',
   templateUrl: './visualize.component.html',
@@ -70,7 +72,21 @@ export class VisualizeComponent implements OnInit {
     this.title = 'Preencha o Motivo';
   }
 
+  showModalUpload(){
+    this.buttonCancel = 'Cancelar';
+    this.buttonConfirm = 'Upload';
+    this.title = 'Anexe o comprovante da solicitação';
+  }
+
   async confirmReason(confirm: boolean){
+    if(confirm){
+
+      //await this.requestService.updateRequest(this.id, dataForm).toPromise();
+      //this.listSubscriptions();
+    }
+  }
+
+  async confirmUpload(confirm: boolean){
     if(confirm){
 
       //await this.requestService.updateRequest(this.id, dataForm).toPromise();
@@ -93,17 +109,5 @@ export class VisualizeComponent implements OnInit {
       })
       .add();
   }
-
-  /*onSelectImage(event: any) {
-    this.selectedImage = new FormData();
-    this.selectedImage.append('file', event.srcElement.files[0], event.srcElement.files[0].name);
-    console.log(this.selectedImage);
-  }
-
-  onCreateService(form: FormGroup) {
-    const formData = new FormData();
-    formData.append('image', this.selectedImage, this.selectedImage.name);
-   console.log(formData);
-  }*/
 
 }

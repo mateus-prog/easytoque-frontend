@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AlertService } from 'src/app/components/alert/service/alert.service';
 import { LoginService } from 'src/app/login/service/login.service';
-import { AuthenticationService } from '../../../../service/authentication/authentication.service'
+import { AuthenticationService } from 'src/service/authentication/authentication.service';
 import { MenuService } from 'src/app/template/sidebar/service/menu.service';
 
 import { IMenu } from 'src/app/template/sidebar/IMenu';
