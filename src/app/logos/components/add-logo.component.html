@@ -1,0 +1,70 @@
+<div class="content-wrapper">
+    <breadcrumb [action]="breadcrumbAction" [module]="breadcrumbModule">
+    </breadcrumb>
+    <!-- /.content-header -->
+    <alert></alert>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-secondary">
+                        <!-- form start -->
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="form-control" formControlName="url_logo" id="formFileSm"
+                                                    (change)="handleFileInput($event)">
+                                                    <label class="custom-file-label" for="formFileSm">{{fileName}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="permission">Tamanho máximo de {{transformMegaBytes()}}Mb (extensões permitidas {{extensionAllowedUploadMessage}})</p>
+                                    </div>
+                                    <!--<div *ngIf="submitted" class="row">
+                                        <div class="col-md-12">
+                                            <div *ngIf="hideMessageSizeUpload" class="text-invalid">
+                                                <div>Selecione um logo com no máximo {{transformMegaBytes()}} Mb.</div>
+                                            </div>
+                                            <div *ngIf="!hideMessageExtensionUpload" class="text-invalid">
+                                                <div>Selecione uma logo conforme as extensões permitidas ({{extensionAllowedUploadMessage}}).</div>
+                                            </div>
+                                            <div *ngIf="hideMessageVerifyUpload || hideMessageMinimumUpload || hideMessageMaximumUpload" class="text-invalid">
+                                                <div>Selecione um logo.</div>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                </div>
+                                <div class="image-logo">
+                                    <img [src]="url_logo">
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                            
+                            <div class="card-footer">
+                                <button [disabled]="loading" class="btn btn-primary">
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                    <i class="fas fa-upload"></i> <span class="btn-icon-form">Upload</span>
+                                </button>
+                                <button *ngIf="hideButtonRemoveLogo" type="button" class="btn btn-danger" (click)="removeLogo()">
+                                    <i class="fas fa-trash-alt"></i> <span class="btn-icon-form">Deletar</span>
+                                </button>
+                                <button class="btn btn-secondary">
+                                    <i class="fas fa-undo-alt"></i> <span class="btn-icon-form" href="javascript:void(0)" (click)="backClicked()">Voltar</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

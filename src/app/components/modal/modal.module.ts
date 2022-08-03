@@ -5,9 +5,9 @@ import { ModalConfirmComponent } from 'src/app/components/modal/components/modal
 import { ModalResponsibleComponent } from 'src/app/components/modal/components/modal-responsible';
 import { ModalCorporateComponent } from 'src/app/components/modal/components/modal-corporate';
 import { ModalBankComponent } from 'src/app/components/modal/components/modal-bank';
-import { ModalRequestComponent } from 'src/app/components/modal/components/modal-request';
 import { ModalReasonComponent } from 'src/app/components/modal/components/modal-reason';
 import { ModalUserBlockedComponent } from 'src/app/components/modal/components/modal-user-blocked';
+import { ModalUploadComponent } from 'src/app/components/modal/components/modal-upload';
 
 @NgModule({
   declarations: [
@@ -15,9 +15,9 @@ import { ModalUserBlockedComponent } from 'src/app/components/modal/components/m
     ModalResponsibleComponent,
     ModalCorporateComponent,
     ModalBankComponent,
-    ModalRequestComponent,
     ModalReasonComponent,
-    ModalUserBlockedComponent
+    ModalUserBlockedComponent,
+    ModalUploadComponent
   ],
   imports: [
     CommonModule
@@ -27,9 +27,9 @@ import { ModalUserBlockedComponent } from 'src/app/components/modal/components/m
     ModalResponsibleComponent,
     ModalCorporateComponent,
     ModalBankComponent,
-    ModalRequestComponent,
     ModalReasonComponent,
-    ModalUserBlockedComponent
+    ModalUserBlockedComponent,
+    ModalUploadComponent
   ]
 })
 

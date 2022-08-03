@@ -1,0 +1,41 @@
+<div class="modal fade" [id]="id" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="modalLabel">
+          <strong>{{title}}</strong>
+        </h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="input-group">
+                      <div class="custom-file">
+                          <input type="file" class="form-control" formControlName="url_invoice" id="formFileSm"
+                          (change)="handleFileInput($event)">
+                          <label class="custom-file-label" for="formFileSm">{{fileName}}</label>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <p class="permission">Tamanho máximo de {{transformMegaBytes()}}Mb (extensões permitidas {{extensionAllowedUploadMessage}})</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="cancelModal()" class="btn btn-sm btn-secondary" data-dismiss="modal">
+          {{buttonCancel}}
+        </button>
+        <button (click)="confirmModal()" class="btn btn-sm btn-success" data-dismiss="modal">
+          <!--[disabled]="disabled"-->
+          {{buttonConfirm}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
