@@ -17,6 +17,11 @@ export class ChangePasswordComponent implements OnInit {
   loading = false;
   submitted = false;
 
+  typePassword!: string;
+  iconPassword!: string;
+  typePasswordConfirmed!: string;
+  iconPasswordConfirmed!: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private alertService: AlertService,
@@ -30,6 +35,9 @@ export class ChangePasswordComponent implements OnInit {
   breadcrumbAction: string = 'Trocar Senha';
 
   ngOnInit() {
+
+    this.typePassword = this.typePasswordConfirmed = 'password';
+    this.iconPassword = this.iconPasswordConfirmed = 'fa-eye-slash';
 
     const formOptions: AbstractControlOptions = { validators: MustMatch('password', 'confirmPassword') };
     this.form = this.formBuilder.group({
@@ -60,6 +68,26 @@ export class ChangePasswordComponent implements OnInit {
           this.loading = false;
         }
       );
+  }
+
+  showPassword(){
+    if(this.typePassword === 'text'){
+      this.iconPassword = 'fa-eye-slash';
+      this.typePassword = 'password';
+    }else{
+      this.iconPassword = 'fa-eye';
+      this.typePassword = 'text';
+    }
+  }
+
+  showPasswordConfirmed(){
+    if(this.typePasswordConfirmed === 'text'){
+      this.iconPasswordConfirmed = 'fa-eye-slash';
+      this.typePasswordConfirmed = 'password';
+    }else{
+      this.iconPasswordConfirmed = 'fa-eye';
+      this.typePasswordConfirmed = 'text';
+    }
   }
   
 }
