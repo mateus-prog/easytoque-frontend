@@ -147,7 +147,12 @@ export class EditBankDataComponent implements OnInit {
     this.partnerBankService.update(id, data)
         .pipe(first())
         .subscribe(() => {
-          this.isAlter = true;
+
+          if(!this.isAuthenticated()){ 
+            this.isAlter = true; 
+          }else{
+            this.alertService.success('Dados Bancários atualizado com sucesso');
+          }
           
           this.clicksignService.createSigner(this.idPartner)
           .subscribe();
