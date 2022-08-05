@@ -28,7 +28,7 @@
                                         <div class="col-md-6">
                                             <label for="cnpj">CNPJ</label>
                                             <input type="input" formControlName="cnpj" class="form-control" autocomplete="off" maxlength="18" placeholder="CNPJ"
-                                            mask="00.000.000/0000-00" 
+                                            mask="00.000.000/0000-00" appCpfCnpjValidate 
                                             [ngClass]="{ 'is-invalid': submitted && f.cnpj.errors }" />
                                             <div *ngIf="submitted && f.cnpj.errors" class="invalid-feedback">
                                                 <div *ngIf="f.cnpj.errors.required"><i class="fas fa-times"></i> Campo é obrigatório</div>
