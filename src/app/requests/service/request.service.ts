@@ -42,7 +42,7 @@ export class RequestService {
     }
 
     upload(id: any, request: any) {
-        return this.httpClient.put<IRequestUpload>(`${baseUrl}/${id}`, request, {
+        return this.httpClient.post<IRequestUpload>(`${baseUrl}/upload`, request, {
             headers: this.auth.getAuthorizationHeader()
         });
     }
