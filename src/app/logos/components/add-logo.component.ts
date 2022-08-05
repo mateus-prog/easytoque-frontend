@@ -24,8 +24,9 @@ export class AddLogoComponent implements OnInit {
 
   file!: File | null;
   fileName!: string;
-
-  hideButtonRemoveLogo!: boolean;
+  isUpload!: boolean;
+  disabledUploadLogo!: boolean;
+  disabledRemoveLogo!: boolean;
   
   form!: FormGroup;
   loading = false;
@@ -35,11 +36,9 @@ export class AddLogoComponent implements OnInit {
   extensionAllowedUpload: string[] = ['jpg', 'jpeg', 'png'];
   extensionAllowedUploadMessage!: string[];
   
-  hideMessageSizeUpload: boolean = false;
-  hideMessageExtensionUpload: boolean = true;
-  hideMessageMaximumUpload: boolean = false;
-  hideMessageMinimumUpload: boolean = false;
-  hideMessageVerifyUpload: boolean = true;
+  hideMessageSizeUpload!: boolean;
+  hideMessageExtensionUpload!: boolean;
+  hideMessageVerifyUpload!: boolean;
 
   module: string = 'Logo';
   breadcrumbModule:string = this.module;
@@ -56,9 +55,14 @@ export class AddLogoComponent implements OnInit {
   ) { }
 
   async ngOnInit(){
-    
+    this.hideMessageVerifyUpload = true;
+    this.hideMessageSizeUpload = false;
+    this.hideMessageExtensionUpload = false;
+    this.isUpload = false;
+    this.disabledUploadLogo = true;
+
     this.form = this.formBuilder.group({
-      url_logo: ['', Validators.required]
+      url_logo: ['', Validators.nullValidator]
     });
 
     this.extensionAllowedUploadMessage = this.extensionAllowedUpload.map(
@@ -76,7 +80,7 @@ export class AddLogoComponent implements OnInit {
   }
 
   verifyLogo(){
-    this.hideButtonRemoveLogo = this.url_logo.indexOf('logo_default.png') == -1 ? true : false;
+    this.disabledRemoveLogo = this.url_logo.indexOf('logo_default.png') == -1 ? false : true;
   }
 
   // convenience getter for easy access to form fields
@@ -89,13 +93,13 @@ export class AddLogoComponent implements OnInit {
       this.alertService.clear();
 
       // stop here if form is invalid
-      if (this.form.invalid) {
-      //if(this.hideMessageVerifyUpload || this.hideMessageExtensionUpload
-      //|| this.hideMessageMinimumUpload || this.hideMessageMaximumUpload){    
+      if(this.hideMessageVerifyUpload || this.hideMessageSizeUpload || this.hideMessageExtensionUpload)
+      {
         return;
       }
 
       this.loading = true;
+      this.disabledUploadLogo = true;
       this.createLogo();
   }
 
@@ -114,37 +118,34 @@ export class AddLogoComponent implements OnInit {
   }
 
   handleFileInput(event: any) {
-    this.hideMessageVerifyUpload = true;
-    this.hideMessageExtensionUpload = false;
-
     if (event.target.files && event.target.files[0]) {
+      this.isUpload = true;
       this.file = event.target.files[0];
       this.fileName = event.target.files[0].name;
 
-      if(event.target.files[0].type && event.target.files[0].type.split('/')[0] == ["image"]){
-        
-        this.extensionAllowedUpload.forEach(data =>{
-          event.target.files[0].type.split('/')[1] == data ? this.hideMessageExtensionUpload = true : '';
-        });
-        
-        this.hideMessageSizeUpload = event.target.files[0].size < this.maximumSizeUpload ? false : true;
-      }
-
-      this.hideMessageVerifyUpload = false;
+      this.checkFileType(event);
+      this.checkFileSize(event.target.files[0].size);
     }
 
-    this.hideMessageUpload(event.target.files.length);
+    this.checkNumberOfFiles(event.target.files.length);
+    this.disabledUploadLogo = this.hideMessageVerifyUpload || this.hideMessageSizeUpload || this.hideMessageExtensionUpload ? true : false;
   }
 
-  private hideMessageUpload(countFile: number){
-    this.hideMessageMinimumUpload = false;
-    this.hideMessageMaximumUpload = false;
+  private checkNumberOfFiles(countFile: number){
+    this.hideMessageVerifyUpload = countFile != 1 ? true : false;
+  }
 
-    if(countFile == 0){
-      this.hideMessageMinimumUpload = true;
-    }else if(countFile > 1){
-      this.hideMessageMaximumUpload = true;
+  private checkFileType(event: any){
+    this.hideMessageExtensionUpload = true;
+    if(event.target.files[0].type && event.target.files[0].type.split('/')[0] == ["image"]){
+      this.extensionAllowedUpload.forEach(data =>{
+        event.target.files[0].type.split('/')[1] == data ? this.hideMessageExtensionUpload = false : '';
+      });
     }
+  }
+
+  private checkFileSize(fileSize: any){
+    this.hideMessageSizeUpload = fileSize < this.maximumSizeUpload ? false : true;
   }
 
   private createLogo() {
@@ -157,6 +158,7 @@ export class AddLogoComponent implements OnInit {
             this.alertService.success(this.module+' atualizado com sucesso');
         })
         .add(() => this.loading = false);
+    this.disabledUploadLogo = true;
   }
 
   removeLogo() {
@@ -165,8 +167,7 @@ export class AddLogoComponent implements OnInit {
         .subscribe(data => {
           this.getLogo(data);
           this.alertService.success(this.module+' removido com sucesso');
-        })
-        .add(() => this.loading = false);
+        });
   }
 
   private getLogo(data: any){

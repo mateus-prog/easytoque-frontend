@@ -29,19 +29,19 @@
                                     <div class="form-group">
                                         <p class="permission">Tamanho máximo de {{transformMegaBytes()}}Mb (extensões permitidas {{extensionAllowedUploadMessage}})</p>
                                     </div>
-                                    <!--<div *ngIf="submitted" class="row">
+                                    <div *ngIf="isUpload" class="row">
                                         <div class="col-md-12">
-                                            <div *ngIf="hideMessageSizeUpload" class="text-invalid">
-                                                <div>Selecione um logo com no máximo {{transformMegaBytes()}} Mb.</div>
+                                            <div *ngIf="hideMessageVerifyUpload" class="text-invalid">
+                                                <i class="fas fa-times"></i> Selecione um arquivo com extensão ({{extensionAllowedUploadMessage}}).
                                             </div>
-                                            <div *ngIf="!hideMessageExtensionUpload" class="text-invalid">
-                                                <div>Selecione uma logo conforme as extensões permitidas ({{extensionAllowedUploadMessage}}).</div>
+                                            <div *ngIf="!hideMessageVerifyUpload && hideMessageSizeUpload" class="text-invalid">
+                                                <i class="fas fa-times"></i> Tamanho máximo de arquivo {{transformMegaBytes()}} Mb.
                                             </div>
-                                            <div *ngIf="hideMessageVerifyUpload || hideMessageMinimumUpload || hideMessageMaximumUpload" class="text-invalid">
-                                                <div>Selecione um logo.</div>
+                                            <div *ngIf="!hideMessageVerifyUpload && !hideMessageSizeUpload && hideMessageExtensionUpload" class="text-invalid">
+                                                <i class="fas fa-times"></i> Extensão inválida
                                             </div>
                                         </div>
-                                    </div>-->
+                                    </div>
                                 </div>
                                 <div class="image-logo">
                                     <img [src]="url_logo">
@@ -50,11 +50,11 @@
                             <!-- /.card-body -->
                             
                             <div class="card-footer">
-                                <button [disabled]="loading" class="btn btn-primary">
+                                <button [disabled]="disabledUploadLogo" class="btn btn-primary">
                                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                                     <i class="fas fa-upload"></i> <span class="btn-icon-form">Upload</span>
                                 </button>
-                                <button *ngIf="hideButtonRemoveLogo" type="button" class="btn btn-danger" (click)="removeLogo()">
+                                <button type="button" class="btn btn-danger" (click)="removeLogo()" [disabled]="disabledRemoveLogo">
                                     <i class="fas fa-trash-alt"></i> <span class="btn-icon-form">Deletar</span>
                                 </button>
                                 <button class="btn btn-secondary">
