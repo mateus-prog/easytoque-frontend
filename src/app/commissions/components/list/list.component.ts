@@ -23,6 +23,7 @@ export class ListComponent implements OnInit {
     whatsapp: '',
     status_user_id: '',
     hash_id: '',
+    url_invoice: '',
   };
 
   id: string = '';

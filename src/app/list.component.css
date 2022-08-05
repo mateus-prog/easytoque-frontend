@@ -74,3 +74,8 @@ select.input {
     color: #f44336;
     font-weight: bold;
 }
+
+.link-download{
+    color: #000000;
+    text-decoration: none;
+}

@@ -25,13 +25,27 @@
           <div class="form-group">
               <p class="permission">Tamanho máximo de {{transformMegaBytes()}}Mb (extensões permitidas {{extensionAllowedUploadMessage}})</p>
           </div>
+          <div *ngIf="isUpload" class="row">
+            <div class="col-md-12">
+                <div *ngIf="hideMessageVerifyUpload" class="text-invalid">
+                    <i class="fas fa-times"></i> Selecione um arquivo com extensão ({{extensionAllowedUploadMessage}}).
+                </div>
+                <div *ngIf="!hideMessageVerifyUpload && hideMessageSizeUpload" class="text-invalid">
+                    <i class="fas fa-times"></i> Tamanho máximo de arquivo {{transformMegaBytes()}} Mb.
+                </div>
+                <div *ngIf="!hideMessageVerifyUpload && !hideMessageSizeUpload && hideMessageExtensionUpload" class="text-invalid">
+                    <i class="fas fa-times"></i> Extensão inválida
+                </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
         <button (click)="cancelModal()" class="btn btn-sm btn-secondary" data-dismiss="modal">
           {{buttonCancel}}
         </button>
-        <button (click)="confirmModal()" class="btn btn-sm btn-success" data-dismiss="modal">
+        <button (click)="confirmModal()" class="btn btn-sm btn-success" data-dismiss="modal"
+        [disabled]="disabledUploadLogo">
           <!--[disabled]="disabled"-->
           {{buttonConfirm}}
         </button>

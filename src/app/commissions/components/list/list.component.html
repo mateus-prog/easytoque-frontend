@@ -75,7 +75,8 @@
                                         <th style="width: 20%; text-align: center;">Data</th>
                                         <th style="width: 20%; text-align: center;">Status da Solicitação</th>
                                         <th style="width: 20%; text-align: right;">Valor da Comissão</th>
-                                        <th style="width: 30%;"></th>
+                                        <th style="width: 5%;"></th>
+                                        <th style="width: 25%;"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -86,12 +87,21 @@
                                             <span class="status-request badge bg-{{request.color}}">{{request.status_request_id}}</span>
                                         </td>
                                         <td align="right">{{request.value}}</td>
-                                        <td align="center">
-                                            
+                                        <td></td>
+                                        <td *ngIf="request.status_request_id == 'Pago'" align="left">
+                                            <a href="{{request.url_invoice}}" target="_new" class="link-download">
+                                                <i class="fas fa-download"></i> Comprovante
+                                            </a>
+                                        </td>
+                                        <td *ngIf="request.status_request_id == 'Negado'" align="left">
+                                            <i class="fas fa-question-circle"></i> Motivo
+                                        </td>
+                                        <td *ngIf="request.status_request_id == 'Aguardando' || request.status_request_id == 'Aprovado'" align="center">
+
                                         </td>
                                     </tr>
                                     <tr *ngIf="!requests">
-                                        <td colspan="5" class="text-center">
+                                        <td colspan="6" class="text-center">
                                             <span class="spinner-border spinner-border-lg align-center"></span>
                                         </td>
                                     </tr>
