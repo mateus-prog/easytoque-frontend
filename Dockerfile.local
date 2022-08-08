@@ -1,0 +1,6 @@
+FROM node:14.17.4
+WORKDIR /angular
+COPY . .
+RUN cp dev-entrypoint.sh /usr/local/bin/dev-entrypoint
+RUN chmod 777 /usr/local/bin/dev-entrypoint
+EXPOSE 4200
