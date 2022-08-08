@@ -1,6 +1,9 @@
 FROM node:14.17.4
+RUN npm install -g @angular/cli
 WORKDIR /angular
 COPY . .
-RUN cp dev-entrypoint.sh /usr/local/bin/dev-entrypoint
+RUN mv ./dev-entrypoint.sh /usr/local/bin/dev-entrypoint
 RUN chmod 777 /usr/local/bin/dev-entrypoint
-EXPOSE 4200
+USER node
+EXPOSE 4200 49153
+# Ref.: https://itnext.io/docker-development-environment-angular-full-guide-a38ee34fb651
