@@ -15,6 +15,7 @@ import { SidebarComponent } from 'src/app/template/sidebar';
 
 import { AlertModule } from 'src/app/components/alert/alert.module';
 import { ModalModule } from 'src/app/components/modal/modal.module';
+import { WidgetModule } from 'src/app/widgets/widgets.module';
 //import { RangeDatepickerModule } from 'src/app/components/range-datepicker/range-datepicker.module';
 
 import { EditBankDataComponent } from 'src/app/partners/components/edit-bank-data';
@@ -25,6 +26,7 @@ import { ForgotPasswordComponent } from 'src/app/login/components/forgot-passwor
 import { AddLogoComponent } from 'src/app/logos/components/add-logo.component';
 
 import { NgxMaskModule } from 'ngx-mask';
+
 
 @NgModule({
   declarations: [
@@ -47,8 +49,8 @@ import { NgxMaskModule } from 'ngx-mask';
     //RecaptchaModule,
     ModalModule,
     BreadcrumbModule,
-    NgxMaskModule.forRoot()//,
-    //RangeDatepickerModule
+    WidgetModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

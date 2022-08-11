@@ -15,6 +15,8 @@ const partnersModule = () => import('src/app/partners/partners.module').then((x)
 const logsModule = () => import('src/app/logs/logs.module').then((x) => x.LogsModule);
 const requestsModule = () => import('src/app/requests/requests.module').then((x) => x.RequestsModule);
 const commissionsModule = () => import('src/app/commissions/commissions.module').then((x) => x.CommissionsModule);
+const salesModule = () => import('src/app/sales/sales.module').then((x) => x.SalesModule);
+const withdrawModule = () => import('src/app/withdraw/withdraw.module').then((x) => x.WithdrawModule);
 
 const routes: Routes = [
   { path: 'administrators', loadChildren: administratorsModule, canActivate: [AuthenticatedUserGuard], },
@@ -23,6 +25,8 @@ const routes: Routes = [
   { path: 'logs', loadChildren: logsModule, canActivate: [AuthenticatedUserGuard], },
   { path: 'requests', loadChildren: requestsModule, canActivate: [AuthenticatedUserGuard], },
   { path: 'commissions', loadChildren: commissionsModule, canActivate: [AuthenticatedUserGuard], },
+  { path: 'sales', loadChildren: salesModule, canActivate: [AuthenticatedUserGuard], },
+  { path: 'withdraw', loadChildren: withdrawModule, canActivate: [AuthenticatedUserGuard], },
   { path: 'addLogo', component: AddLogoComponent, canActivate: [AuthenticatedUserGuard], },
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
