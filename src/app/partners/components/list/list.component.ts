@@ -163,10 +163,10 @@ export class ListComponent implements OnInit {
      this.title = corporate.first_name + ' ' + corporate.last_name;
   }
 
-  async showModalBank(bank: any){
-    let response = await this.partnerBankService.getByUser(bank.id).toPromise();
+  async showModalBank(partner: any){
+    let response = await this.partnerBankService.getByUser(partner.id).toPromise();
     this.currentBank = response[0];
-    this.title = bank.first_name + ' ' + bank.last_name;
+    this.title = partner.first_name + ' ' + partner.last_name;
   }
 
 
