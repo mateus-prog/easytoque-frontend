@@ -41,8 +41,20 @@ export class RequestService {
         });
     }
 
-    upload(id: any, request: any) {
-        return this.httpClient.post<IRequestUpload>(`${baseUrl}/upload`, request, {
+    uploadProof(id: any, request: any) {
+        return this.httpClient.post<IRequestUpload>(`${baseUrl}/upload/proof`, request, {
+            headers: this.auth.getAuthorizationHeader()
+        });
+    }
+
+    uploadInvoice(id: any, request: any) {
+        return this.httpClient.post<IRequestUpload>(`${baseUrl}/upload/invoice`, request, {
+            headers: this.auth.getAuthorizationHeader()
+        });
+    }
+
+    getRequestStore(type: string) {
+        return this.httpClient.get<any>(`${baseUrl}/store/${type}`, {
             headers: this.auth.getAuthorizationHeader()
         });
     }

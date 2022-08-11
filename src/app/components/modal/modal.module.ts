@@ -8,6 +8,7 @@ import { ModalBankComponent } from 'src/app/components/modal/components/modal-ba
 import { ModalReasonComponent } from 'src/app/components/modal/components/modal-reason';
 import { ModalUserBlockedComponent } from 'src/app/components/modal/components/modal-user-blocked';
 import { ModalUploadComponent } from 'src/app/components/modal/components/modal-upload';
+import { ModalTermSalesComponent } from 'src/app/components/modal/components/modal-term-sales';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ModalUploadComponent } from 'src/app/components/modal/components/modal-
     ModalBankComponent,
     ModalReasonComponent,
     ModalUserBlockedComponent,
-    ModalUploadComponent
+    ModalUploadComponent,
+    ModalTermSalesComponent
   ],
   imports: [
     CommonModule
@@ -29,7 +31,8 @@ import { ModalUploadComponent } from 'src/app/components/modal/components/modal-
     ModalBankComponent,
     ModalReasonComponent,
     ModalUserBlockedComponent,
-    ModalUploadComponent
+    ModalUploadComponent,
+    ModalTermSalesComponent
   ]
 })
 

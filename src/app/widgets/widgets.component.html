@@ -1,0 +1,36 @@
+
+<div class="row">
+    <div class="col-lg-6 col-12">
+        <div class="small-box bg-info">
+            <!--<div *ngIf="loadingTotal" class="overlay dark">
+                <i class="fas fa-3x fa-sync-alt"></i>
+            </div>-->
+            <div class="inner">
+                <h3>{{salesTotal.countApproved}}</h3>
+                <p>Vendas aprovadas em {{salesTotal.dateApproved}}</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-12">
+        <div class="small-box bg-success">
+            <!--<div *ngIf="loadingActive" class="overlay dark">
+                <i class="fas fa-3x fa-sync-alt"></i>
+            </div>-->
+            <div class="inner">
+                <h3>{{salesTotal.salesApproved}}</h3>
+                <p>Comissões em {{salesTotal.dateApproved}}</p>                
+            </div>
+            <div class="icon">
+                <i class="fas fa-hand-holding-usd"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!salesTotal.isApproved" class="alert alert-warning alert-dismissible fontSizeAlert">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <h5><i class="icon fas fa-info"></i> Alerta!</h5>
+    Para sacar a comissão o valor minimo é de R$ 50,00
+</div>
