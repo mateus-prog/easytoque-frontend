@@ -79,3 +79,23 @@ select.input {
     color: #000000;
     text-decoration: none;
 }
+
+h6{
+    margin-bottom: 0;
+}
+
+.space-top{
+    padding-top:  10px;
+}
+
+.span-result, .fontSizeAlert{
+    font-size: 13px !important;
+}
+
+.link-sales{
+    text-align: right;
+    text-decoration: underline;
+    color: #000 !important;
+    cursor: pointer;
+    font-size: 12px;
+}
