@@ -10,6 +10,7 @@ import { ListComponent } from './components/list';
 import { AlertModule } from 'src/app/components/alert/alert.module';
 import { BreadcrumbModule } from 'src/app/components/breadcrumb/breadcrumb.module';
 import { ModalModule } from 'src/app/components/modal/modal.module';
+import { WidgetModule } from 'src/app/widgets/widgets.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ModalModule } from 'src/app/components/modal/modal.module';
     AlertModule,
     ModalModule,
     BreadcrumbModule,
+    WidgetModule,
     NgxMaskModule.forRoot()
   ],
   exports:[
