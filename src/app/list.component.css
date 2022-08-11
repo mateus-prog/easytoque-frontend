@@ -99,3 +99,13 @@ h6{
     cursor: pointer;
     font-size: 12px;
 }
+
+.custom-control-label{
+    font-size: 14px;
+    font-weight: 400;
+    padding-right: 5px;
+}
+
+.btn-icon-form{
+    padding-left: 5px;
+}
