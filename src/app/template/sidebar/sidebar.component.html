@@ -16,7 +16,11 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
         <li *ngFor="let menu of menus" class="nav-item">
-          <a routerLink="/{{menu.url}}" routerLinkActive="active" class="nav-link">
+          <a *ngIf="menu.id != 5" routerLink="/{{menu.url}}" routerLinkActive="active" class="nav-link">
+            <i class="nav-icon {{menu.icon}}"></i>
+            <p>{{menu.name}}</p>
+          </a>
+          <a *ngIf="menu.id == 5" href="{{menu.url}}" target="_new" class="nav-link">
             <i class="nav-icon {{menu.icon}}"></i>
             <p>{{menu.name}}</p>
           </a>
