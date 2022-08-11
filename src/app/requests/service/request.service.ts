@@ -34,7 +34,7 @@ export class RequestService {
             headers: this.auth.getAuthorizationHeader()
         });
     }
-
+    
     update(id: number, request: any) {
         return this.httpClient.put<IRequest>(`${baseUrl}/${id}`, request, {
             headers: this.auth.getAuthorizationHeader()
@@ -47,8 +47,8 @@ export class RequestService {
         });
     }
 
-    uploadInvoice(id: any, request: any) {
-        return this.httpClient.post<IRequestUpload>(`${baseUrl}/upload/invoice`, request, {
+    uploadInvoice(formData: any) {
+        return this.httpClient.post<IRequestUpload>(`${baseUrl}/upload/invoice`, formData, {
             headers: this.auth.getAuthorizationHeader()
         });
     }

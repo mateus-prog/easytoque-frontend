@@ -63,7 +63,7 @@ export class VisualizeComponent implements OnInit {
     this.reason = request.reason;
     this.hash_id = request.hash_id;
 
-    this.invoice = 'assets/comprovantes/'+request.id+'.pdf';
+    this.invoice = request.url_invoice;
   }
 
   showModal(){

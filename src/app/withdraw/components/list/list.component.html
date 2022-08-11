@@ -12,63 +12,101 @@
                 <div class="col-md-12">
                     <!-- general form elements -->
                     <div class="card card-secondary">
-                        <div class="card-body">
-                            <h5>Solicitações de Saque</h5>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h6>Saldo Disponível</h6>
-                                        <span class="span-result">R$ {{salesTotal.salesApproved}}</span>
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                            <div class="card-body">
+                                <h5>Solicitações de Saque</h5>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h6>Saldo Disponível</h6>
+                                            <span class="span-result">R$ {{salesTotal.salesApproved}}</span>
+                                        </div>
                                     </div>
                                 </div>
+                                <h5>Próxima remessa de saque</h5>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p class="span-result">Você deve solicitar o saque até às 10hrs (horário de Brasilia, DF) de {{salesTotal.date}}
+                                            <br>Após aprovado e confirmada a solicitação de saque você receberá o valor em {{salesTotal.date}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5>Onde vou receber?</h5>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h6>Banco</h6>
+                                            <span class="span-result">{{dataBank.bank_id}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 space-top">
+                                            <h6>Agência</h6>
+                                            <span class="span-result">{{dataBank.agency}}</span>
+                                        </div>
+                                        <div class="col-md-6 space-top">
+                                            <h6>Número da Conta</h6>
+                                            <span class="span-result">{{dataBank.checking_account}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 space-top">
+                                            <h6>CPF/CNPJ do Titular</h6>
+                                            <span class="span-result">{{corporate.cnpj}}</span>
+                                        </div>
+                                        <!--<div class="col-md-6 space-top">
+                                            <h6>Tipo de Transferencia</h6>
+                                            <span class="span-result">{{dataBank.bank_id}}</span>
+                                        </div>-->
+                                    </div>
+                                </div>
+                                <h5>Nota Fiscal de Serviço</h5>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="form-control" formControlName="url_logo" id="formFileSm"
+                                                    (change)="handleFileInput($event)">
+                                                    <label class="custom-file-label" for="formFileSm">{{fileName}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="permission">Tamanho máximo de {{transformMegaBytes()}}Mb (extensões permitidas {{extensionAllowedUploadMessage}})</p>
+                                    </div>
+                                    <div *ngIf="isUpload" class="row">
+                                        <div class="col-md-12">
+                                            <div *ngIf="hideMessageVerifyUpload" class="text-invalid">
+                                                <i class="fas fa-times"></i> Selecione um arquivo com extensão ({{extensionAllowedUploadMessage}}).
+                                            </div>
+                                            <div *ngIf="!hideMessageVerifyUpload && hideMessageSizeUpload" class="text-invalid">
+                                                <i class="fas fa-times"></i> Tamanho máximo de arquivo {{transformMegaBytes()}} Mb.
+                                            </div>
+                                            <div *ngIf="!hideMessageVerifyUpload && !hideMessageSizeUpload && hideMessageExtensionUpload" class="text-invalid">
+                                                <i class="fas fa-times"></i> Extensão inválida
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input class="custom-control-input" type="checkbox" id="customCheckbox1" (click)="checkTerm()">
+                                        <label for="customCheckbox1" class="custom-control-label">Li e concordo com os termos ao lado </label>
+                                        <i class="fas fa-list" data-toggle="modal" data-target="#modalTermSales"></i>
+                                    </div>
+                                </div>
+
                             </div>
-                            <h5>Próxima remessa de saque</h5>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <p class="span-result">Você deve solicitar o saque até às 10hrs (horário de Brasilia, DF) de {{salesTotal.date}}
-                                        <br>Após aprovado e confirmada a solicitação de saque você receberá o valor em {{salesTotal.date}}</p>
-                                    </div>
-                                </div>
+                            <div class="card-footer">
+                                <button [disabled]="disabledUpload" class="btn btn-success">
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                    <i class="fas fa-save"></i> <span class="btn-icon-form">Solicitar Saque</span>
+                                </button>
                             </div>
-                            <h5>Onde vou receber?</h5>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h6>Banco</h6>
-                                        <span class="span-result">{{dataBank.bank_id}}</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 space-top">
-                                        <h6>Agência</h6>
-                                        <span class="span-result">{{dataBank.agency}}</span>
-                                    </div>
-                                    <div class="col-md-6 space-top">
-                                        <h6>Número da Conta</h6>
-                                        <span class="span-result">{{dataBank.checking_account}}</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 space-top">
-                                        <h6>CPF/CNPJ do Titular</h6>
-                                        <span class="span-result">{{dataBank.bank_id}}</span>
-                                    </div>
-                                    <div class="col-md-6 space-top">
-                                        <h6>Tipo de Transferencia</h6>
-                                        <span class="span-result">{{dataBank.bank_id}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--
-                                
-                    <h4>Nota Fiscal de Serviço</h4>
-                            -->
-                            <button class="btn btn-sm btn-danger" title="Bloquear Parceiro" data-toggle="modal"
-                                data-target="#modalTermSales">
-                                <i class="fas fa-user-slash"></i>
-                            </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
