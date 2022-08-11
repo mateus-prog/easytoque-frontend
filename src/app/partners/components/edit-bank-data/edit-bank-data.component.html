@@ -59,7 +59,7 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <label for="agency">Agência</label>
-                                                    <input type="input" formControlName="agency" class="form-control" autocomplete="off" maxlength="6" placeholder="Agência" 
+                                                    <input type="input" formControlName="agency" class="form-control" autocomplete="off" maxlength="5" placeholder="Agência" 
                                                     [ngClass]="{ 'is-invalid': submitted && f.agency.errors }">
                                                     <div *ngIf="submitted && f.agency.errors" class="invalid-feedback">
                                                         <div *ngIf="f.agency.errors.required"><i class="fas fa-times"></i> Campo é obrigatório</div>
@@ -72,7 +72,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="checking_account">Conta</label>
-                                                    <input type="input" formControlName="checking_account" class="form-control" autocomplete="off" maxlength="8" placeholder="Conta" 
+                                                    <input type="input" formControlName="checking_account" class="form-control" autocomplete="off" maxlength="15" placeholder="Conta" 
                                                     [ngClass]="{ 'is-invalid': submitted && f.checking_account.errors }">
                                                     <div *ngIf="submitted && f.checking_account.errors" class="invalid-feedback">
                                                         <div *ngIf="f.checking_account.errors.required"><i class="fas fa-times"></i> Campo é obrigatório</div>
