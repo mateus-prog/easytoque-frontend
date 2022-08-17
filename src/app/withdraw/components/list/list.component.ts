@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
@@ -59,6 +60,8 @@ export class ListComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
+    private route: ActivatedRoute,
+    private router: Router,
     private partnerCorporateService: PartnerCorporateService,
     private partnerBankService: PartnerBankService,
     private requestService: RequestService,
@@ -176,11 +179,13 @@ export class ListComponent implements OnInit {
     const data = this.translateFormCreateOrUpdate(this.file);
     
     this.requestService.uploadInvoice(data)
-        .pipe(first())
-        .subscribe(() => {
-            this.alertService.success(this.module+' atualizado com sucesso');
-        })
-        .add(() => this.loading = false);
+      .pipe(first())
+      .subscribe(() => {
+          this.alertService.success(this.module+' atualizado com sucesso');
+          this.router.navigate(['../'], { relativeTo: this.route });
+      })
+      .add(() => this.loading = false);
+
     this.disabledUpload = true;
   }
 
