@@ -13,6 +13,8 @@ import { AlertService } from 'src/app/components/alert/service/alert.service';
 import { MailService } from 'src/app/components/mail/service/mail.service';
 import { PartnerService } from 'src/app/partners/service/partner.service';
 import { StateService } from 'src/app/states/service/state.service';
+import { NotificationService } from 'src/app/components/message/notification.service';
+import { NotificationType } from 'src/app/components/message/notification.message';
 
 @Component({
   selector: 'app-add',
@@ -56,6 +58,7 @@ export class AddComponent implements OnInit {
     private partnerService: PartnerService,
     private stateService: StateService,
     private mailService: MailService,
+    private notificationService: NotificationService,
     private alertService: AlertService,
     private _location: Location
   ) { }
@@ -145,7 +148,11 @@ export class AddComponent implements OnInit {
     this.partnerService.create(data)
       .pipe(first())
       .subscribe(() => {
-        this.alertService.success('Parceiro cadastrado com sucesso.', { autoClose: false }); 
+        this.notificationService.sendMessage({
+          message: 'Parceiro cadastrado com sucesso.',
+          type: NotificationType.success
+        });
+        //this.alertService.success('Parceiro cadastrado com sucesso.', { autoClose: false }); 
         this.router.navigate(['../'], { relativeTo: this.route });
       })
       .add(() => this.loading = false);
