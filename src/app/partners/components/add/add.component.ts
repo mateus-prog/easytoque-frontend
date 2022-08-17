@@ -153,7 +153,7 @@ export class AddComponent implements OnInit {
           type: NotificationType.success
         });
         //this.alertService.success('Parceiro cadastrado com sucesso.', { autoClose: false }); 
-        this.router.navigate(['../'], { relativeTo: this.route });
+        //this.router.navigate(['../'], { relativeTo: this.route });
       })
       .add(() => this.loading = false);
   }
