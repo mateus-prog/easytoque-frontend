@@ -1,6 +1,6 @@
 export class NotificationMessage {
-    message: string;
-    type: NotificationType;
+    message!: string;
+    type!: NotificationType;
 }
 
 export enum NotificationType {
