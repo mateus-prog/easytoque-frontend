@@ -26,7 +26,6 @@ import { ForgotPasswordComponent } from 'src/app/login/components/forgot-passwor
 import { AddLogoComponent } from 'src/app/logos/components/add-logo.component';
 
 import { NgxMaskModule } from 'ngx-mask';
-import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -51,8 +50,7 @@ import { ToastrModule } from 'ngx-toastr';
     ModalModule,
     BreadcrumbModule,
     WidgetModule,
-    NgxMaskModule.forRoot(),
-    ToastrModule.forRoot()
+    NgxMaskModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
