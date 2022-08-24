@@ -8,7 +8,7 @@
     <section class="content">
         <div class="container-fluid">
             <app-widgets></app-widgets>
-            <div class="row">
+            <div *ngIf="sales && sales.length > 0" class="row">
                 <div class="col-md-12 link-sales">
                     <a routerLink="/withdraw">
                         <span>Como receber?</span>

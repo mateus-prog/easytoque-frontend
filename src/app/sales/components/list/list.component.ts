@@ -33,7 +33,7 @@ export class ListComponent implements OnInit {
 
   filterRequest() {
     var a = this.filterNumber();
-    return a;
+    return a.reverse();
   }
 
   filterNumber(){
