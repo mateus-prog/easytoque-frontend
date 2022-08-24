@@ -50,10 +50,11 @@
                                         <td>{{request.id}}</td>
                                         <td align="center">{{request.updated_at}}</td>
                                         <td align="center">
-                                            <div class="tooltip">
-                                                <span class="status-request badge bg-{{request.color}}">{{request.status_request_id}}</span>
-                                                <span>{{request.description}}</span>
-                                            </div>
+                                            <span class="status-request badge bg-{{request.color}}"
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-custom-class="custom-tooltip"
+                                            data-bs-title="This top tooltip is themed via CSS variables.">{{request.status_request_id}}</span>
+                                            <!--<span>{{request.description}}</span>-->
                                         </td>
                                         <td align="right">{{request.value}}</td>
                                         <td></td>
