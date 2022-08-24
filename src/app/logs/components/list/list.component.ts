@@ -62,7 +62,7 @@ export class ListComponent implements OnInit {
     var d = this.filterUser(c);
     var e = this.filterAction(d);
 
-    return e;
+    return e.reverse();
   }
 
   filterStatus(result: any){

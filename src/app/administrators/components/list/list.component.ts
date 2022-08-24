@@ -47,10 +47,10 @@ export class ListComponent implements OnInit {
         return Object.keys(i).filter(x => (typeof i[x] == 'string') ? i[x].toLowerCase().indexOf(this.filter.toLowerCase()) >= 0 : false).length>0
       });
       
-      return resultFilter;
+      return resultFilter.reverse();
     }
 
-    return this.administrators;
+    return this.administrators.reverse();
   }
 
   showModal(administrator: IAdministrator){
