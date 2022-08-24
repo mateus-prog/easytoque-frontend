@@ -93,7 +93,7 @@ export class ModalUploadComponent implements OnInit {
 
   private checkFileType(event: any){
     this.hideMessageExtensionUpload = true;
-    if(event.target.files[0].type && event.target.files[0].type.split('/')[0] == ["image"]){
+    if(event.target.files[0].type && event.target.files[0].type.split('/')[1] == ["pdf"]){
       this.extensionAllowedUpload.forEach(data =>{
         event.target.files[0].type.split('/')[1] == data ? this.hideMessageExtensionUpload = false : '';
       });
