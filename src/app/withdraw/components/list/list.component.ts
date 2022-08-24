@@ -164,6 +164,7 @@ export class ListComponent implements OnInit {
 
   private checkFileType(event: any){
     this.hideMessageExtensionUpload = true;
+    console.log(event.target.files[0].type);
     if(event.target.files[0].type && event.target.files[0].type.split('/')[0] == ["image"]){
       this.extensionAllowedUpload.forEach(data =>{
         event.target.files[0].type.split('/')[1] == data ? this.hideMessageExtensionUpload = false : '';
