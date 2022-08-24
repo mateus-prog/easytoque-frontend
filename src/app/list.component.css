@@ -109,3 +109,10 @@ h6{
 .btn-icon-form{
     padding-left: 5px;
 }
+
+.text-invalid{
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
