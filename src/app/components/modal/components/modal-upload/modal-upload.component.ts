@@ -25,7 +25,7 @@ export class ModalUploadComponent implements OnInit {
   disabledRemoveLogo!: boolean;
   
   maximumSizeUpload: number = 5242880;
-  extensionAllowedUpload: string[] = ['jpg', 'jpeg', 'png'];
+  extensionAllowedUpload: string[] = ['pdf'];
   extensionAllowedUploadMessage!: string[];
   
   hideMessageSizeUpload!: boolean;

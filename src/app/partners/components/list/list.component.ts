@@ -112,7 +112,7 @@ export class ListComponent implements OnInit {
   partnersFilter() {
     var a = this.filterStatusUser();
     var b = this.usersFilter(a);
-    return b;
+    return b.reverse();
   }
 
   usersFilter(result: any) {
