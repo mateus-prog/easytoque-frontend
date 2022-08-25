@@ -155,7 +155,7 @@ export class EditBankDataComponent implements OnInit {
           .subscribe();
 
           if(this.isAuthenticated()){ 
-            this.router.navigate(['../'], { relativeTo: this.route });
+            this.router.navigate(['/partners']);
           }
 
         })
