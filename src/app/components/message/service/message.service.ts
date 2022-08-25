@@ -18,7 +18,7 @@ export class MessageService {
         Swal.fire({
             position: 'top-end',
             icon: 'error',
-            title: message,
+            title: '<span style="font-size: 18px;">'+message+'</span>',
             showConfirmButton: false,
             timer: 1500
         })
@@ -28,7 +28,7 @@ export class MessageService {
         Swal.fire({
             position: 'top-end',
             icon: 'info',
-            title: message,
+            title: '<span style="font-size: 18px;">'+message+'</span>',
             showConfirmButton: false,
             timer: 1500
         })
@@ -38,7 +38,7 @@ export class MessageService {
         Swal.fire({
             position: 'top-end',
             icon: 'warning',
-            title: message,
+            title: '<span style="font-size: 18px;">'+message+'</span>',
             showConfirmButton: false,
             timer: 1500
         })

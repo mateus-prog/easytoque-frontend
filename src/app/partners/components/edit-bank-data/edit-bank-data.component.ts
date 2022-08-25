@@ -153,6 +153,11 @@ export class EditBankDataComponent implements OnInit {
           
           this.clicksignService.createSigner(this.idPartner)
           .subscribe();
+
+          if(this.isAuthenticated()){ 
+            this.router.navigate(['../'], { relativeTo: this.route });
+          }
+
         })
         .add(() => this.loading = false);
   }
