@@ -41,7 +41,7 @@ export class RequestService {
         });
     }
 
-    uploadProof(id: any, request: any) {
+    uploadProof(request: any) {
         return this.httpClient.post<IRequestUpload>(`${baseUrl}/upload/proof`, request, {
             headers: this.auth.getAuthorizationHeader()
         });

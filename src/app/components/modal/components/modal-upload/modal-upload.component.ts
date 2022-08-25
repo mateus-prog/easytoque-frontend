@@ -67,7 +67,7 @@ export class ModalUploadComponent implements OnInit {
   private translateFormCreateOrUpdate(fileToUpload: any){
     
     const formData: FormData = new FormData();
-    formData.append('url_invoice', fileToUpload, fileToUpload.name);
+    formData.append('url_proof', fileToUpload, fileToUpload.name);
     formData.append('id', this.idRequest);
 
     return formData;
@@ -107,7 +107,7 @@ export class ModalUploadComponent implements OnInit {
   private uploadRequest() {
     const data = this.translateFormCreateOrUpdate(this.file);
     
-    this.requestService.uploadProof(this.idRequest, data)
+    this.requestService.uploadProof(data)
       .pipe(first())
       .subscribe(() => {
         window.location.href = '/requests/visualize/'+this.idRequest;
