@@ -54,15 +54,12 @@
                                         <td align="right">{{request.value}}</td>
                                         <td></td>
                                         <td *ngIf="request.status_request_id == 'Pago'" align="left">
-                                            <a href="{{request.url_invoice}}" target="_new" class="link-download">
+                                            <a href="{{request.url_proof}}" target="_new" class="link-download">
                                                 <i class="fas fa-download"></i> Comprovante
                                             </a>
                                         </td>
                                         <td *ngIf="request.status_request_id == 'Negado'" align="left">
-                                            <div class="tooltip">
-                                                <i class="fas fa-question-circle"></i> Motivo
-                                                <span>Aquiiiii</span>
-                                            </div>
+                                            <i class="fas fa-question-circle"></i> Motivo
                                         </td>
                                         <td *ngIf="request.status_request_id == 'Aguardando' || request.status_request_id == 'Aprovado'" align="center">
 
