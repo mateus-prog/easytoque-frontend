@@ -8,7 +8,7 @@ export class MessageService {
         Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: '<span style="font-size: 12px;">'+message+'</span>',
+            title: '<span style="font-size: 18px;">'+message+'</span>',
             showConfirmButton: false,
             timer: 1500
         })

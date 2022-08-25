@@ -10,7 +10,6 @@ import { NumberValidator } from 'src/app/validators/number/number.validator';
 import { IState } from 'src/app/states/IState';
 
 import { MessageService } from 'src/app/components/message/service/message.service';
-import { AlertService } from 'src/app/components/alert/service/alert.service';
 import { MailService } from 'src/app/components/mail/service/mail.service';
 import { PartnerService } from 'src/app/partners/service/partner.service';
 import { StateService } from 'src/app/states/service/state.service';
@@ -58,7 +57,6 @@ export class AddComponent implements OnInit {
     private stateService: StateService,
     private mailService: MailService,
     private messageService: MessageService,
-    private alertService: AlertService,
     private _location: Location
   ) { }
 
@@ -93,9 +91,6 @@ export class AddComponent implements OnInit {
   onSubmit() {
       this.submitted = true;
 
-      // reset alerts on submit
-      this.alertService.clear();
-
       // stop here if form is invalid
       if (this.form.invalid) {
         console.log(this.form.invalid);
@@ -126,7 +121,7 @@ export class AddComponent implements OnInit {
               })
           },
           error => {
-            this.alertService.error(error);
+            this.messageService.error(error);
           }
         );
     }
@@ -148,8 +143,7 @@ export class AddComponent implements OnInit {
       .pipe(first())
       .subscribe(() => {
         this.messageService.success('Parceiro cadastrado com sucesso.');
-        //this.alertService.success('Parceiro cadastrado com sucesso.', { autoClose: false }); 
-        //this.router.navigate(['../'], { relativeTo: this.route });
+        this.router.navigate(['../'], { relativeTo: this.route });
       })
       .add(() => this.loading = false);
   }
