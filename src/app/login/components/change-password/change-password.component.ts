@@ -5,7 +5,7 @@ import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@ang
 import { first } from 'rxjs/operators';
 import { MustMatch } from 'src/app/helper/must-match.validator';
 
-import { AlertService } from 'src/app/components/alert/service/alert.service';
+import { MessageService } from 'src/app/components/message/service/message.service';
 
 @Component({
   selector: 'app-change-password',
@@ -24,7 +24,7 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private alertService: AlertService,
+    private messageService: MessageService,
     private route: ActivatedRoute,
     private router: Router,
     private loginService: LoginService
@@ -52,9 +52,6 @@ export class ChangePasswordComponent implements OnInit {
   onSubmit() {
       this.submitted = true;
 
-      // reset alerts on submit
-      this.alertService.clear();
-
       // stop here if form is invalid
       if (this.form.invalid) {
           return;
@@ -64,7 +61,7 @@ export class ChangePasswordComponent implements OnInit {
       this.loginService.changePassword(this.form.value.password)
         .pipe(first())
         .subscribe(() => {
-          this.alertService.success('Senha alterada com sucesso!');
+          this.messageService.success('Senha alterada com sucesso!');
           this.loading = false;
         }
       );

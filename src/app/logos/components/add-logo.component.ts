@@ -4,7 +4,7 @@ import { first } from 'rxjs/operators';
 import { Location } from '@angular/common';
 
 import { AuthenticationService } from 'src/service/authentication/authentication.service';
-import { AlertService } from 'src/app/components/alert/service/alert.service';
+import { MessageService } from 'src/app/components/message/service/message.service';
 import { LogoService } from 'src/app/logos/service/logo.service';
 
 import { ILogo } from 'src/app/logos/ILogo';
@@ -47,7 +47,7 @@ export class AddLogoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private logoService: LogoService,
-    private alertService: AlertService,
+    private messageService: MessageService,
     private _location: Location
   ) { }
 
@@ -85,9 +85,6 @@ export class AddLogoComponent implements OnInit {
 
   onSubmit() {
       this.submitted = true;
-
-      // reset alerts on submit
-      this.alertService.clear();
 
       // stop here if form is invalid
       if(this.hideMessageVerifyUpload || this.hideMessageSizeUpload || this.hideMessageExtensionUpload)
@@ -152,7 +149,7 @@ export class AddLogoComponent implements OnInit {
         .pipe(first())
         .subscribe(data => {
             this.getLogo(data);
-            this.alertService.success(this.module+' atualizado com sucesso');
+            this.messageService.success(this.module+' atualizado com sucesso');
         })
         .add(() => this.loading = false);
     this.disabledUploadLogo = true;
@@ -163,7 +160,7 @@ export class AddLogoComponent implements OnInit {
         .pipe(first())
         .subscribe(data => {
           this.getLogo(data);
-          this.alertService.success(this.module+' removido com sucesso');
+          this.messageService.success(this.module+' removido com sucesso');
         });
   }
 

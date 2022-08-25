@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 
-import { AlertService } from 'src/app/components/alert/service/alert.service';
 import { RequestService } from 'src/app/requests/service/request.service';
 
 import { IRequest } from 'src/app/requests/IRequest';
@@ -41,7 +40,6 @@ export class VisualizeComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private requestService: RequestService,
-    private alertService: AlertService,
   ) { }
 
   ngOnInit(): void{

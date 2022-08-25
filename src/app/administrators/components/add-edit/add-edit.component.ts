@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
 
 import { IRole } from 'src/app/roles/IRole';
 
-import { AlertService } from 'src/app/components/alert/service/alert.service';
+import { MessageService } from 'src/app/components/message/service/message.service';
 import { PartnerService } from 'src/app/partners/service/partner.service';
 import { RoleService } from 'src/app/roles/service/role.service';
 
@@ -43,7 +43,7 @@ export class AddEditComponent implements OnInit {
     private router: Router,
     private partnerService: PartnerService,
     private roleService: RoleService,
-    private alertService: AlertService,
+    private messageService: MessageService,
     private _location: Location
   ) { }
 
@@ -80,9 +80,6 @@ export class AddEditComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    // reset alerts on submit
-    this.alertService.clear();
-
     // stop here if form is invalid
     if (this.form.invalid) {
         return;
@@ -108,7 +105,7 @@ export class AddEditComponent implements OnInit {
     this.partnerService.create(data)
       .pipe(first())
       .subscribe(() => {
-        this.alertService.success(this.module+' cadastrado com sucesso', { keepAfterRouteChange: true });
+        this.messageService.success(this.module+' cadastrado com sucesso');
         this.router.navigate(['../'], { relativeTo: this.route });
       })
       .add(() => this.loading = false);
@@ -118,8 +115,8 @@ export class AddEditComponent implements OnInit {
     this.partnerService.update(this.idUser, this.form.value)
         .pipe(first())
         .subscribe(() => {
-            this.alertService.success(this.module+' atualizado com sucesso', { keepAfterRouteChange: true });
-            this.router.navigate(['../../'], { relativeTo: this.route });
+          this.messageService.success(this.module+' atualizado com sucesso');
+          this.router.navigate(['../../'], { relativeTo: this.route });
         })
         .add(() => this.loading = false);
 }

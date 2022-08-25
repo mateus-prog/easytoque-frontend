@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
 import { IBank } from 'src/app/banks/IBank';
 
 import { AuthenticationService } from 'src/service/authentication/authentication.service';
-import { AlertService } from 'src/app/components/alert/service/alert.service';
+import { MessageService } from 'src/app/components/message/service/message.service';
 import { MailService } from 'src/app/components/mail/service/mail.service';
 import { PartnerCorporateService } from 'src/app/partners/service/partner_corporate.service';
 import { PartnerBankService } from 'src/app/partners/service/partner_bank.service';
@@ -52,7 +52,7 @@ export class EditBankDataComponent implements OnInit {
     private clicksignService: ClickSignService,
     private mailService: MailService,
     private authenticationService: AuthenticationService,
-    private alertService: AlertService,
+    private messageService: MessageService,
     private _location: Location
   ) { }
 
@@ -95,9 +95,6 @@ export class EditBankDataComponent implements OnInit {
 
   onSubmit() {
       this.submitted = true;
-
-      // reset alerts on submit
-      this.alertService.clear();
 
       // stop here if form is invalid
       if (this.form.invalid) {
@@ -151,7 +148,7 @@ export class EditBankDataComponent implements OnInit {
           if(!this.isAuthenticated()){ 
             this.isAlter = true; 
           }else{
-            this.alertService.success('Dados Bancários atualizado com sucesso');
+            this.messageService.success('Dados Bancários atualizado com sucesso');
           }
           
           this.clicksignService.createSigner(this.idPartner)

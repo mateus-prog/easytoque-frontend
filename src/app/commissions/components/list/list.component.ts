@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IRequest } from 'src/app/requests/IRequest';
 import { IStatusRequest } from 'src/app/status-request/IStatusRequest';
 
-import { AlertService } from 'src/app/components/alert/service/alert.service';
 import { RequestService } from 'src/app/requests/service/request.service';
 import { StatusRequestService } from 'src/app/status-request/service/status-request.service';
 
@@ -43,7 +42,6 @@ export class ListComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private statusRequestService: StatusRequestService,
-    private alertService: AlertService,
   ) { }
 
   async ngOnInit(){

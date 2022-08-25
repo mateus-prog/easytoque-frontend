@@ -5,7 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { IRequest } from 'src/app/requests/IRequest';
 
-import { AlertService } from 'src/app/components/alert/service/alert.service';
+import { MessageService } from 'src/app/components/message/service/message.service';
 import { AuthenticationService } from 'src/service/authentication/authentication.service';
 import { PartnerCorporateService } from 'src/app/partners/service/partner_corporate.service';
 import { PartnerBankService } from 'src/app/partners/service/partner_bank.service';
@@ -65,7 +65,7 @@ export class ListComponent implements OnInit {
     private partnerCorporateService: PartnerCorporateService,
     private partnerBankService: PartnerBankService,
     private requestService: RequestService,
-    private alertService: AlertService,
+    private messageService: MessageService,
   ) { }
 
   async ngOnInit(){
@@ -105,9 +105,6 @@ export class ListComponent implements OnInit {
 
   onSubmit() {
       this.submitted = true;
-
-      // reset alerts on submit
-      this.alertService.clear();
 
       // stop here if form is invalid
       if(this.hideMessageVerifyUpload || this.hideMessageSizeUpload || this.hideMessageExtensionUpload)
@@ -181,8 +178,8 @@ export class ListComponent implements OnInit {
     this.requestService.uploadInvoice(data)
       .pipe(first())
       .subscribe(() => {
-          this.alertService.success(this.module+' atualizado com sucesso');
-          this.router.navigate(['../'], { relativeTo: this.route });
+        this.messageService.success(this.module+' atualizado com sucesso');
+        this.router.navigate(['../'], { relativeTo: this.route });
       })
       .add(() => this.loading = false);
 

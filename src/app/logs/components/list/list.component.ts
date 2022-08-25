@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { IAdministrator } from 'src/app/administrators/IAdministrator';
 import { IAction } from 'src/app/actions/IAction';
 
-import { AlertService } from 'src/app/components/alert/service/alert.service';
 import { LogService } from 'src/app/logs/service/log.service';
 import { AdministratorService } from 'src/app/administrators/service/administrator.service';
 import { ActionService} from 'src/app/actions/service/action.service';
@@ -38,7 +37,6 @@ export class ListComponent implements OnInit {
   constructor(
     private logService: LogService,
     private administratorService: AdministratorService,
-    private alertService: AlertService,
     private actionService: ActionService,
   ) { }
 

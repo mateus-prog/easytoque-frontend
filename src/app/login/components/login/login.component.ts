@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AlertService } from 'src/app/components/alert/service/alert.service';
 import { LoginService } from 'src/app/login/service/login.service';
 import { AuthenticationService } from 'src/service/authentication/authentication.service';
 import { MenuService } from 'src/app/template/sidebar/service/menu.service';
@@ -31,7 +30,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private loginService: LoginService,
     private menuService: MenuService,
-    private alertService: AlertService,
     private authenticationService: AuthenticationService
   ) { }
 
