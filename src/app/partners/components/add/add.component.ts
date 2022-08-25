@@ -9,6 +9,7 @@ import { NumberValidator } from 'src/app/validators/number/number.validator';
 
 import { IState } from 'src/app/states/IState';
 
+import { MessageService } from 'src/app/components/message/service/message.service';
 import { AlertService } from 'src/app/components/alert/service/alert.service';
 import { MailService } from 'src/app/components/mail/service/mail.service';
 import { PartnerService } from 'src/app/partners/service/partner.service';
@@ -56,6 +57,7 @@ export class AddComponent implements OnInit {
     private partnerService: PartnerService,
     private stateService: StateService,
     private mailService: MailService,
+    private messageService: MessageService,
     private alertService: AlertService,
     private _location: Location
   ) { }
@@ -145,7 +147,8 @@ export class AddComponent implements OnInit {
     this.partnerService.create(data)
       .pipe(first())
       .subscribe(() => {
-        this.alertService.success('Parceiro cadastrado com sucesso.', { autoClose: false }); 
+        this.messageService.success('Parceiro cadastrado com sucesso.');
+        //this.alertService.success('Parceiro cadastrado com sucesso.', { autoClose: false }); 
         this.router.navigate(['../'], { relativeTo: this.route });
       })
       .add(() => this.loading = false);
