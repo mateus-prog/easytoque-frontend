@@ -149,7 +149,7 @@ export class AddComponent implements OnInit {
       .subscribe(() => {
         this.messageService.success('Parceiro cadastrado com sucesso.');
         //this.alertService.success('Parceiro cadastrado com sucesso.', { autoClose: false }); 
-        this.router.navigate(['../'], { relativeTo: this.route });
+        //this.router.navigate(['../'], { relativeTo: this.route });
       })
       .add(() => this.loading = false);
   }
