@@ -23,7 +23,7 @@ export class VisualizeComponent implements OnInit {
   status_request_id: string = '';
   reason?: string = '';
   hash_id: string = '';
-  invoice: string = '';
+  url_invoice: string = '';
   selectedImage: any;
 
   title: string = '';
@@ -61,7 +61,7 @@ export class VisualizeComponent implements OnInit {
     this.reason = request.reason;
     this.hash_id = request.hash_id;
 
-    this.invoice = request.url_invoice;
+    this.url_invoice = request.url_invoice;
   }
 
   showModal(){
