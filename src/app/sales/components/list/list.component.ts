@@ -33,11 +33,11 @@ export class ListComponent implements OnInit {
     this.sales = await this.requestService.getRequestStore('list').toPromise();
     this.requests = await this.requestService.getAll().toPromise();
     this.sales.forEach((element: any) => {      
-      this.totalSales += element.commission;
+      element.commission != 'undefined' ? this.totalSales += parseInt(element.commission) : '';
     });
 
     this.requests.forEach((element: any) => {      
-      this.totalRequestsSales += element.value;
+      element.value != 'undefined' ? this.totalRequestsSales += parseInt(element.value) : '';
     });
   }
 
