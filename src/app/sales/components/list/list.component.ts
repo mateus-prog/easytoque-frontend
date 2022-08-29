@@ -14,6 +14,10 @@ export class ListComponent implements OnInit {
   
   id: any = '';
   sales!: any;
+  totalSales!: number;
+
+  requests!: any;
+  totalRequestsSales!: number;
   
   statusRequest!: IStatusRequest[];
   
@@ -27,6 +31,14 @@ export class ListComponent implements OnInit {
 
   async ngOnInit(){
     this.sales = await this.requestService.getRequestStore('list').toPromise();
+    this.requests = await this.requestService.getAll().toPromise();
+    this.sales.forEach((element: any) => {      
+      this.totalSales += element.commission;
+    });
+
+    this.requests.forEach((element: any) => {      
+      this.totalRequestsSales += element.value;
+    });
   }
 
   filterRequest() {
