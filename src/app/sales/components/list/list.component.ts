@@ -34,7 +34,7 @@ export class ListComponent implements OnInit {
     this.sales = await this.requestService.getRequestStore('list').toPromise();
     this.requests = await this.requestService.getAll().toPromise();
     this.salesTotal = await this.requestService.getRequestStore('sum').toPromise();
-    this.totalSales = this.salesTotal[0].total.replace('.', '');
+    this.totalSales = this.salesTotal.salesApproved.replace('.', '');
     this.totalSales = this.totalSales.replace(',', '.');
 
     this.requests.forEach((element: any) => {      
