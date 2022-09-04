@@ -15,6 +15,7 @@ export class ListComponent implements OnInit {
   id: any = '';
   sales!: any;
   salesTotal!: any;
+  totalSales!: any;
 
   requests!: any;
   totalRequestsSales!: number;
@@ -33,8 +34,8 @@ export class ListComponent implements OnInit {
     this.sales = await this.requestService.getRequestStore('list').toPromise();
     this.requests = await this.requestService.getAll().toPromise();
     this.salesTotal = await this.requestService.getRequestStore('sum').toPromise();
-    this.salesTotal = this.salesTotal[0].total.replace('.', '');
-    this.salesTotal = this.salesTotal.replace(',', '.');
+    this.totalSales = this.salesTotal[0].total.replace('.', '');
+    this.totalSales = this.totalSales.replace(',', '.');
 
     this.requests.forEach((element: any) => {      
       if(element.value != 'undefined' && element.value != undefined){
