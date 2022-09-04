@@ -14,7 +14,7 @@ export class ListComponent implements OnInit {
   
   id: any = '';
   sales!: any;
-  totalSales!: number;
+  salesTotal!: any;
 
   requests!: any;
   totalRequestsSales!: number;
@@ -32,12 +32,16 @@ export class ListComponent implements OnInit {
   async ngOnInit(){
     this.sales = await this.requestService.getRequestStore('list').toPromise();
     this.requests = await this.requestService.getAll().toPromise();
-    this.sales.forEach((element: any) => {      
-      console.log(element.commission+'---');element.commission != 'undefined' && element.commission != undefined ? this.totalSales += parseFloat(element.commission) : '';
-    });
+    this.salesTotal = await this.requestService.getRequestStore('sum').toPromise();
+    this.salesTotal = this.salesTotal[0].total.replace('.', '');
+    this.salesTotal = this.salesTotal.replace(',', '.');
 
     this.requests.forEach((element: any) => {      
-      console.log(element.value+'---');element.value != 'undefined' && element.value != undefined ? this.totalRequestsSales += parseFloat(element.value) : '';
+      if(element.value != 'undefined' && element.value != undefined){
+        element.value = element.value.replace('.', ''); 
+        element.value = element.value.replace(',', '.'); 
+        this.totalRequestsSales += parseFloat(element.value);
+      }
     });
   }
 
