@@ -179,7 +179,7 @@ export class ListComponent implements OnInit {
       .pipe(first())
       .subscribe(() => {
         this.messageService.success(this.module+' atualizado com sucesso');
-        this.router.navigate(['../'], { relativeTo: this.route });
+        this.router.navigate(['/commissions']);
       })
       .add(() => this.loading = false);
 

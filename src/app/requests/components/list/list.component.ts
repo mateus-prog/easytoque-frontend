@@ -30,6 +30,9 @@ export class ListComponent implements OnInit {
   status_request_id: number = 0;
   user_id: number = 0;
 
+  status_name: string = '';
+  user_name: string = '';
+
   requests!: any;
   title: string = '';
   buttonCancel: string = '';

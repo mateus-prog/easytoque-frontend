@@ -18,7 +18,8 @@ export class ListComponent implements OnInit {
   totalSales!: any;
 
   requests!: any;
-  totalRequestsSales: number = 0;
+  withdrawalsMade: number = 0;
+  withdrawalsToBeMade: number = 0;
   
   statusRequest!: IStatusRequest[];
   
@@ -36,15 +37,15 @@ export class ListComponent implements OnInit {
     this.salesTotal = await this.requestService.getRequestStore('sum').toPromise();
     this.totalSales = this.salesTotal.salesApproved.replace('.', '');
     this.totalSales = this.totalSales.replace(',', '.');
-    console.log(this.totalSales + '----teste111');
     this.requests.forEach((element: any) => {      
       if(element.value != 'undefined' && element.value != undefined){
         element.value = element.value.replace('.', ''); 
         element.value = element.value.replace(',', '.'); 
-        console.log(element.value + '----teste');
-        this.totalRequestsSales += parseFloat(element.value);
+        this.withdrawalsMade += parseFloat(element.value);
       }
     });
+
+    this.withdrawalsToBeMade = this.totalSales - this.withdrawalsMade;
   }
 
   filterRequest() {

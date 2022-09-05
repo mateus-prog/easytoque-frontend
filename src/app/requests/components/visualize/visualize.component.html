@@ -62,7 +62,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                  <span>{{user_id}}</span>
+                                  <span>{{user_name}}</span>
                                 </div>
                                 <div class="col-md-6">
                                   <span>{{checking_account}}</span>
@@ -85,15 +85,15 @@
                                   <span class="subtitle">Status</span>
                                 </div>
                                 <div class="col-md-6">
-                                  <span *ngIf="status_request_id == 'Negado'" class="subtitle">Motivo</span>
+                                  <span *ngIf="status_request_id == 3" class="subtitle">Motivo</span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                  <span>{{status_request_id}}</span>
+                                  <span>{{status_name}}</span>
                                 </div>
                                 <div class="col-md-6">
-                                  <span *ngIf="status_request_id == 'Negado'">{{reason}}</span>
+                                  <span *ngIf="status_request_id == 3">{{reason}}</span>
                                 </div>
                             </div>
                             <div class="row">
@@ -108,15 +108,15 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                  <button *ngIf="status_request_id == 'Aguardando'" class="btn btn-danger"
+                                  <button *ngIf="status_request_id == 1" class="btn btn-danger"
                                   data-toggle="modal" data-target="#modalReason" (click)="showModal()">
                                     Negar
                                   </button>
-                                  <button *ngIf="status_request_id == 'Aguardando'" class="btn btn-success" 
+                                  <button *ngIf="status_request_id == 1" class="btn btn-success" 
                                   (click)="updateRequest()">
                                     Aprovar Solicitação
                                   </button>
-                                  <button *ngIf="status_request_id == 'Aprovado'" class="btn btn-success" 
+                                  <button *ngIf="status_request_id == 2" class="btn btn-success" 
                                   data-toggle="modal" data-target="#modalUpload" (click)="showModalUpload()">
                                     Marcar Pago
                                   </button>

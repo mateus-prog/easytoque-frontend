@@ -17,10 +17,11 @@ export class VisualizeComponent implements OnInit {
   value: number = 0;
   bank_id: string = '';
   agency: string = '';
-  user_id: string = '';
+  user_name: string = '';
   checking_account: string = '';
   cnpj: string = '';
-  status_request_id: string = '';
+  status_request_id: number = 0;
+  status_name: string = '';
   reason?: string = '';
   hash_id: string = '';
   url_invoice: string = '';
@@ -54,9 +55,10 @@ export class VisualizeComponent implements OnInit {
     this.value = request.value;
     this.bank_id = request.bank_id;
     this.agency = request.agency;
-    this.user_id = request.user_id;
+    this.user_name = request.user_name;
     this.checking_account = request.checking_account;
     this.cnpj = request.cnpj;
+    this.status_name = request.status_name;
     this.status_request_id = request.status_request_id;
     this.reason = request.reason;
     this.hash_id = request.hash_id;
