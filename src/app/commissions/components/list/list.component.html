@@ -19,11 +19,18 @@
                         <select [(ngModel)]="status_request_id" #ctrl="ngModel" class="form-control input">
                             <option value="0">Todos</option>
                             <option *ngFor="let status of statusRequest;"
-                                value="{{status.name}}">{{status.name}}
+                                value="{{status.id}}">{{status.name}}
                             </option>
                         </select>
                     </div>
                 </div>
+                <!--<div class="col-md-3">
+                    <mat-form-field appearance="fill">
+                        <input readonly formControlName="ProductionForecast" matInput placeholder="" [matDatepicker]="pickerProductionForecast">
+                        <mat-datepicker-toggle matSuffix [for]="pickerProductionForecast"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerProductionForecast></mat-datepicker>
+                    </mat-form-field>
+                </div>-->
             </div>
             <!-- Small boxes (Stat box) -->
             <div class="row">
@@ -48,20 +55,20 @@
                                         <td>{{request.id}}</td>
                                         <td align="center">{{request.updated_at}}</td>
                                         <td align="center">
-                                            <span class="status-request badge bg-{{request.color}}">{{request.status_request_id}}</span>
+                                            <span class="status-request badge bg-{{request.color}}">{{request.status_name}}</span>
                                             <!--<span>{{request.description}}</span>-->
                                         </td>
                                         <td align="right">{{request.value}}</td>
                                         <td></td>
-                                        <td *ngIf="request.status_request_id == 'Pago'" align="left">
+                                        <td *ngIf="request.status_request_id == 4" align="left">
                                             <a href="{{request.url_proof}}" target="_new" class="link-download">
                                                 <i class="fas fa-download"></i> Comprovante
                                             </a>
                                         </td>
-                                        <td *ngIf="request.status_request_id == 'Negado'" align="left">
+                                        <td *ngIf="request.status_request_id == 3" align="left">
                                             <i class="fas fa-question-circle"></i> Motivo
                                         </td>
-                                        <td *ngIf="request.status_request_id == 'Aguardando' || request.status_request_id == 'Aprovado'" align="center">
+                                        <td *ngIf="request.status_request_id == 1 || request.status_request_id == 2" align="center">
 
                                         </td>
                                     </tr>
