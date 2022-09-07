@@ -77,7 +77,7 @@ export class EditBankDataComponent implements OnInit {
         pix: ['', Validators.nullValidator],
         phone: ['', Validators.nullValidator],
         whatsapp: ['', Validators.nullValidator],
-        password: ['', [Validators.required, Validators.minLength(6)]]
+        password: ['', Validators.nullValidator]
     });
 
     this.partnerCorporateService.getByHash(this.idHash)
@@ -86,6 +86,12 @@ export class EditBankDataComponent implements OnInit {
       
     this.form.controls['corporate_name'].disable({onlySelf: true});
     this.form.controls['cnpj'].disable({onlySelf: true});
+
+    if(!this.isAuthenticated()){ 
+      this.form.controls['password'].addValidators(Validators.required);
+      this.form.controls['password'].addValidators(Validators.minLength(6));
+      this.form.controls['password'].updateValueAndValidity();
+    }
 
     this.class = this.isAuthenticated() ? 'content-wrapper' : 'background';
   }
@@ -138,8 +144,17 @@ export class EditBankDataComponent implements OnInit {
     }
   }
 
+  private translateFormUpdate(){
+    let dataForm = this.form.value;
+    console.log(dataForm.password);
+    if(this.isAuthenticated() && dataForm.password == ''){ 
+      delete dataForm.password;
+    }
+    return dataForm;
+  }
+
   private updateBankPartner(id: number) {
-    const data = this.form.value;
+    const data = this.translateFormUpdate();
     data.bank_id = parseInt(data.bank_id);
     this.partnerBankService.update(id, data)
         .pipe(first())
