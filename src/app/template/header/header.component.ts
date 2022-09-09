@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/service/authentication/authentication.service';
+import { RequestService } from 'src/app/requests/service/request.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,23 +10,20 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  id!: string;
+  clientId!: any;
   typeUser!: number;
 
   constructor(
     private authenticationService: AuthenticationService,
+    private requestService: RequestService,
     private router: Router
   ) { }
 
-  ngOnInit(): void {
-    this.id = this.getUserId();
-    this.typeUser = parseInt(this.getRole());
+  async ngOnInit(){
+    this.clientId = await this.requestService.getClient().toPromise();
+    this.typeUser = await parseInt(this.getRole());
   }
   
-  getUserId() {
-    return this.authenticationService.getUserId();
-  }
-
   getRole(){
     return this.authenticationService.getRoleId()
   }

@@ -59,4 +59,10 @@ export class RequestService {
         });
     }
 
+    getClient() {
+        return this.httpClient.get<any>(`${baseUrl}/client`, {
+            headers: this.auth.getAuthorizationHeader()
+        });
+    }
+
 }
