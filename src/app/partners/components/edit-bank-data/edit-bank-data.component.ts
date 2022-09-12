@@ -8,7 +8,6 @@ import { IBank } from 'src/app/banks/IBank';
 
 import { AuthenticationService } from 'src/service/authentication/authentication.service';
 import { MessageService } from 'src/app/components/message/service/message.service';
-import { MailService } from 'src/app/components/mail/service/mail.service';
 import { PartnerCorporateService } from 'src/app/partners/service/partner_corporate.service';
 import { PartnerBankService } from 'src/app/partners/service/partner_bank.service';
 import { BankService } from 'src/app/banks/service/bank.service';
@@ -50,7 +49,6 @@ export class EditBankDataComponent implements OnInit {
     private partnerBankService: PartnerBankService,
     private bankService: BankService,
     private clicksignService: ClickSignService,
-    private mailService: MailService,
     private authenticationService: AuthenticationService,
     private messageService: MessageService,
     private _location: Location

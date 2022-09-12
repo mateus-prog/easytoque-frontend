@@ -10,7 +10,6 @@ import { NumberValidator } from 'src/app/validators/number/number.validator';
 import { IState } from 'src/app/states/IState';
 
 import { MessageService } from 'src/app/components/message/service/message.service';
-import { MailService } from 'src/app/components/mail/service/mail.service';
 import { PartnerService } from 'src/app/partners/service/partner.service';
 import { StateService } from 'src/app/states/service/state.service';
 
@@ -55,7 +54,6 @@ export class AddComponent implements OnInit {
     private router: Router,
     private partnerService: PartnerService,
     private stateService: StateService,
-    private mailService: MailService,
     private messageService: MessageService,
     private _location: Location
   ) { }
