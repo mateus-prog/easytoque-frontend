@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { MessageService } from 'src/app/components/message/service/message.service';
 import { LoginService } from 'src/app/login/service/login.service';
 
 
@@ -21,6 +22,7 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(
     private loginService:LoginService,
     private formBuilder: FormBuilder,
+    private messageService: MessageService,
     private _location: Location
   ) { }
 
@@ -44,13 +46,17 @@ export class ForgotPasswordComponent implements OnInit {
     this.loading = true;
 
     try {
-      const response = await this.loginService.forgotPassword(this.form.controls.email.value).toPromise();
+      var response = await this.loginService.forgotPassword(this.form.controls.email.value).toPromise();
+      if(response != null){
+        this.messageService.success('E-mail com senha enviada com sucesso.');
+      }else{
+        this.messageService.error('Usuário não encontrado');  
+      }
       this.loading = false;
-      
     }
     catch (e) {
       this.loading = false;
-      this.messageError = 'Usuário não encontrado';
+      this.messageService.success('Erro ao enviar e-mail com senha.');
     }
   }
 
