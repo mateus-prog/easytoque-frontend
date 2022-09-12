@@ -16,12 +16,8 @@ export class LoginService {
     return this.httpClient.post<any>(`${baseUrl}/login`, {email,password}).toPromise();
   }
 
-  forgotPassword(login:string, access_token:string) {
-    return this.httpClient.post<boolean>(`${baseUrl}/password/forgot`, {login,access_token});
-  }
-
-  async changeForgottenPassword(password: string, repeatPassword: string, access_token: string) {
-    return this.httpClient.post(`${baseUrl}/password/reset`, {password, repeatPassword, access_token});
+  forgotPassword(email:string) {
+    return this.httpClient.post<boolean>(`${baseUrl}/password/reset`, {email});
   }
 
   changePassword(password: string) {

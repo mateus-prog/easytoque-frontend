@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { LoginService } from 'src/app/login/service/login.service';
 
@@ -12,77 +12,46 @@ import { LoginService } from 'src/app/login/service/login.service';
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  public form!: FormGroup;
-  public loading = false;
-  public errorMessage?: string;
-  public attemptedSubmit = false;
-  public successfullySent = false;
-  public captchaVisibleAnimation = false;
+  messageError: string = '';
+
+  form!: FormGroup;
+  loading = false;
+  submitted = false;
 
   constructor(
     private loginService:LoginService,
+    private formBuilder: FormBuilder,
     private _location: Location
   ) { }
-  email=''
-
-  recaptchaSite="6LfA-U8dAAAAAGsmrv3RmDgTGgb7E3HPB6VGPPcV"
 
   ngOnInit(): void {
-
-  this.form = new FormGroup({
-    login: new FormControl('', [Validators.required]),
-    token: new FormControl('', [Validators.required])
-  });
+    this.form = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
   }
 
-  get login(): FormControl { return this.form.get('login') as FormControl; }
-  get token(): FormControl { return this.form.get('token') as FormControl; }
-
-  ngAfterViewInit() {
-    setTimeout(() => this.captchaVisibleAnimation = true, 100);
-  }
-
-  onCaptchaResolved(captchaResponse: string) {
-    this.token.setErrors(captchaResponse === '' ? {required: true} : null);
-    this.token.setValue(captchaResponse);
-    this.token.markAsDirty();
-    this.token.markAsTouched();
-  }
-
+  // convenience getter for easy access to form fields
+  get f() { return this.form.controls; }
+  
   async onSubmitClick() {
-    this.errorMessage = '';
-    this.attemptedSubmit = true;
+    this.messageError = '';
+    this.submitted = true;
+    
     if (this.form.invalid) {
-      if (!this.form.dirty) {
-        this.form.markAsDirty();
-      }
       return;
     }
-    if (this.successfullySent) {
-      return;
-    }
-    const login = this.login.value;
-    const token = this.token.value;
+
     this.loading = true;
+
     try {
-      const response = await this.loginService.forgotPassword(login, token).toPromise();
-      /*if (response.email !='') {
-        this.successfullySent = true;
-        this.email=response.email;
-      } else {
-        console.log(response);
-        this.errorMessage = "Unexpected server response";
-      }*/
-    } catch(err:any) {
-      if (typeof err.message === "string" && err.message.length > 0) {
-        this.errorMessage = err.message;
-      } else {
-        console.log(err);
-        //this.errorMessage = 'Unknown component error';
-        this.errorMessage = 'Usuário não encontrado';
-      }
+      const response = await this.loginService.forgotPassword(this.form.controls.email.value).toPromise();
+      this.loading = false;
+      
     }
-    this.loading = false;
+    catch (e) {
+      this.loading = false;
+      this.messageError = 'Usuário não encontrado';
+    }
   }
 
   backClicked() {
