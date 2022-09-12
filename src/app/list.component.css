@@ -116,3 +116,23 @@ h6{
     font-size: 80%;
     color: #dc3545;
 }
+
+abbr {
+    text-decoration: none;
+    position: relative;
+}
+
+abbr:hover::after {
+    /*background: #add8e6;*/
+    background-color: #6c757d;
+    color: #FFF;
+    border-radius: 4px;
+    bottom: 100%;
+    content: attr(title);
+    display: block;
+    padding: 0.5em;
+    position: absolute;    
+    width: auto;
+    height: auto;
+    z-index: 1;
+}
