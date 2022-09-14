@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
@@ -19,12 +18,6 @@ import { PartnerCorporateService } from 'src/app/partners/service/partner_corpor
 export class MyAccountComponent implements OnInit {
 
   banks!: IBank[];
-
-  cnpj!: number;
-  name!: string;
-  email!: string;
-  phone!: number;
-  whatsapp!: number;
   currentURL!: string;
 
 
@@ -37,8 +30,6 @@ export class MyAccountComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
     private authenticationService: AuthenticationService,
     private partnerCorporateService: PartnerCorporateService,
     private bankService: BankService,
@@ -59,6 +50,7 @@ export class MyAccountComponent implements OnInit {
         bank_id: ['', Validators.nullValidator],
         agency: ['', Validators.nullValidator],
         checking_account: ['', Validators.nullValidator],
+        pix: ['', Validators.nullValidator],
         url: ['', Validators.nullValidator]
     });
 
@@ -76,6 +68,7 @@ export class MyAccountComponent implements OnInit {
     this.form.controls['bank_id'].disable({onlySelf: true});
     this.form.controls['agency'].disable({onlySelf: true});
     this.form.controls['checking_account'].disable({onlySelf: true});
+    this.form.controls['pix'].disable({onlySelf: true});
     this.form.controls['url'].disable();
   }
 
@@ -95,11 +88,12 @@ export class MyAccountComponent implements OnInit {
 
     dataForm['bank_id'] = partner.bank_id;
 
-    partner.agency = partner.agency_digit != '' ? partner.agency += '-' + partner.agency_digit : partner.agency;
-    partner.checking_account = partner.checking_account_digit != '' ? partner.checking_account += '-' + partner.checking_account_digit : partner.checking_account;
+    partner.agency = partner.agency_digit != '' && partner.agency_digit != null ? partner.agency += '-' + partner.agency_digit : partner.agency;
+    partner.checking_account = partner.checking_account_digit != '' && partner.checking_account_digit != null ? partner.checking_account += '-' + partner.checking_account_digit : partner.checking_account;
 
     dataForm['agency'] = partner.agency;
     dataForm['checking_account'] = partner.checking_account;
+    dataForm['pix'] = partner.pix;
     dataForm['url'] = 'https://loja.easytoque.com.br/?___store=loja_'+partner.id;
     
     this.form.patchValue(dataForm);
