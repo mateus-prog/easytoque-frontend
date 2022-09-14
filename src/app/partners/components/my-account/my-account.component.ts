@@ -94,7 +94,7 @@ export class MyAccountComponent implements OnInit {
     dataForm['agency'] = partner.agency;
     dataForm['checking_account'] = partner.checking_account;
     dataForm['pix'] = partner.pix;
-    dataForm['url'] = 'https://loja.easytoque.com.br/?___store=loja_'+partner.id;
+    dataForm['url'] = 'https://loja.easytoque.com.br/?___store=loja_'+partner.client_id;
     
     this.form.patchValue(dataForm);
   }
