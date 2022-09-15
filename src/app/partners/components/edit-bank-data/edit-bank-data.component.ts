@@ -144,7 +144,6 @@ export class EditBankDataComponent implements OnInit {
 
   private translateFormUpdate(){
     let dataForm = this.form.value;
-    console.log(dataForm.password);
     if(this.isAuthenticated() && dataForm.password == ''){ 
       delete dataForm.password;
     }

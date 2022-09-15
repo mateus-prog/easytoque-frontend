@@ -91,8 +91,7 @@ export class AddComponent implements OnInit {
 
       // stop here if form is invalid
       if (this.form.invalid) {
-        console.log(this.form.invalid);
-          return;
+        return;
       }
 
       this.loading = true;
