@@ -18,7 +18,7 @@
                         <select [(ngModel)]="user_id" #ctrl="ngModel" class="form-control input">
                             <option value="0">Todos</option>
                             <option *ngFor="let partner of partners;"
-                                value="{{partner.first_name}} {{partner.last_name}}">{{partner.first_name}} {{partner.last_name}}
+                                value="{{partner.id}}">{{partner.first_name}} {{partner.last_name}}
                             </option>
                         </select>
                     </div>
@@ -29,7 +29,7 @@
                         <select [(ngModel)]="status_request_id" #ctrl="ngModel" class="form-control input">
                             <option value="0">Todos</option>
                             <option *ngFor="let status of statusRequest;"
-                                value="{{status.name}}">{{status.name}}
+                                value="{{status.id}}">{{status.name}}
                             </option>
                         </select>
                     </div>
@@ -57,7 +57,7 @@
                                     <tr *ngFor="let request of filterRequest() | paginate: { itemsPerPage: 5, currentPage: paginaAtual }; let i = index">
                                         <td>{{request.id}}</td>
                                         <td align="center">{{request.updated_at}}</td>
-                                        <td>{{request.user_id}}</td>
+                                        <td>{{request.user_name}}</td>
                                         <td align="center">
                                             <span class="status-request badge bg-{{request.color}}">{{request.status_name}}</span>
                                         </td>
