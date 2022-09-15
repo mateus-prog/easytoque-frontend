@@ -101,9 +101,15 @@ h6{
 }
 
 .custom-control-label{
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 12px;
+    font-weight: normal;
     padding-right: 5px;
+    padding-top: 3px;
+}
+
+.linkTerm{
+    text-decoration: underline;
+    color: #000;
 }
 
 .btn-icon-form{
