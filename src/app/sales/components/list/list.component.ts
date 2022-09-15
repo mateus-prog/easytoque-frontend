@@ -4,6 +4,8 @@ import { IStatusRequest } from 'src/app/status-request/IStatusRequest';
 
 import { RequestService } from 'src/app/requests/service/request.service';
 
+import { getValueComission } from 'src/app/helper/global';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -35,17 +37,9 @@ export class ListComponent implements OnInit {
     this.sales = await this.requestService.getRequestStore('list').toPromise();
     this.requests = await this.requestService.getAll().toPromise();
     this.salesTotal = await this.requestService.getRequestStore('sum').toPromise();
-    this.totalSales = this.salesTotal.salesApproved.replace('.', '');
-    this.totalSales = this.totalSales.replace(',', '.');
-    this.requests.forEach((element: any) => {      
-      if(element.value != 'undefined' && element.value != undefined){
-        element.value = element.value.replace('.', ''); 
-        element.value = element.value.replace(',', '.'); 
-        this.withdrawalsMade += parseFloat(element.value);
-      }
-    });
-
-    this.withdrawalsToBeMade = this.totalSales - this.withdrawalsMade;
+    this.totalSales = this.salesTotal.salesApproved;
+    
+    this.withdrawalsToBeMade = getValueComission(this.totalSales, this.requests);
   }
 
   filterRequest() {

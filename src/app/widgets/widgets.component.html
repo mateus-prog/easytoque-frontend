@@ -7,7 +7,7 @@
             </div>-->
             <div class="inner">
                 <h3>{{salesTotal.countApproved}}</h3>
-                <p>Vendas aprovadas em {{salesTotal.dateApproved}}</p>
+                <p>Total de vendas aprovadas</p>
             </div>
             <div class="icon">
                 <i class="fas fa-dollar-sign"></i>
@@ -20,8 +20,8 @@
                 <i class="fas fa-3x fa-sync-alt"></i>
             </div>-->
             <div class="inner">
-                <h3>{{withdrawalsToBeMade}}</h3>
-                <p>Comissões em {{salesTotal.dateApproved}}</p>                
+                <h3>{{withdrawalsToBeMadeFormat}}</h3>
+                <p>Total de Comissões disponível</p>                
             </div>
             <div class="icon">
                 <i class="fas fa-hand-holding-usd"></i>
@@ -33,4 +33,15 @@
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     <h5><i class="icon fas fa-info"></i> Alerta!</h5>
     Para sacar a comissão o valor minimo é de R$ 50,00
+</div>
+<div *ngIf="withdrawalsToBeMade && withdrawalsToBeMade > 0 && countRequestWaiting == 0" class="row">
+    <div class="col-md-12 link-sales">
+        <button routerLink="/withdraw" class="btn btn-success">
+            Solicitar Saque
+            <!--<span>Sacar</span>-->
+            <!--<a routerLink="/withdraw">
+            
+            </a>-->
+        </button>
+    </div>
 </div>

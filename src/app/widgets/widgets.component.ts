@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/requests/service/request.service';
 
+import { getValueComission, getStatusWaiting } from 'src/app/helper/global';
+
 @Component({
   selector: 'app-widgets',
   templateUrl: './widgets.component.html',
@@ -14,6 +16,8 @@ export class WidgetsComponent implements OnInit {
   requests!: any;
   withdrawalsMade: number = 0;
   withdrawalsToBeMade: number = 0;
+  withdrawalsToBeMadeFormat!: string;
+  countRequestWaiting: number = 0;
 
   constructor(
     private requestService: RequestService
@@ -22,20 +26,10 @@ export class WidgetsComponent implements OnInit {
   async ngOnInit(){
     this.requests = await this.requestService.getAll().toPromise();
     this.salesTotal = await this.requestService.getRequestStore('sum').toPromise();
-    this.totalSales = this.salesTotal.salesApproved.replace('.', '');
-    this.totalSales = this.totalSales.replace(',', '.');
-    this.requests.forEach((element: any) => {      
-      if(element.value != 'undefined' && element.value != undefined){
-        element.value = element.value.replace('.', ''); 
-        element.value = element.value.replace(',', '.'); 
-        this.withdrawalsMade += parseFloat(element.value);
-      }
-    });
-
-    this.withdrawalsToBeMade = this.totalSales - this.withdrawalsMade;
-    this.withdrawalsToBeMade
-    .toFixed(2) // casas decimais
-    .replace('.', ',')
-    .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+    this.totalSales = this.salesTotal.salesApproved;
+    this.withdrawalsToBeMade = getValueComission(this.totalSales, this.requests);
+    this.countRequestWaiting = getStatusWaiting(this.requests);
+    this.withdrawalsToBeMadeFormat = this.withdrawalsToBeMade.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    
   }
 }
