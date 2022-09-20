@@ -110,6 +110,7 @@ h6{
 .linkTerm{
     text-decoration: underline;
     color: #000;
+    cursor: pointer;
 }
 
 .btn-icon-form{
