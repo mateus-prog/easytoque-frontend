@@ -36,12 +36,15 @@
 </div>
 <div *ngIf="withdrawalsToBeMade && withdrawalsToBeMade > 0 && countRequestWaiting == 0" class="row">
     <div class="col-md-12 link-sales">
-        <button routerLink="/withdraw" class="btn btn-success">
+        <a routerLink="withdraw" class="btn btn-success">
+            <strong>Solicitar Saque</strong>
+        </a>
+        <!--<button routerLink="/withdraw" class="btn btn-success">
             Solicitar Saque
             <!--<span>Sacar</span>-->
             <!--<a routerLink="/withdraw">
             
             </a>-->
-        </button>
+        <!--</button>-->
     </div>
 </div>
