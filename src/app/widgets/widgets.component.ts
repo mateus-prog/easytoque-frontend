@@ -37,13 +37,7 @@ export class WidgetsComponent implements OnInit {
     this.withdrawalsToBeMade = await getValueComission(this.totalSales, this.requests);
     this.countRequestWaiting = await getStatusWaiting(this.requests);
     this.withdrawalsToBeMadeFormat = this.withdrawalsToBeMade.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    if(this.router.url.indexOf('/withdraw') > -1){
-      this.showButton = false;
-    }else if(this.withdrawalsToBeMade >= 50 && this.countRequestWaiting == 0){
-      this.showButton = true;
-    }else{
-      this.showButton = false;
-    }
+    this.showButton = this.router.url.indexOf('/withdraw') === -1 && this.withdrawalsToBeMade >= 50 && this.countRequestWaiting == 0 ? true : false;
   }
 
   withdraw(){
