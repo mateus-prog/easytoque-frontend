@@ -16,6 +16,8 @@ export class WidgetsComponent implements OnInit {
   countApproved: number = 0;
   isApproved: boolean = false;
   showButton: boolean = false;
+  loadingTotal: boolean = true;
+  loadingActive: boolean = true;
 
   requests!: any;
   withdrawalsMade: number = 0;
@@ -29,11 +31,17 @@ export class WidgetsComponent implements OnInit {
   ) { }
 
   async ngOnInit(){
+    this.loadingTotal = true;
+    this.loadingActive = true;
+
     this.requests = await this.requestService.getAll().toPromise();
     this.salesTotal = await this.requestService.getRequestStore('sum').toPromise();
     this.totalSales = this.salesTotal.salesApproved;
     this.countApproved = this.salesTotal.countApproved;
     this.isApproved = this.salesTotal.isApproved;
+    this.loadingTotal = false;
+    this.loadingActive = false;
+
     this.withdrawalsToBeMade = await getValueComission(this.totalSales, this.requests);
     this.countRequestWaiting = await getStatusWaiting(this.requests);
     this.withdrawalsToBeMadeFormat = this.withdrawalsToBeMade.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
