@@ -1,0 +1,48 @@
+<div class="content-wrapper">
+    <breadcrumb [action]="breadcrumbAction" [module]="breadcrumbModule">
+    </breadcrumb>
+    <!-- /.content-header -->
+    
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-secondary">
+                        <!-- form start -->
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                            <div class="card-body">
+                                <h4>Verificar CNPJ</h4>
+                                <div class="form-group space-top">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="cnpj">CNPJ</label>
+                                            <input type="input" formControlName="cnpj" class="form-control" autocomplete="off" maxlength="18" placeholder="CNPJ"
+                                            mask="00.000.000/0000-00" appCpfCnpjValidate 
+                                            [ngClass]="{ 'is-invalid': submitted && f.cnpj.errors }" />
+                                            <div *ngIf="submitted && f.cnpj.errors" class="invalid-feedback">
+                                                <div *ngIf="f.cnpj.errors.required"><i class="fas fa-times"></i> Campo é obrigatório</div>
+                                                <div *ngIf="f.cnpj.errors.digit || f.cnpj.errors.equalDigits"><i class="fas fa-times"></i> CNPJ inválido</div>
+                                                <div *ngIf="f.cnpj.errors.minlength"><i class="fas fa-times"></i> Mínimo de 18 caracteres.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button [disabled]="loading" class="btn btn-success">
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                    <i class="fas fa-user-check"></i> <span class="btn-icon-form">Verificar</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

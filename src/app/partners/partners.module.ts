@@ -5,8 +5,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxMaskModule } from 'ngx-mask';
 
 import { PartnersRoutingModule } from './partners-routing.module';
-import { AddComponent } from './components/add';
+import { AddEditComponent } from './components/add-edit';
 import { ListComponent } from './components/list';
+import { CheckCnpjComponent } from './components/check-cnpj';
 import { MyAccountComponent } from './components/my-account';
 
 import { AlertModule } from 'src/app/components/alert/alert.module';
@@ -15,8 +16,9 @@ import { ModalModule } from 'src/app/components/modal/modal.module';
 
 @NgModule({
   declarations: [
-    AddComponent,
+    AddEditComponent,
     ListComponent,
+    CheckCnpjComponent,
     MyAccountComponent
   ],
   imports: [
@@ -31,7 +33,7 @@ import { ModalModule } from 'src/app/components/modal/modal.module';
     NgxMaskModule.forRoot()
   ],
   exports:[
-    AddComponent,
+    AddEditComponent,
     ListComponent,
     MyAccountComponent
   ]

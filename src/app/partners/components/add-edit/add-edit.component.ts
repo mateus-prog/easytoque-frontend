@@ -14,16 +14,17 @@ import { PartnerService } from 'src/app/partners/service/partner.service';
 import { StateService } from 'src/app/states/service/state.service';
 
 @Component({
-  selector: 'app-add',
-  templateUrl: './add.component.html',
+  selector: 'app-add-edit',
+  templateUrl: './add-edit.component.html',
   styleUrls: ['../../../add-edit.component.css']
 })
 
-export class AddComponent implements OnInit {
+export class AddEditComponent implements OnInit {
 
   state!: any;
   states!: IState[];
 
+  id!: number;
   corporate_name!: string;
   cnpj!: number;
   cep!: number;
@@ -42,10 +43,12 @@ export class AddComponent implements OnInit {
   whatsapp!: number;
 
   form!: FormGroup;
+  isAddMode!: boolean;
   loading = false;
   submitted = false;
 
-  breadcrumbModule: string = 'Parceiro';
+  module = 'Parceiro';
+  breadcrumbModule: string = this.module;
   breadcrumbAction: string = 'Cadastrar';
 
   constructor(
@@ -59,6 +62,10 @@ export class AddComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.cnpj = this.route.snapshot.params['cnpj'];
+    this.id = this.route.snapshot.params['id'];
+    this.isAddMode = !this.id;
+
     this.stateService.getAll()
       .pipe(first())
       .subscribe(states => this.states = states);
@@ -81,6 +88,14 @@ export class AddComponent implements OnInit {
         whatsapp: ['', Validators.nullValidator],
         commission: ['', [Validators.required, NumberValidator.validate]],
     });
+
+    if (!this.isAddMode) {
+      /*this.activitieService.getById(this.idAtividade)
+        .pipe(first())
+        .subscribe(x => this.translateToForm(x));*/
+    }else{
+      this.translateToForm();
+    }
   }
 
   // convenience getter for easy access to form fields
@@ -95,7 +110,11 @@ export class AddComponent implements OnInit {
       }
 
       this.loading = true;
-      this.createPartner();
+      if (this.isAddMode) {
+        this.createPartners();
+      } else {
+        this.updatePartners();
+      }
   }
 
   changeCep(event: Event){
@@ -124,6 +143,14 @@ export class AddComponent implements OnInit {
     }
   }
 
+  async translateToForm(){
+    let dataForm = this.form.value;
+    dataForm.cnpj = this.cnpj;
+    this.form.patchValue(dataForm);
+
+    this.form.controls['cnpj'].disable({onlySelf: true});
+  }
+
   private translateFormCreate() {
     let dataForm = this.form.value;
     
@@ -133,13 +160,25 @@ export class AddComponent implements OnInit {
     return dataForm;
   }
 
-  private createPartner() {
+  private createPartners() {
     const data = this.translateFormCreate();
     
     this.partnerService.create(data)
       .pipe(first())
       .subscribe(() => {
-        this.messageService.success('Parceiro cadastrado com sucesso.');
+        this.messageService.success(this.module+' cadastrado com sucesso.');
+        this.router.navigate(['../'], { relativeTo: this.route });
+      })
+      .add(() => this.loading = false);
+  }
+
+  private updatePartners() {
+    const data = this.translateFormCreate();
+    
+    this.partnerService.update(this.id, data)
+      .pipe(first())
+      .subscribe(() => {
+        this.messageService.success(this.module+' atualizado com sucesso.');
         this.router.navigate(['../'], { relativeTo: this.route });
       })
       .add(() => this.loading = false);

@@ -46,6 +46,12 @@ export class PartnerService {
         });
     }
 
+    checkCnpj(cnpj: number) {
+        return this.httpClient.post<any>(`${baseUrl}/checkCnpj`, cnpj, {
+            headers: this.auth.getAuthorizationHeader()
+        });
+    }
+
     activePartner(id: number) {
         return this.httpClient.put<any>(`${baseUrl}/active/${id}`, {}, {
             headers: this.auth.getAuthorizationHeader()
