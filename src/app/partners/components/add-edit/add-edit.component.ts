@@ -154,6 +154,7 @@ export class AddEditComponent implements OnInit {
   private translateFormCreate() {
     let dataForm = this.form.value;
     
+    dataForm['cnpj'] = this.cnpj;
     dataForm['password'] = '12345678'; //default password
     dataForm['status_user_id'] = 3; //status pendente
     dataForm['role_id'] = 4; //tipo parceiro
@@ -167,7 +168,7 @@ export class AddEditComponent implements OnInit {
       .pipe(first())
       .subscribe(() => {
         this.messageService.success(this.module+' cadastrado com sucesso.');
-        this.router.navigate(['../'], { relativeTo: this.route });
+        this.router.navigate(['/partners']);
       })
       .add(() => this.loading = false);
   }
@@ -179,7 +180,7 @@ export class AddEditComponent implements OnInit {
       .pipe(first())
       .subscribe(() => {
         this.messageService.success(this.module+' atualizado com sucesso.');
-        this.router.navigate(['../'], { relativeTo: this.route });
+        this.router.navigate(['/partners']);
       })
       .add(() => this.loading = false);
   }
