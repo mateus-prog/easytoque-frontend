@@ -11,6 +11,7 @@ import { IState } from 'src/app/states/IState';
 
 import { MessageService } from 'src/app/components/message/service/message.service';
 import { PartnerService } from 'src/app/partners/service/partner.service';
+import { PartnerCorporateService } from 'src/app/partners/service/partner_corporate.service';
 import { StateService } from 'src/app/states/service/state.service';
 
 @Component({
@@ -25,6 +26,7 @@ export class AddEditComponent implements OnInit {
   states!: IState[];
 
   id!: number;
+  hash_id!: any;
   corporate_name!: string;
   cnpj!: number;
   cep!: number;
@@ -56,15 +58,18 @@ export class AddEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private partnerService: PartnerService,
+    private partnerCorporateService: PartnerCorporateService,
     private stateService: StateService,
     private messageService: MessageService,
     private _location: Location
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(){
     this.cnpj = this.route.snapshot.params['cnpj'];
     this.id = this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
+
+    this.isAddMode ? this.breadcrumbAction = 'Cadastrar' : this.breadcrumbAction = 'Editar';
 
     this.stateService.getAll()
       .pipe(first())
@@ -90,11 +95,20 @@ export class AddEditComponent implements OnInit {
     });
 
     if (!this.isAddMode) {
-      /*this.activitieService.getById(this.idAtividade)
+      await this.partnerService.getById(this.id)
         .pipe(first())
-        .subscribe(x => this.translateToForm(x));*/
+        .subscribe(
+          x => {
+            this.hash_id = x.hash_id;
+          }
+        );
+
+      this.partnerCorporateService.getByHash(this.hash_id)
+        .pipe(first())
+        .subscribe(x => this.translateToForm(x));
+
     }else{
-      this.translateToForm();
+      this.translateToFormCreate();
     }
   }
 
@@ -143,7 +157,15 @@ export class AddEditComponent implements OnInit {
     }
   }
 
-  async translateToForm(){
+  async translateToFormCreate(){
+    let dataForm = this.form.value;
+    dataForm.cnpj = this.cnpj;
+    this.form.patchValue(dataForm);
+
+    this.form.controls['cnpj'].disable({onlySelf: true});
+  }
+
+  async translateToForm(data: any){
     let dataForm = this.form.value;
     dataForm.cnpj = this.cnpj;
     this.form.patchValue(dataForm);
@@ -174,7 +196,7 @@ export class AddEditComponent implements OnInit {
   }
 
   private updatePartners() {
-    const data = this.translateFormCreate();
+    const data = this.form.value;
     
     this.partnerService.update(this.id, data)
       .pipe(first())

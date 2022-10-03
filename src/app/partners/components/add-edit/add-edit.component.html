@@ -57,7 +57,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label for="address">Endereço</label>
-                                            <input type="input" formControlName="address" class="form-control" autocomplete="off" maxlength="40" placeholder="Endereço"   
+                                            <input type="input" formControlName="address" class="form-control" autocomplete="off" maxlength="60" placeholder="Endereço"   
                                             [ngClass]="{ 'is-invalid': submitted && f.address.errors }" />
                                             <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
                                                 <div *ngIf="f.address.errors.required"><i class="fas fa-times"></i> Campo é obrigatório</div>
@@ -192,7 +192,9 @@
                             <div class="card-footer">
                                 <button [disabled]="loading" class="btn btn-success">
                                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                                    <i class="fas fa-save"></i> <span class="btn-icon-form">Salvar</span>
+                                    <i class="fas fa-save"></i> 
+                                        <span *ngIf="isAddMode" class="btn-icon-form">Salvar</span>
+                                        <span *ngIf="!isAddMode" class="btn-icon-form">Alterar</span>
                                 </button>
                                 <button class="btn btn-secondary">
                                     <i class="fas fa-undo-alt"></i> <span class="btn-icon-form" href="javascript:void(0)" (click)="backClicked()">Voltar</span>
