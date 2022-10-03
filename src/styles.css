@@ -1,5 +1,136 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 html, body {
     width: 100%;
     height: 100% !important;
     margin: 0;
+}
+
+mat-calendar#mat-datepicker-2 {
+    top: 60px;
+    right: 14.75px;
+    position: relative;
+}
+.mat-form-field-prefix, .mat-form-field-suffix {
+    white-space: nowrap;
+    flex: none;
+    position: relative;
+    top: -20px;
+    left: 5px;
+}
+.mat-datepicker-content .mat-datepicker-close-button {
+    position: relative;
+    top: 100%;
+    margin-top: 8px;    
+}
+
+.mat-datepicker-content .mat-calendar {
+    width: 296px;
+    height: 360px;
+    background: #e2e2e2;
+}
+
+.invalid-feedback.ng-star-inserted {
+    width: 100%;
+    font-size: .875em;
+}
+.mat-form-field-suffix.ng-tns-c68-0.ng-star-inserted {
+    top: 0px;
+    position: relative;
+}
+.mat-form-field-infix {
+    display: block;
+    position: relative;
+    flex: auto;
+    min-width: 0;
+    width: 180px;
+    top: 0px;
+}
+.mat-form-field-prefix, .mat-form-field-suffix {
+    white-space: nowrap;
+    flex: none;
+    position: relative;
+    top: 0px;
+    left: 5px;
+}
+
+.mat-form-field-flex::ng-deep{
+	padding: 0px !important;
+}
+
+.mat-form-field-flex{   
+	padding: 0px !important;
+}
+
+.mat-form-field{
+    display: block !important;
+}
+
+.mat-form-field .mat-form-field-appearance-legacy{
+    width: auto !important;
+} 
+
+.mat-form-field-wrapper{
+    padding: 0px !important;
+}
+
+.mat-form-field-flex{
+    align-items: start !important;
+}
+
+.mat-form-field-appearance-legacy  .mat-form-field-suffix .mat-icon-button{
+    width: 50px !important;
+}
+
+.mat-form-field-underline,
+.mat-form-field-appearance-fill .mat-form-field-underline::before {
+    height: 0px !important;
+    width: 0px !important;
+}
+
+.mat-form-field-infix{
+    padding: 0 !important;
+    border: none !important;
+}
+
+.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button, 
+.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button{
+    height: 2.25em !important;
+    Width: 2.25em !important;
+} 
+
+.mat-icon-button{
+    bottom: 10px !important;
+    width: 20px !important;
+    height: 20px !important;
+    z-index: 2 !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline,
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #CCC !important;
+}
+
+.background-button{
+    background-color: #6c757d;
+    color: #FFF;
+}
+
+.background-input{
+    background-color: #FFF !important;
+}
+
+input.mat-input-element{
+    margin-top: 0px !important;
+}
+
+.mat-button .mat-button-wrapper>*, 
+.mat-flat-button .mat-button-wrapper>*, 
+.mat-stroked-button .mat-button-wrapper>*, 
+.mat-raised-button .mat-button-wrapper>*, 
+.mat-icon-button .mat-button-wrapper>*, 
+.mat-fab .mat-button-wrapper>*, 
+.mat-mini-fab .mat-button-wrapper>*{
+    width: 20px !important;
+    height: 20px !important;
 }
