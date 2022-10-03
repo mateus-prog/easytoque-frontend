@@ -14,6 +14,20 @@
                         <input [(ngModel)]="id" #ctrl="ngModel"  class="form-control input" placeholder="Número" autofocus >
                     </div>
                 </div>
+                <div class="col-md-3">
+                    <div class="input-icon">
+                        <!--<mat-form-field appearance="fill">-->
+                            <div>
+                                <mat-datepicker-toggle matSuffix [for]="picker" class="form-control-sm background-button"></mat-datepicker-toggle>
+                            </div>
+                            <mat-date-range-input [rangePicker]="picker" class="form-control form-control-sm background-input">
+                                <input [(ngModel)]="date_start" #ctrl="ngModel" matStartDate placeholder="Período">
+                                <input [(ngModel)]="date_end" #ctrl="ngModel" matEndDate placeholder="">
+                            </mat-date-range-input>
+                            <mat-date-range-picker #picker></mat-date-range-picker>
+                        <!--</mat-form-field>-->
+                    </div>
+                </div>
             </div>
             <!-- Small boxes (Stat box) -->
             <div class="row">

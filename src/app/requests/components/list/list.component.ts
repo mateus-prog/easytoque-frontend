@@ -7,6 +7,10 @@ import { RequestService } from 'src/app/requests/service/request.service';
 import { StatusRequestService } from 'src/app/status-request/service/status-request.service';
 import { PartnerService } from 'src/app/partners/service/partner.service';
 
+import { UtilityService } from 'src/app/helper/utility';
+
+import { toDate, toString, transformToDate } from 'src/app/helper/global';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -29,6 +33,8 @@ export class ListComponent implements OnInit {
   id: string = '';
   status_request_id: number = 0;
   user_id: number = 0;
+  date_start: any = '';
+  date_end: any = '';
 
   status_name: string = '';
   user_name: string = '';
@@ -49,6 +55,7 @@ export class ListComponent implements OnInit {
     private requestService: RequestService,
     private statusRequestService: StatusRequestService,
     private partnerService: PartnerService,
+    private utilityService: UtilityService,
   ) { }
 
   async ngOnInit(){
@@ -62,7 +69,8 @@ export class ListComponent implements OnInit {
     var a = this.filterNumber();
     var b = this.filterStatusRequest(a);
     var c = this.filterUser(b);
-    return c.reverse();
+    var d = this.filterRangeDate(c);
+    return d.reverse();
   }
 
   filterUser(result: any){
@@ -93,6 +101,39 @@ export class ListComponent implements OnInit {
     });
     
     return resultFilter;
+  }
+
+  filterRangeDate(result: any){
+    if(this.date_start != '' && this.date_end != '')
+    {
+      let dateStartFormat = this.utilityService.formatDateToStringServer(this.date_start);
+      dateStartFormat = transformToDate(dateStartFormat);
+    
+      let dateEndFormat = this.utilityService.formatDateToStringServer(this.date_end);
+      dateEndFormat = transformToDate(dateEndFormat);
+      
+      let d1 = toDate(dateStartFormat),
+          d2 = toDate(dateEndFormat),
+          intervalos = new Array();
+
+      intervalos.push( toString(d1) );
+
+      while ( d1 < d2 ) {
+        d1.setDate( d1.getDate() + 1 );
+        intervalos.push( toString(d1) );
+      }
+
+      var resultFilter = result.filter((i: any) => {
+        return Object.keys(i).filter(x => 
+          //console.log(x + ' = ' + intervalos.indexOf(i[x]))
+          (x == 'updated_at' && intervalos.indexOf(i[x]) >= 0) ? true : false
+        ).length > 0
+      });
+
+      return resultFilter;
+    }
+
+    return result;
   }
 
   showModal(request: any){

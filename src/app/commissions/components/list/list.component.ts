@@ -2,15 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { IRequest } from 'src/app/requests/IRequest';
 import { IStatusRequest } from 'src/app/status-request/IStatusRequest';
 
-/*import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { DateAdapter } from "@angular/material/core";*/
+import { UtilityService } from 'src/app/helper/utility';
 
 import { RequestService } from 'src/app/requests/service/request.service';
 import { StatusRequestService } from 'src/app/status-request/service/status-request.service';
+
+import { toDate, toString, transformToDate } from 'src/app/helper/global';
 
 @Component({
   selector: 'app-list',
@@ -35,6 +32,8 @@ export class ListComponent implements OnInit {
   id: string = '';
   status_request_id: number = 0;
   status_name: string = '';
+  date_start: any = '';
+  date_end: any = '';
   
   requests!: any;
   title: string = '';
@@ -50,6 +49,7 @@ export class ListComponent implements OnInit {
   constructor(
     private requestService: RequestService,
     private statusRequestService: StatusRequestService,
+    private utilityService: UtilityService,
   ) { }
 
   async ngOnInit(){
@@ -60,7 +60,8 @@ export class ListComponent implements OnInit {
   filterRequest() {
     var a = this.filterNumber();
     var b = this.filterStatusRequest(a);
-    return b.reverse();
+    var c = this.filterRangeDate(b);
+    return c.reverse();
   }
 
   filterStatusRequest(result: any){
@@ -81,5 +82,38 @@ export class ListComponent implements OnInit {
     });
     
     return resultFilter;
+  }
+
+  filterRangeDate(result: any){
+    if(this.date_start != '' && this.date_end != '')
+    {
+      let dateStartFormat = this.utilityService.formatDateToStringServer(this.date_start);
+      dateStartFormat = transformToDate(dateStartFormat);
+    
+      let dateEndFormat = this.utilityService.formatDateToStringServer(this.date_end);
+      dateEndFormat = transformToDate(dateEndFormat);
+      
+      let d1 = toDate(dateStartFormat),
+          d2 = toDate(dateEndFormat),
+          intervalos = new Array();
+
+      intervalos.push( toString(d1) );
+
+      while ( d1 < d2 ) {
+        d1.setDate( d1.getDate() + 1 );
+        intervalos.push( toString(d1) );
+      }
+
+      var resultFilter = result.filter((i: any) => {
+        return Object.keys(i).filter(x => 
+          //console.log(x + ' = ' + intervalos.indexOf(i[x]))
+          (x == 'updated_at' && intervalos.indexOf(i[x]) >= 0) ? true : false
+        ).length > 0
+      });
+
+      return resultFilter;
+    }
+
+    return result;
   }
 }
