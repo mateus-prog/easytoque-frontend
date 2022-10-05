@@ -136,7 +136,7 @@ export class EditBankDataComponent implements OnInit {
       this.corporate_name = partner.corporate_name;
       this.cnpj = partner.cnpj;
 
-      this.idPartner = partner.id;
+      this.idPartner = partner.user_id;
 
       this.form.patchValue(dataForm);
     }
