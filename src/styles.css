@@ -149,28 +149,28 @@ input.mat-input-element{
 .nav-pagination ul.ngx-pagination li.pagination-previous,
 .nav-pagination ul.ngx-pagination li.pagination-next{
     border-radius: .21rem;
-    border: 1px solid #F37A22;
-    background: #FFF;
+    border: 1px solid #F4F6F9;
+    background: #F4F6F9;
     color: #F37A22;
     font-weight: normal;
 }
 
 .nav-pagination ul.ngx-pagination li.pagination-previous:hover ,
 .nav-pagination ul.ngx-pagination li.pagination-next:hover{
-    background: #FFF !important;
+    background: #F4F6F9 !important;
     font-weight: bold;
 }
 
 .nav-pagination ul.ngx-pagination li:not(.current, .disabled){
     border-radius: .21rem !important;
-    border: 1px solid #F37A22 !important;
-    background-color: #FFF !important;
+    border: 1px solid #F4F6F9 !important;
+    background-color: #F4F6F9 !important;
     color: #F37A22 !important;
 }
 
 .nav-pagination ul.ngx-pagination li:hover:not(.current, .disabled) {
     border-radius: .21rem;
-    border: 1px solid #F37A22;
+    border: 1px solid #FFF;
     background-color: #FFF;
     color: #F37A22;
     font-weight: bold;

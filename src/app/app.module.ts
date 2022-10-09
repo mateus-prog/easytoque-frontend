@@ -38,11 +38,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';  
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';  
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'; 
 
 import { UtilityService } from 'src/app/helper/utility';
-import { TranslateService } from '@ngx-translate/core';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
