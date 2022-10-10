@@ -104,7 +104,7 @@
                                         <th style="width: 35%;">E-mail</th>
                                         <th style="width: 10%;">Status</th>
                                         <th style="width: 10%;">Comissão</th>
-                                        <th style="width: 15%; text-align: center;" colspan="4">Ações</th>
+                                        <th style="width: 15%; text-align: center;" colspan="5">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -116,13 +116,17 @@
                                         </td>
                                         <td align="right">{{partner.commission}} %</td>
                                         <td>
-                                            <button class="btn btn-sm btn-info" title="Visualizar Dados do Responsável" data-toggle="modal"
+                                            <button *ngIf="partner.status_user_id != 'Pendente'" class="btn btn-sm btn-info" title="Visualizar Dados do Responsável" data-toggle="modal"
                                                 data-target="#modalResponsible" (click)="showModalResponsible(partner)">
                                                 <i class="fas fa-user-check"></i>
                                             </button>
+                                            <button *ngIf="partner.status_user_id == 'Pendente'" class="btn btn-sm btn-primary" title="Editar Parceiro"
+                                            routerLink="/partners/edit/{{partner.id}}">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
                                         </td>
                                         <td>
-                                            <button class="btn btn-sm btn-secondary" title="Visualizar Dados da Empresa" data-toggle="modal"
+                                            <button *ngIf="partner.status_user_id != 'Pendente'" class="btn btn-sm btn-secondary" title="Visualizar Dados da Empresa" data-toggle="modal"
                                                 data-target="#modalCorporate" (click)="showModalCorporate(partner)">
                                                 <i class="fas fa-user-tie"></i>
                                             </button>
@@ -131,6 +135,12 @@
                                             <button *ngIf="partner.status_user_id != 'Pendente'" class="btn btn-sm btn-success" title="Visualizar Dados Bancários" data-toggle="modal"
                                                 data-target="#modalBank" (click)="showModalBank(partner)">
                                                 <i class="fas fa-user-lock"></i>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button *ngIf="partner.status_user_id != 'Pendente'" class="btn btn-sm btn-primary" title="Visualizar Dados da Loja" data-toggle="modal"
+                                                data-target="#modalStore" (click)="showModalStore(partner)">
+                                                <i class="fas fa-store"></i>
                                             </button>
                                         </td>
                                         <!--<td>
@@ -192,4 +202,8 @@
     <!-- Modal que mostra dados bancarios -->
     <app-modal-bank [id]="'modalBank'" [title]="title"
     [bank]="currentBank"></app-modal-bank>
+
+    <!-- Modal que mostra dados da loja -->
+    <app-modal-store [id]="'modalStore'" [title]="title"
+    [store]="currentStore"></app-modal-store>
 </div>
