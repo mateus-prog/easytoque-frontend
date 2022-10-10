@@ -97,15 +97,7 @@ export class AddEditComponent implements OnInit {
     if (!this.isAddMode) {
       await this.partnerService.getById(this.id)
         .pipe(first())
-        .subscribe(
-          x => {
-            this.hash_id = x.hash_id;
-          }
-        );
-
-      this.partnerCorporateService.getByHash(this.hash_id)
-        .pipe(first())
-        .subscribe(x => this.translateToForm(x));
+        .subscribe(x => this.form.patchValue(x));
 
     }else{
       this.translateToFormCreate();
