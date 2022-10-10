@@ -9,6 +9,7 @@ import { ModalReasonComponent } from 'src/app/components/modal/components/modal-
 import { ModalUserBlockedComponent } from 'src/app/components/modal/components/modal-user-blocked';
 import { ModalUploadComponent } from 'src/app/components/modal/components/modal-upload';
 import { ModalTermSalesComponent } from 'src/app/components/modal/components/modal-term-sales';
+import { ModalStoreComponent } from 'src/app/components/modal/components/modal-store';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ModalTermSalesComponent } from 'src/app/components/modal/components/mod
     ModalReasonComponent,
     ModalUserBlockedComponent,
     ModalUploadComponent,
-    ModalTermSalesComponent
+    ModalTermSalesComponent,
+    ModalStoreComponent
   ],
   imports: [
     CommonModule
@@ -32,7 +34,8 @@ import { ModalTermSalesComponent } from 'src/app/components/modal/components/mod
     ModalReasonComponent,
     ModalUserBlockedComponent,
     ModalUploadComponent,
-    ModalTermSalesComponent
+    ModalTermSalesComponent,
+    ModalStoreComponent
   ]
 })
 
