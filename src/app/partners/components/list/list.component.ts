@@ -49,6 +49,12 @@ export class ListComponent implements OnInit {
     hash_id: ''
   }
 
+  public currentStore: any = {
+    id: 0,
+    commission: '',
+    client_id: 0,
+  }
+
   currentPartner: any;
   currentInUse: any;
   title: string = '';
@@ -169,8 +175,14 @@ export class ListComponent implements OnInit {
     this.title = partner.first_name + ' ' + partner.last_name;
   }
 
+  async showModalStore(store: any){
+    this.currentStore = store;
+    console.log(this.currentStore);
+    this.title = '';
+  }
 
- async activePartner(id: number) {
+
+  async activePartner(id: number) {
     (await this.partnerService.activePartner(id)).toPromise();
     this.listPartners();
   }
