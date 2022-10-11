@@ -177,7 +177,6 @@ export class ListComponent implements OnInit {
 
   async showModalStore(store: any){
     this.currentStore = store;
-    console.log(this.currentStore);
     this.title = '';
   }
 
