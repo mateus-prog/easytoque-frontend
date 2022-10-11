@@ -3,11 +3,7 @@ td{
     padding: .5rem;
 }
 
-.space-search{
-    margin-bottom: 15px;
-}
-
-.btn-add{
+.space-search, .btn-add{
     margin-bottom: 15px !important;
 }
 
