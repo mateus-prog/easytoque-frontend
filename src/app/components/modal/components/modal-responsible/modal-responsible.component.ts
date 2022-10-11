@@ -15,6 +15,8 @@ export class ModalResponsibleComponent implements OnInit {
   @Input() title!: string;
   @Input() responsible: any;
 
+  loading = false;
+
   constructor(
     private partnerService: PartnerService,
     private messageService: MessageService,
@@ -23,11 +25,13 @@ export class ModalResponsibleComponent implements OnInit {
   async ngOnInit() {}
 
   async sendMailWelcome(){
+    this.loading = true;
     await this.partnerService.sendMailWelcome(this.responsible.id)
       .pipe(first())
       .subscribe(() => {
         this.messageService.success('Enviado e-mail de boas vindas com sucesso');
-      });
+      })
+      .add(() => this.loading = false);
   }
 
 }

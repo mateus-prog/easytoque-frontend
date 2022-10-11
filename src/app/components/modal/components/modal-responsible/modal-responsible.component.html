@@ -48,7 +48,8 @@
             <span>{{responsible.whatsapp}} </span>
           </div>
           <div class="col-md-4 btn-send">
-            <button class="btn btn-success" (click)="sendMailWelcome()">
+            <button [disabled]="loading" class="btn btn-success" (click)="sendMailWelcome()">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
               <i class="fas fa-mail-bulk"></i> 
               <span class="btn-icon-form"> E-mail Boas Vindas</span>
             </button>
