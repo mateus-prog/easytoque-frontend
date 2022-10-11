@@ -5,3 +5,7 @@
 .box2{
     min-height: 2rem;
 }
+
+.btn-send{
+    margin-top: 15px !important;
+}
