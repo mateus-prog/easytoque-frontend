@@ -70,6 +70,18 @@ export class PartnerService {
         });
     }
 
+    sendMailWelcome(id: number){
+        return this.httpClient.get<IPartner[]>(`${baseUrl}/sendMailWelcome/${id}`, {
+            headers: this.auth.getAuthorizationHeader()
+        });
+    }
+
+    sendMailPartnerFinish(id: number){
+        return this.httpClient.get<IPartner[]>(`${baseUrl}/sendMailPartnerFinish/${id}`, {
+            headers: this.auth.getAuthorizationHeader()
+        });
+    }
+
     getAddressByCep(cep: string) {
         return this.httpClient.get<any>(`https://viacep.com.br/ws/${cep}/json/`);
     }
