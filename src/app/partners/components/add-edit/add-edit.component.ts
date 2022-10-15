@@ -97,7 +97,7 @@ export class AddEditComponent implements OnInit {
     if (!this.isAddMode) {
       await this.partnerService.getById(this.id)
         .pipe(first())
-        .subscribe(x => this.form.patchValue(x));
+        .subscribe(x => this.translateToForm(x));
 
     }else{
       this.translateToFormCreate();
@@ -158,9 +158,7 @@ export class AddEditComponent implements OnInit {
   }
 
   async translateToForm(data: any){
-    let dataForm = this.form.value;
-    dataForm.cnpj = this.cnpj;
-    this.form.patchValue(dataForm);
+    this.form.patchValue(data);
 
     this.form.controls['cnpj'].disable({onlySelf: true});
   }
@@ -171,6 +169,13 @@ export class AddEditComponent implements OnInit {
     dataForm['cnpj'] = this.cnpj;
     dataForm['password'] = '12345678'; //default password
     dataForm['status_user_id'] = 3; //status pendente
+    dataForm['role_id'] = 4; //tipo parceiro
+    return dataForm;
+  }
+
+  private translateFormUpdate() {
+    let dataForm = this.form.value;
+    
     dataForm['role_id'] = 4; //tipo parceiro
     return dataForm;
   }
@@ -188,7 +193,7 @@ export class AddEditComponent implements OnInit {
   }
 
   private updatePartners() {
-    const data = this.form.value;
+    const data = this.translateFormUpdate();
     
     this.partnerService.update(this.id, data)
       .pipe(first())
