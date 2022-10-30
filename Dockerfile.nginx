@@ -4,8 +4,6 @@ WORKDIR /var/www/frontend
 
 COPY . .
 RUN rm package-lock.json
-# RUN test ! -d node_modules && rm -rf dist && npm install
-# RUN test ! -d dist && rm -rf node_modules && npm run build --prod
 RUN rm -rf dist
 RUN rm -rf node_modules
 RUN npm install
