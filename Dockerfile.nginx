@@ -4,12 +4,12 @@ WORKDIR /var/www/frontend
 
 COPY . .
 RUN rm package-lock.json
-#RUN rm -rf dist
-#RUN rm -rf node_modules
-#RUN npm install
-RUN test ! -d node_modules && npm install
-#RUN npm run build --prod
-RUN test ! -d dist && npm run build --prod
+# RUN test ! -d node_modules && npm install
+# RUN test ! -d dist && npm run build --prod
+RUN rm -rf dist
+RUN rm -rf node_modules
+RUN npm install
+RUN npm run build --prod
 
 FROM nginx:1.15.0-alpine
 
