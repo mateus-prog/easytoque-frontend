@@ -9,11 +9,11 @@ services:
     container_name: nginx
     ports:
       - 80:80
-      - 444:443
+        #- 444:443
     volumes:
       # - ./:/var/www/frontend
       - ./docker/nginx:/etc/nginx/conf.d
-      - /etc/letsencrypt/live/www.parceiros.easytoque.com.br:/var/www/frontend/docker/letsencrypt
+        #- /etc/letsencrypt/live/www.parceiros.easytoque.com.br:/var/www/frontend/docker/letsencrypt
     tty: true
     networks:
       - easytoque-network
